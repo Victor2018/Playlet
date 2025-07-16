@@ -1,7 +1,6 @@
 [versions]
-agp = "8.8.0"
-androidGradlePlugin = "8.0.2"
-kotlin = "2.1.0"
+agp = "8.9.0"
+kotlin = "2.1.10"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -11,13 +10,13 @@ material = "1.10.0"
 constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.6.0"
 navigationUiKtx = "2.6.0"
-ksp = "2.1.0-1.0.29"
-room = "2.6.0"
+ksp = "2.1.10-1.0.31"
+room = "2.6.1"
 easypermissions = "v1.1.0"
 livedatabus = "v2.1.0"
 jetbrainsKotlinJvm = "2.1.0"
 
-androidDesugarJdkLibs = "2.0.4"
+androidDesugarJdkLibs = "2.1.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,9 +35,12 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 easypermissions = { group = "com.github.Victor2018", name = "easypermissions", version.ref = "easypermissions" }
 livedatabus = { group = "com.github.Victor2018", name = "LiveDataBus", version.ref = "livedatabus" }
 
-android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+# Dependencies of the included build-logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [bundles]
 room = ["room-runtime","room-ktx"]
@@ -52,7 +54,8 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
 # Plugins defined by this project`
-victor-android-lint = { id = "com.victor.convention.lint", version = "unspecified" }
-victor-android-application = { id = "com.victor.convention.application", version = "unspecified" }
+victor-android-lint = { id = "com.victor.convention.lint" }
+victor-android-application = { id = "com.victor.convention.application" }
+victor-android-room = { id = "com.victor.convention.android.room" }
 victor-jvm-library = { id = "com.victor.convention.jvm.library" }
 

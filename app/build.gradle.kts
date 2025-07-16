@@ -2,9 +2,10 @@ plugins {
 //    alias(libs.plugins.android.application)
 //    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.ksp)
-    alias(libs.plugins.androidx.room)
+//    alias(libs.plugins.androidx.room)
     alias(libs.plugins.victor.android.application)
     alias(libs.plugins.victor.jvm.library)
+    alias(libs.plugins.victor.android.room)
 }
 
 android {
@@ -40,9 +41,9 @@ android {
 //    buildFeatures {
 //        viewBinding = true
 //    }
-    room {
-        schemaDirectory ("$projectDir/schemas")
-    }
+//    room {
+//        schemaDirectory ("$projectDir/schemas")
+//    }
 }
 
 dependencies {
@@ -62,6 +63,6 @@ dependencies {
     //livedatabus
     implementation(libs.livedatabus)
     //room
-    ksp(libs.room.compiler)
-    implementation(libs.bundles.room)
+//    ksp(libs.room.compiler)
+//    implementation(libs.bundles.room)
 }
