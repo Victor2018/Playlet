@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic") // 关键！启用约定插件
     repositories {
         google {
             content {

@@ -1,19 +1,20 @@
-//apply(from = "../config_build.gradle.kts")
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+//    alias(libs.plugins.android.application)
+//    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.ksp)
     alias(libs.plugins.androidx.room)
+    alias(libs.plugins.victor.android.application)
+    alias(libs.plugins.victor.jvm.library)
 }
 
 android {
     namespace = "com.victor.playlet"
-    compileSdk = 35
+//    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.victor.playlet"
-        minSdk = 24
-        targetSdk = 35
+//        minSdk = 24
+//        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -29,16 +30,16 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        viewBinding = true
-    }
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_11
+//        targetCompatibility = JavaVersion.VERSION_11
+//    }
+//    kotlinOptions {
+//        jvmTarget = "11"
+//    }
+//    buildFeatures {
+//        viewBinding = true
+//    }
     room {
         schemaDirectory ("$projectDir/schemas")
     }

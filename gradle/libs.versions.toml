@@ -1,5 +1,6 @@
 [versions]
 agp = "8.8.0"
+androidGradlePlugin = "8.0.2"
 kotlin = "2.1.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
@@ -14,7 +15,9 @@ ksp = "2.1.0-1.0.29"
 room = "2.6.0"
 easypermissions = "v1.1.0"
 livedatabus = "v2.1.0"
+jetbrainsKotlinJvm = "2.1.0"
 
+androidDesugarJdkLibs = "2.0.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,6 +36,9 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 easypermissions = { group = "com.github.Victor2018", name = "easypermissions", version.ref = "easypermissions" }
 livedatabus = { group = "com.github.Victor2018", name = "LiveDataBus", version.ref = "livedatabus" }
 
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
 [bundles]
 room = ["room-runtime","room-ktx"]
@@ -43,4 +49,10 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 androidx-room = { id = "androidx.room", version.ref = "room" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+
+# Plugins defined by this project`
+victor-android-lint = { id = "com.victor.convention.lint", version = "unspecified" }
+victor-android-application = { id = "com.victor.convention.application", version = "unspecified" }
+victor-jvm-library = { id = "com.victor.convention.jvm.library" }
 
