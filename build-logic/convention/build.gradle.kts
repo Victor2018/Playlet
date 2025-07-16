@@ -29,9 +29,17 @@ tasks {
 
 gradlePlugin {
     plugins {
+        register("androidBase") {
+            id = libs.plugins.victor.android.base.get().pluginId
+            implementationClass = "com.victor.convention.AndroidBaseConventionPlugin"
+        }
         register("androidApplication") {
             id = libs.plugins.victor.android.application.get().pluginId
             implementationClass = "com.victor.convention.AndroidApplicationConventionPlugin"
+        }
+        register("androidLib") {
+            id = libs.plugins.victor.android.lib.get().pluginId
+            implementationClass = "com.victor.convention.AndroidLibConventionPlugin"
         }
         register("androidLint") {
             id = libs.plugins.victor.android.lint.get().pluginId

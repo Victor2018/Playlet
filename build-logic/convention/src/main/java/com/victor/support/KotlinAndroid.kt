@@ -21,6 +21,24 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
 
         defaultConfig {
             minSdk = AppConfig.minSdk
+
+            splits {
+                abi {
+                    isEnable = false // 禁用 ABI 分包
+                    reset()
+                    include("arm64-v8a", "armeabi-v7a") // 可选：明确包含需要的 ABI
+                }
+            }
+        }
+
+        buildTypes {
+            getByName("release"){
+                isMinifyEnabled = false
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            }
         }
 
         compileOptions {
@@ -35,6 +53,146 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
         buildFeatures {
             viewBinding = true
         }
+
+        sourceSets {
+            getByName("main") {
+                jniLibs.srcDirs("libs")  // 设置jni库目录
+            }
+        }
+
+        buildFeatures {
+            buildConfig = true  // 启用 BuildConfig 生成
+        }
+
+        flavorDimensions += "hok"
+        productFlavors {
+            create("beta") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "false")
+                buildConfigField("Boolean", "MODEL_BETA", "true")
+                buildConfigField("Boolean", "MODEL_DEV", "false")
+                buildConfigField("Boolean", "MODEL_TEST", "false")
+                buildConfigField("String", "UMENG_CHANNEL", "\"uat\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "uat"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+
+            create("dev") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "false")
+                buildConfigField("Boolean", "MODEL_BETA", "false")
+                buildConfigField("Boolean", "MODEL_DEV", "true")
+                buildConfigField("Boolean", "MODEL_TEST", "false")
+                buildConfigField("String", "UMENG_CHANNEL", "\"dev\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "dev"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+
+            create("_test") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "false")
+                buildConfigField("Boolean", "MODEL_BETA", "false")
+                buildConfigField("Boolean", "MODEL_DEV", "false")
+                buildConfigField("Boolean", "MODEL_TEST", "true")
+                buildConfigField("String", "UMENG_CHANNEL", "\"_test\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "_test"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+
+            create("online") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "true")
+                buildConfigField("Boolean", "MODEL_BETA", "false")
+                buildConfigField("Boolean", "MODEL_DEV", "false")
+                buildConfigField("Boolean", "MODEL_TEST", "false")
+                buildConfigField("String", "UMENG_CHANNEL", "\"online\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "online"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+
+            create("huawei") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "true")
+                buildConfigField("Boolean", "MODEL_BETA", "false")
+                buildConfigField("Boolean", "MODEL_DEV", "false")
+                buildConfigField("Boolean", "MODEL_TEST", "false")
+                buildConfigField("String", "UMENG_CHANNEL", "\"huawei\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "huawei"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+
+            create("xiaomi") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "true")
+                buildConfigField("Boolean", "MODEL_BETA", "false")
+                buildConfigField("Boolean", "MODEL_DEV", "false")
+                buildConfigField("Boolean", "MODEL_TEST", "false")
+                buildConfigField("String", "UMENG_CHANNEL", "\"xiaomi\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "xiaomi"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+
+            create("oppo") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "true")
+                buildConfigField("Boolean", "MODEL_BETA", "false")
+                buildConfigField("Boolean", "MODEL_DEV", "false")
+                buildConfigField("Boolean", "MODEL_TEST", "false")
+                buildConfigField("String", "UMENG_CHANNEL", "\"oppo\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "oppo"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+
+            create("vivo") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "true")
+                buildConfigField("Boolean", "MODEL_BETA", "false")
+                buildConfigField("Boolean", "MODEL_DEV", "false")
+                buildConfigField("Boolean", "MODEL_TEST", "false")
+                buildConfigField("String", "UMENG_CHANNEL", "\"vivo\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "vivo"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+
+            create("tencent") {
+                dimension = "hok"
+                buildConfigField("Boolean", "MODEL_ONLINE", "true")
+                buildConfigField("Boolean", "MODEL_BETA", "false")
+                buildConfigField("Boolean", "MODEL_DEV", "false")
+                buildConfigField("Boolean", "MODEL_TEST", "false")
+                buildConfigField("String", "UMENG_CHANNEL", "\"tencent\"")
+
+                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
+                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "tencent"
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            }
+        }
+
     }
 
     configureKotlin()

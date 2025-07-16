@@ -1,8 +1,4 @@
 plugins {
-//    alias(libs.plugins.android.application)
-//    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.jetbrains.kotlin.ksp)
-//    alias(libs.plugins.androidx.room)
     alias(libs.plugins.victor.android.application)
     alias(libs.plugins.victor.jvm.library)
     alias(libs.plugins.victor.android.room)
@@ -10,12 +6,9 @@ plugins {
 
 android {
     namespace = "com.victor.playlet"
-//    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.victor.playlet"
-//        minSdk = 24
-//        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -31,38 +24,11 @@ android {
             )
         }
     }
-//    compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_11
-//        targetCompatibility = JavaVersion.VERSION_11
-//    }
-//    kotlinOptions {
-//        jvmTarget = "11"
-//    }
-//    buildFeatures {
-//        viewBinding = true
-//    }
-//    room {
-//        schemaDirectory ("$projectDir/schemas")
-//    }
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
     //easypermission
     implementation(libs.easypermissions)
     //livedatabus
     implementation(libs.livedatabus)
-    //room
-//    ksp(libs.room.compiler)
-//    implementation(libs.bundles.room)
 }
