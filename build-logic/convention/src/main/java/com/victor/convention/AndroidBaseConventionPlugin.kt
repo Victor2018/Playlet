@@ -4,7 +4,6 @@ import com.victor.support.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 class AndroidBaseConventionPlugin : Plugin<Project> {
@@ -12,22 +11,18 @@ class AndroidBaseConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin ="org.jetbrains.kotlin.android")
-
-            apply(plugin = "com.victor.convention.android.room")
-
-            // 配置 ARouter 的 KSP
-            extensions.configure<com.google.devtools.ksp.gradle.KspExtension> {
-                arg("AROUTER_MODULE_NAME", project.name)
-            }
+            apply(plugin = "com.google.devtools.ksp")
 
             dependencies {
-                "implementation"(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-                "implementation"(libs.findLibrary("androidx.core.ktx").get())
-                "implementation"(libs.findLibrary("androidx.appcompat").get())
-                "implementation"(libs.findLibrary("material").get())
-                "testImplementation"(libs.findLibrary("junit").get())
-                "androidTestImplementation"(libs.findLibrary("androidx.junit").get())
-                "androidTestImplementation"(libs.findLibrary("androidx.espresso.core").get())
+                "api"(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+                "api"(libs.findLibrary("androidx.core.ktx").get())
+                "api"(libs.findLibrary("androidx.appcompat").get())
+                "api"(libs.findLibrary("material").get())
+                "testApi"(libs.findLibrary("junit").get())
+                "androidTestApi"(libs.findLibrary("androidx.junit").get())
+                "androidTestApi"(libs.findLibrary("androidx.espresso.core").get())
+                "api"(libs.findLibrary("arouter.api").get())
+                "ksp"(libs.findLibrary("arouter.compiler").get())
             }
         }
     }

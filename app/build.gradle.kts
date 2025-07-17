@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.victor.android.application)
     alias(libs.plugins.victor.jvm.library)
-    alias(libs.plugins.victor.android.room)
 }
 
 android {
@@ -27,8 +26,4 @@ android {
 }
 
 dependencies {
-    //easypermission
-    implementation(libs.easypermissions)
-    //livedatabus
-    implementation(libs.livedatabus)
 }
