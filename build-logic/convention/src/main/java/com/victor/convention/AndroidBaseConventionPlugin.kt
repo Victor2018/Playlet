@@ -21,6 +21,7 @@ class AndroidBaseConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
+                "implementation"(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
                 "implementation"(libs.findLibrary("androidx.core.ktx").get())
                 "implementation"(libs.findLibrary("androidx.appcompat").get())
                 "implementation"(libs.findLibrary("material").get())

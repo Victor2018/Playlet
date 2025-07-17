@@ -58,6 +58,7 @@ victor-android-lint = { id = "com.victor.convention.lint" }
 victor-android-base = { id = "com.victor.convention.base" }
 victor-android-application = { id = "com.victor.convention.application" }
 victor-android-lib = { id = "com.victor.convention.lib" }
+victor-android-module = { id = "com.victor.convention.module" }
 victor-android-room = { id = "com.victor.convention.android.room" }
 victor-jvm-library = { id = "com.victor.convention.jvm.library" }
 

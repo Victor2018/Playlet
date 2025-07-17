@@ -41,6 +41,10 @@ gradlePlugin {
             id = libs.plugins.victor.android.lib.get().pluginId
             implementationClass = "com.victor.convention.AndroidLibConventionPlugin"
         }
+        register("androidModule") {
+            id = libs.plugins.victor.android.module.get().pluginId
+            implementationClass = "com.victor.convention.AndroidModuleConventionPlugin"
+        }
         register("androidLint") {
             id = libs.plugins.victor.android.lint.get().pluginId
             implementationClass = "com.victor.convention.AndroidLintConventionPlugin"
