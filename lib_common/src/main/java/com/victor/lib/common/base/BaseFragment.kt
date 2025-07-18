@@ -22,13 +22,14 @@ import com.victor.lib.common.util.Loger
  * -----------------------------------------------------------------
  */
 
-abstract class BaseFragment<VB : ViewBinding> : Fragment(),View.OnTouchListener {
+abstract class BaseFragment<VB : ViewBinding>( private val bindingInflater: (LayoutInflater) -> VB) : Fragment(),View.OnTouchListener {
     companion object {
         val ID_KEY = "ID_KEY"
         val TAG = javaClass.simpleName
     }
 
-    protected lateinit var binding: VB
+    private var _binding: VB? = null
+    public val binding get() = _binding!!
 
     /**
      * 是否初始化过布局
@@ -41,7 +42,6 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(),View.OnTouchListener 
     var isDataInitiated = false
 
 
-    protected abstract fun getViewBinding(inflater: LayoutInflater): VB
     abstract fun handleBackEvent(): Boolean
     abstract fun freshFragData()
 
@@ -78,7 +78,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(),View.OnTouchListener 
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = getViewBinding(layoutInflater)
+        _binding = bindingInflater(layoutInflater)
         return binding.root
     }
 
@@ -116,6 +116,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(),View.OnTouchListener 
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         isViewInitiated = false
         isVisibleToUser = false
         isDataInitiated = false

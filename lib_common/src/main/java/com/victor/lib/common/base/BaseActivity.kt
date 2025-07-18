@@ -27,13 +27,14 @@ abstract class BaseActivity<VB : ViewBinding>( private val bindingInflater: (Lay
     protected var TAG = javaClass.simpleName
     var statusBarTextColorBlack = true
 
-    protected lateinit var binding: VB
+    private var _binding: VB? = null
+    public val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ARouter.getInstance().inject(this)
 
-        binding = bindingInflater(layoutInflater)
+        _binding = bindingInflater(layoutInflater)
         setContentView(binding.root)
         initializeSuper()
     }
@@ -55,6 +56,11 @@ abstract class BaseActivity<VB : ViewBinding>( private val bindingInflater: (Lay
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.anim_activity_enter_back, R.anim.anim_activity_exit_back)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     open fun switchFragment(toFragment: Fragment, containerViewId: Int) {
