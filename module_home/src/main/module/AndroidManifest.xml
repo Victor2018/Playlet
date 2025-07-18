@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.victor.module.home">
+
+    <!--<application
+        android:label="@string/home_module"
+        android:name="com.victor.lib.common.app.App"
+        android:icon="@drawable/module_home_logo"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        tools:replace="android:allowBackup,android:label,android:icon">
+
+        <activity android:name="com.victor.module.home.view.activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name="com.victor.module.home.view.activity.SearchResultActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
+
+    </application>-->
+
+</manifest>

@@ -1,7 +1,7 @@
 package com.victor.convention
 
 import com.android.build.api.dsl.ApplicationExtension
-import com.victor.support.AppConfig
+import com.victor.support.AppBuildConfig
 import com.victor.support.AppSignConfig
 import com.victor.support.configureKotlinAndroid
 import com.victor.support.libs
@@ -20,7 +20,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = AppConfig.targetSdk
+                defaultConfig.targetSdk = AppBuildConfig.targetSdk
 
                 signingConfigs {
                     create("release") {

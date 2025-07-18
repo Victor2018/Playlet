@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <style>
+    a {
+        display: inline-block;
+        padding: 6px 18px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        color: #50a5f2;
+        border: 1px solid #eee;
+    }
+    </style>
+</head>
+<body>
+    <a id="h5ToAppLogin">h5ToAppLogin</a>
+    <a id="h5GetAppToken">h5GetAppToken</a>
+    <p id="appToken"></p>
+    <script type="text/javascript">
+    void function() {
+        var h5ToAppLogin = document.querySelector('#h5ToAppLogin');
+        var h5GetAppToken = document.querySelector('#h5GetAppToken');
+
+        h5ToAppLogin.addEventListener('click', function() {
+<!--            Android.toLogin();-->
+            NativeBridge.myJsbridge("{"type": "toLogin","from": "H5WebView","data": "123"}");
+        });
+
+        h5GetAppToken.addEventListener('click', function() {
+             var token = NativeBridge.myJsbridge("{"type": "getToken","from": "H5WebView","data": "123"}");
+             document.getElementById("appToken").innerHTML = token;
+        });
+
+    }();
+    </script>
+
+</body>
+</html>

@@ -18,9 +18,15 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://www.jitpack.io")
+
+        flatDir {
+            dirs("lib_coremodel/src/main/libs")
+        }
     }
 }
 
 rootProject.name = "Playlet"
 include(":app")
 include(":lib_coremodel")
+include(":lib_common")
+include(":module_home")

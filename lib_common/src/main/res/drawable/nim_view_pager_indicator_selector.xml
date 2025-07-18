@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android" tools:ignore="ResourceName">
+
+    <item android:drawable="@drawable/round_333333_radius_10"
+        android:state_selected="true"/>
+    <item android:drawable="@drawable/round_999999_radius_10"/>
+
+</selector>

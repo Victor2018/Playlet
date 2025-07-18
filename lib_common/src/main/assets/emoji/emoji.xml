@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PopoEmoticons>
+    <Catalog Title="default">
+        <Emoticon ID="emoticon_emoji_0" Tag="[666]" File="emoji_00.png" />
+        <Emoticon ID="emoticon_emoji_01" Tag="[爱心]" File="emoji_01.png" />
+        <Emoticon ID="emoticon_emoji_02" Tag="[点赞]" File="emoji_02.png" />
+        <Emoticon ID="emoticon_emoji_03" Tag="[鼓掌]" File="emoji_03.png" />
+        <Emoticon ID="emoticon_emoji_04" Tag="[送花]" File="emoji_04.png" />
+        <Emoticon ID="emoticon_emoji_05" Tag="[酷]" File="emoji_05.png" />
+        <Emoticon ID="emoticon_emoji_06" Tag="[色笑]" File="emoji_06.png" />
+        <Emoticon ID="emoticon_emoji_07" Tag="[睡觉]" File="emoji_07.png" />
+        <Emoticon ID="emoticon_emoji_08" Tag="[笑]" File="emoji_08.png" />
+        <Emoticon ID="emoticon_emoji_09" Tag="[笑出眼泪]" File="emoji_09.png" />
+        <Emoticon ID="emoticon_emoji_10" Tag="[早上好]" File="emoji_10.png" />
+        <Emoticon ID="emoticon_emoji_11" Tag="[打call]" File="emoji_11.png" />
+        <Emoticon ID="emoticon_emoji_12" Tag="[礼炮]" File="emoji_12.png" />
+        <Emoticon ID="emoticon_emoji_13" Tag="[星星]" File="emoji_13.png" />
+        <Emoticon ID="emoticon_emoji_14" Tag="[比心]" File="emoji_14.png" />
+        <Emoticon ID="emoticon_emoji_15" Tag="[烟花]" File="emoji_15.png" />
+        <Emoticon ID="emoticon_emoji_16" Tag="[捂脸]" File="emoji_16.png" />
+        <Emoticon ID="emoticon_emoji_17" Tag="[辛苦了]" File="emoji_17.png" />
+    </Catalog>
+</PopoEmoticons>
+
+

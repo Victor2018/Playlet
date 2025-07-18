@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="img_transition_name">img_transition_name</string>
+
+    <string name="loading">努力加载中...</string>
+    <string name="all_presented_for_you">到底啦</string>
+
+    <string name="copy_to_clipboard">Copied to the clipboard</string>
+    <string name="cope_the_url">Cope the url</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="share">Share</string>
+    <string name="retry">Retry</string>
+    <string name="mail_to_me_tip">Please select the mail application</string>
+
+    <string name="network_error">当前网络不可用，请检查你的网络设置</string>
+    <string name="connectivity">网络已连接</string>
+
+    <string name="notify_qq_client_not_exist">请先安装QQ客户端!</string>
+    <string name="user_cancelled_operation">用户取消操作</string>
+    <string name="not_install_wx_tip">请先安装微信客户端</string>
+    <string name="share_success">分享成功~</string>
+    <string name="notify_share_cancel">分享取消～</string>
+    <string name="notify_share_auth_denied">授权失败~</string>
+    <string name="notify_share_failed">分享失败~</string>
+    <string name="copied_you_can_share">复制成功，你可以分享给你的朋友了</string>+
+
+    <string name="yesterday">昨天&#160;</string>
+    <string name="please_login_first">请先登录</string>
+    <string name="scan_more">查看更多</string>
+    <string name="release_scan_more">释放查看</string>
+    <string name="sticky">sticky</string>
+
+</resources>

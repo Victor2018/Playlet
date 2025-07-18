@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mRootSplash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:ignore="MissingDefaultResource">
+
+    <ImageView
+        android:id="@+id/mIvSplashPlace"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/img_splash"/>
+
+    <ImageView
+        android:id="@+id/mIvSplashAd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/view_bottom"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/mTvSkip"
+        android:layout_width="@dimen/dp_104"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dp_100"
+        android:layout_marginEnd="@dimen/dp_32"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:background="@drawable/shape_80000000_radius_8"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_24"
+        android:text="3\t跳过"/>
+
+    <View
+        android:id="@+id/view_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_290"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white"/>
+
+    <ImageView
+        android:id="@+id/mIvSplashLogo"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
+        app:layout_constraintTop_toTopOf="@+id/view_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/view_bottom"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/dp_142"
+        android:src="@mipmap/ic_splash_logo"/>
+
+    <TextView
+        android:id="@+id/mTvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/mIvSplashLogo"
+        app:layout_constraintStart_toEndOf="@+id/mIvSplashLogo"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_marginStart="@dimen/dp_24"
+        android:textStyle="bold"
+        android:textSize="@dimen/dp_40"
+        android:textColor="@color/color_333333"
+        android:text="选好课 上获课"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvSplashLogo"
+        app:layout_constraintStart_toStartOf="@+id/mTvAppName"
+        android:layout_marginBottom="@dimen/dp_6"
+        android:textSize="@dimen/dp_32"
+        android:textColor="@color/color_777777"
+        android:text="中国知识付费交易市场"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

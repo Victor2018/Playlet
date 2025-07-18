@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Scheme呼起App</title>
+    <style>
+    a {
+        display: inline-block;
+        padding: 6px 18px;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        color: #50a5f2;
+        border: 1px solid #eee;
+    }
+    </style>
+</head>
+<body>
+    <a id="openurl">百度一下</a>
+    <a id="orderDetail">订单详情</a>
+    <a id="afterSaleDetail">售后详情</a>
+    <a id="courseCategory">课程分类</a>
+    <a id="courseDetail">课程详情</a>
+	<a id="teacherDetail">老师详情</a>
+    <a id="topicInvalid">专题失效</a>
+
+    <script>
+    void function() {
+        var openurl = document.querySelector('#openurl');
+        var orderDetail = document.querySelector('#orderDetail');
+        var afterSaleDetail = document.querySelector('#afterSaleDetail');
+        var courseCategory = document.querySelector('#courseCategory');
+        var courseDetail = document.querySelector('#courseDetail');
+		var teacherDetail = document.querySelector('#teacherDetail');
+        var topicInvalid = document.querySelector('#topicInvalid');
+
+        openurl.addEventListener('click', function() {
+            location.href = 'https://www.baidu.com';
+        });
+
+        orderDetail.addEventListener('click', function() {
+            location.href = 'hok://OrderDetail?orderNo=Hok1676378473512106756';
+        });
+
+        afterSaleDetail.addEventListener('click', function() {
+            location.href = 'hok://AfterSaleDetail?subOrderId=30080';
+        });
+
+        courseCategory.addEventListener('click', function() {
+            location.href = 'hok://CourseCategory?categoryId=22ae89411c8149ca831af980f9e52fa3';
+        });
+
+        courseDetail.addEventListener('click', function() {
+            location.href = 'hok://CourseDetail?goodsId=94c6913070c4464d9c117174393143d5&onlineFlag=0';
+        });
+
+		teacherDetail.addEventListener('click', function() {
+            location.href = 'hok://TeacherDetail?lecturerId=38e8279c913f42c8a36d76e0891d4cc3';
+        });
+
+        topicInvalid.addEventListener('click', function() {
+            location.href = 'hok://TopicInvalid';
+        });
+    }();
+    </script>
+</body>
+</html>

@@ -1,45 +1,51 @@
 [versions]
 #base
-agp = "8.9.0"
-kotlin = "2.1.10"
-coreKtx = "1.10.1"
-junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-appcompat = "1.6.1"
-material = "1.10.0"
-constraintlayout = "2.1.4"
-navigationFragmentKtx = "2.6.0"
-navigationUiKtx = "2.6.0"
-ksp = "2.1.10-1.0.31"
-room = "2.6.1"
-jetbrainsKotlinJvm = "2.1.0"
-androidDesugarJdkLibs = "2.1.4"
+agp = '8.9.0'
+kotlin = '2.1.10'
+coreKtx = '1.10.1'
+junit = '4.13.2'
+junitVersion = '1.1.5'
+espressoCore = '3.5.1'
+appcompat = '1.6.1'
+material = '1.10.0'
+constraintlayout = '2.1.4'
+navigationFragmentKtx = '2.6.0'
+navigationUiKtx = '2.6.0'
+ksp = '2.1.10-1.0.31'
+room = '2.6.1'
+jetbrainsKotlinJvm = '2.1.0'
+androidDesugarJdkLibs = '2.1.4'
 
 #andoid
-coroutines = "1.6.3"
-lifecycle = "2.4.1"
+coroutines = '1.6.3'
+lifecycle = '2.4.1'
 workVersion = '2.7.1'
-paging = "3.0.0-alpha02"
+paging = '3.0.0-alpha02'
+swiperefreshlayout = '1.1.0'
 
 #victor
-easypermissions = "v1.1.0"
-livedatabus = "v2.1.0"
-match = "v1.5"
-crash_spider = "v1.3"
+easypermissions = 'v1.1.0'
+livedatabus = 'v2.1.0'
+match = 'v1.5'
+crash_spider = 'v1.3'
+khttp = 'v3.5'
+#convenientbanner = '2.1.5'
 
 #third
-glide = "4.11.0"
-retrofit = "2.9.0"
-arouter = "1.5.2"
-arouter_processor = "1.5.2"
-okhttp3 = "4.2.0"
+multidex = '1.0.3'
+glide = '4.11.0'
+retrofit = '2.9.0'
+arouter = '1.5.2'
+arouter_processor = '1.5.2'
+arouter_ksp_compiler = '1.6.10-1.0.3'
+okhttp3 = '4.2.0'
 picture_selector = 'v3.11.2'
-convenientbanner = '2.1.5'
 um_common = '9.5.2'
 um_asms = '1.6.3'
 lottie = '5.2.0'
 zxing = '3.5.0'
+bugly = 'latest.release'
+wechat_sdk = '6.7.9'
 
 [libraries]
 #base
@@ -59,15 +65,18 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workVersion" }
 paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 #victor
 victor-easypermissions = { group = "com.github.Victor2018", name = "easypermissions", version.ref = "easypermissions" }
 victor-livedatabus = { group = "com.github.Victor2018", name = "LiveDataBus", version.ref = "livedatabus" }
 victor-match = { group = "com.github.Victor2018", name = "ScreenMatchLib", version.ref = "match" }
 victor-crash-spider = { group = "com.github.Victor2018", name = "CrashSpiderLib", version.ref = "crash_spider" }
-victor-convenientbanner = { group = "com.github.Victor2018", name = "ConvenientBanner", version.ref = "convenientbanner" }
+victor-khttp = { group = "com.github.Victor2018", name = "KHttpLib", version.ref = "khttp" }
+#victor-convenientbanner = { group = "com.github.Victor2018", name = "ConvenientBanner", version.ref = "convenientbanner" }
 
 #third
+multidex-core = { group = "com.android.support", name = "multidex", version.ref = "multidex" }
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -82,6 +91,7 @@ retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.r
 retrofit-retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "arouter" }
 arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "arouter_processor" }
+arouter-ksp-compiler = { group = "com.github.JailedBird", name = "ArouterKspCompiler", version.ref = "arouter_ksp_compiler" }
 okhttp3-core = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
 okhttp3-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
 picture-selector = { group = "io.github.lucksiege", name = "pictureselector", version.ref = "picture_selector" }
@@ -89,6 +99,8 @@ umeng-common = { group = "com.umeng.umsdk", name = "common", version.ref = "um_c
 umeng-asms = { group = "com.umeng.umsdk", name = "asms", version.ref = "um_asms" }
 lottie-core = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
+bugly-core = { group = "com.tencent.bugly", name = "crashreport", version.ref = "bugly" }
+wechat-sdk = { group = "com.tencent.mm.opensdk", name = "wechat-sdk-android-without-mta", version.ref = "wechat_sdk" }
 
 
 # Dependencies of the included build-logic
@@ -99,7 +111,7 @@ room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", vers
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [bundles]
-victor = ["victor-easypermissions","victor-livedatabus", "victor-match", "victor-crash-spider","victor-convenientbanner"]
+victor = ["victor-easypermissions","victor-livedatabus", "victor-match", "victor-crash-spider", "victor-khttp"]
 coroutines = ["coroutines-core","coroutines-android"]
 lifecycle = ["lifecycle-runtime","lifecycle-java8", "lifecycle-compiler","lifecycle-viewmodel_ktx","lifecycle-livedata_ktx"]
 retrofit = ["retrofit-core","retrofit-retrofit-converter-gson"]

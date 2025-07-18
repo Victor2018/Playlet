@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mRootGuide"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="#006699"
+    tools:ignore="MissingDefaultResource">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/mVpSplash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/mTvGo"
+        android:layout_width="@dimen/dp_548"
+        android:layout_height="@dimen/dp_88"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/mSplashIndicator"
+        android:layout_marginBottom="@dimen/dp_50"
+        android:background="@drawable/ripple_eb4f3a_radius_44"
+        android:textSize="@dimen/dp_32"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="开启学习"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <com.victor.lib.common.view.widget.IndicatorView
+        android:id="@+id/mSplashIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/dp_60"
+        app:indicator_drawable="@drawable/indicator_selector"
+        app:indicator_count="3"
+        app:indicator_select="0"
+        app:indicator_padding="@dimen/dp_10"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

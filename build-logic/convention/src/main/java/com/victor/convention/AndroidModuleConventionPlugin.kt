@@ -2,10 +2,13 @@ package com.victor.convention
 
 import com.android.build.api.dsl.LibraryExtension
 import com.victor.support.AppBuildConfig
+import com.victor.support.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 import java.util.Locale
 
 class AndroidModuleConventionPlugin : Plugin<Project> {
@@ -20,12 +23,8 @@ class AndroidModuleConventionPlugin : Plugin<Project> {
             apply(plugin = "com.victor.convention.base")
             apply(plugin = "com.victor.convention.android.room")
 
-            // 配置 ARouter 的 KSP
-            extensions.configure<com.google.devtools.ksp.gradle.KspExtension> {
-                arg("AROUTER_MODULE_NAME", project.name)
-            }
-
             extensions.configure<LibraryExtension> {
+                configureKotlinAndroid(this)
                 //给 Module 内的资源名增加前缀, 避免资源名冲突
                 resourcePrefix = "${
                     project.name.lowercase(Locale.getDefault()).replace("module_", "")}_"
@@ -41,7 +40,10 @@ class AndroidModuleConventionPlugin : Plugin<Project> {
                         }
                     }
                 }
+            }
 
+            dependencies {
+                "api"(project(":lib_common"))
             }
         }
     }

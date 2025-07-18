@@ -17,10 +17,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  */
 internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, *, *, *, *, *>) {
     commonExtension.apply {
-        compileSdk = AppConfig.compileSdk
+        compileSdk = AppBuildConfig.compileSdk
 
         defaultConfig {
-            minSdk = AppConfig.minSdk
+            minSdk = AppBuildConfig.minSdk
 
             splits {
                 abi {
@@ -38,6 +38,10 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
                 )
+                buildConfigField("Boolean", "MODEL_DEBUG", "false")
+            }
+            getByName("debug"){
+                buildConfigField("Boolean", "MODEL_DEBUG", "true")
             }
         }
 
@@ -197,6 +201,8 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
 
     configureKotlin()
 
+    configureArouterModule()
+
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
     dependencies {
@@ -238,5 +244,12 @@ private fun Project.configureKotlin() {
                 "-opt-in=kotlinx.coroutines.FlowPreview",
             )
         }
+    }
+}
+
+fun Project.configureArouterModule() {
+    // 配置 ARouter 的 KSP
+    extensions.configure<com.google.devtools.ksp.gradle.KspExtension> {
+        arg("AROUTER_MODULE_NAME", project.name)
     }
 }
