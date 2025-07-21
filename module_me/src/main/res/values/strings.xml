@@ -1,0 +1,4 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="me_module">module_me</string>
+</resources>

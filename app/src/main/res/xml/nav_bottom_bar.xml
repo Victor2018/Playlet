@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        drawable="@drawable/ic_home_black_24dp"
+        text="@string/title_home" />
+
+    <tab
+        drawable="@drawable/ic_theater_black_24dp"
+        text="@string/title_theater" />
+
+    <tab
+        drawable="@drawable/ic_welfare_black_24dp"
+        text="@string/title_welfare" />
+
+    <tab
+        drawable="@drawable/ic_me_black_24dp"
+        text="@string/title_me" />
+</tabs>

@@ -7,19 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.victor.module.home.fragment.HomeFragment"
+        android:name="com.victor.module.home.view.fragment.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.victor.playlet.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_theater"
+        android:name="com.victor.module.theater.view.fragment.TheaterFragment"
+        android:label="@string/title_theater"
+        tools:layout="@layout/fragment_theater" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.victor.playlet.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_welfare"
+        android:name="com.victor.module.welfare.view.fragment.WelfareFragment"
+        android:label="@string/title_welfare"
+        tools:layout="@layout/fragment_welfare" />
+
+    <fragment
+        android:id="@+id/navigation_me"
+        android:name="com.victor.module.me.view.fragment.MeFragment"
+        android:label="@string/title_me"
+        tools:layout="@layout/fragment_me" />
 </navigation>

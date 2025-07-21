@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.victor.module.home">
 
-    <!--<application
+    <application
         android:label="@string/home_module"
         android:name="com.victor.lib.common.app.App"
         android:icon="@drawable/module_home_logo"
@@ -12,7 +12,7 @@
         android:allowBackup="true"
         tools:replace="android:allowBackup,android:label,android:icon">
 
-        <activity android:name="com.victor.module.home.view.activity.HomeActivity"
+        <activity android:name=".view.activity.HomeActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:exported="true">
@@ -22,11 +22,6 @@
             </intent-filter>
         </activity>
 
-
-        <activity android:name="com.victor.module.home.view.activity.SearchResultActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-
-    </application>-->
+    </application>
 
 </manifest>

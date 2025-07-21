@@ -18,12 +18,12 @@ object ARouterPath {
     private const val MAIN = "/main"
 
     private const val HOME = "/home"
-    private const val COURSE = "/course"
+    private const val THEATER = "/theater"
     private const val CUSTOMER_SERVICE = "/customer_service"
     private const val MESSAGE = "/message"
     private const val SHOPPING_CART = "/shopping_cart"
     private const val ME = "/me"
-    private const val LIVE = "/live"
+    private const val WELFARE = "/welfare"
     private const val STUDY_CENTER = "/study_center"
 
     /**登录服务 */
@@ -58,32 +58,8 @@ object ARouterPath {
     /**错误 activity */
     const val ErrorAct = "$HOME/module/ErrorActivity"
 
-    /**课程分类 activity */
-    const val CourseAct = "$COURSE/module/CourseActivity"
-
-    /**课程 Fragment */
-    const val CourseFgt = "$COURSE/module/CourseFragment"
-
-    /**课程详情 Activity */
-    const val VideoDetailAct = "$COURSE/module/VideoDetailActivity"
-
-    /**线上课程详情 Activity */
-    const val OnlineCourseDetailAct = "$COURSE/module/OnlineCourseDetailActivity"
-
-    /**线下课程详情 Activity */
-    const val OfflineCourseDetailAct = "$COURSE/module/OfflineCourseDetailActivity"
-
-    /**图文课程详情 Activity */
-    const val GraphicDetailAct = "$COURSE/module/GraphicDetailActivity"
-
-    /**线下已购课程详情-无视频 Activity */
-    const val OfflineCourseUnPlayDetailAct = "$COURSE/module/OfflineCourseUnPlayDetailActivity"
-
-    /**线下已购课程详情-有视频 Activity */
-    const val OfflineVideoPlayDetailAct = "$COURSE/module/OfflineVideoPlayDetailActivity"
-
-    /**线上已购课程详情 Activity */
-    const val VideoPlayDetailAct = "$COURSE/module/VideoPlayDetailActivity"
+    /**剧场 Fragment */
+    const val TheaterFgt = "$THEATER/module/TheaterFragment"
 
     /**消息 Fragment */
     const val MessageFgt = "$MESSAGE/module/MessageFragment"
@@ -167,23 +143,9 @@ object ARouterPath {
     /**绑定手机号 Fragment */
     const val BindPhoneAct = "$LOGIN/module/BindPhoneActivity"
 
-    /**直播详情activity */
-    const val LiveDetailAct = "$LIVE/module/LiveDetailActivity"
+    /**福利 Fragment */
+    const val WelfareFgt = "$WELFARE/module/WelfareFragment"
 
-    /**线上直播课程详情activity */
-    const val CourseLiveDetailActivity = "$COURSE/module/CourseLiveDetailActivity"
-
-    /**线上课程图文详情activity */
-    const val CourseGraphicDetailsActivity = "$COURSE/module/CourseGraphicDetailsActivity"
-
-    /**线上课程试看详情activity */
-    const val TryPlayAct = "$COURSE/module/TryPlayActivity"
-
-    /**课程评价activity */
-    const val CourseEvaluateAct = "$COURSE/module/CourseEvaluateActivity"
-
-    /**课程练习activity */
-    const val CourseExerciseAct = "$COURSE/module/CourseExerciseActivity"
 
     /**客服activity */
     const val CustomerServiceActivity = "$CUSTOMER_SERVICE/module/CustomerServiceActivity"

@@ -33,7 +33,8 @@ dependencies {
         implementation(project(":lib_coremodel"))
     } else {
         implementation(project(":module_home"))
-//        implementation(":module_login")
-//        implementation(":module_me")
+        implementation(project(":module_theater"))
+        implementation(project(":module_welfare"))
+        implementation(project(":module_me"))
     }
 }
