@@ -2,29 +2,36 @@ package com.victor.playlet
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.alibaba.android.arouter.launcher.ARouter
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.hok.lib.common.base.ARouterPath
 import com.victor.lib.common.base.BaseActivity
+import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.NetworkUtils
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.adapter.ViewPagerAdapter
-import com.victor.lib.common.view.widget.readablebottombar.ReadableBottomBar.ItemSelectListener
 import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.lib.coremodel.vm.GankGirlVM
 import com.victor.playlet.databinding.ActivityMainBinding
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
-    OnClickListener,ItemSelectListener,OnPageChangeListener {
+    OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener {
 
 
     private val gankGirlVm by viewModels<GankGirlVM> {
@@ -43,12 +50,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onResume() {
         super.onResume()
-        binding.particleView.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        binding.particleView.pause()
     }
 
     private fun initView() {
@@ -73,7 +78,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.mVpHome.offscreenPageLimit = fragmentList.size
         binding.mVpHome.canScroll = false
 
-        binding.mNavBar.setOnItemSelectListener(this)
+        binding.mBottomNav.itemIconTintList = null//解决图标被颜色覆盖问题
+        binding.mBottomNav.setOnItemSelectedListener(this)
+        binding.mBottomNav.removeLongTouchToast()
+
         binding.mVpHome.addOnPageChangeListener(this)
         binding.mTvNetworkStatus.setOnClickListener(this)
     }
@@ -82,21 +90,46 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.mTvNetworkStatus -> {
+                startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
+            }
+        }
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
     }
 
     override fun onPageSelected(position: Int) {
-        binding.mNavBar.selectItem(position)
+        Loger.e(TAG, "onPageSelected......position = $position")
+        binding.mBottomNav.selectedItemId = binding.mBottomNav.menu[position].itemId
     }
 
     override fun onPageScrollStateChanged(state: Int) {
     }
 
-    override fun onItemSelected(index: Int) {
-        Log.i(TAG,"onItemSelected()......index = $index")
-        binding.mVpHome.setCurrentItem(index,false)
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        Loger.e(TAG, "onNavigationItemSelected......")
+        when (item.itemId) {
+            R.id.navigation_home -> {
+                binding.mVpHome.setCurrentItem(0, false)
+                return true
+            }
+            R.id.navigation_theater -> {
+                binding.mVpHome.setCurrentItem(1,false)
+                return true
+            }
+            R.id.navigation_welfare -> {
+                binding.mVpHome.setCurrentItem(2,false)
+                return true
+            }
+            R.id.navigation_me -> {
+//                if (notLogin()) return true
+                binding.mVpHome.setCurrentItem(3, false)
+                return true
+            }
+        }
+        return false
     }
 
     /**
@@ -131,6 +164,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 }
             }
         )
+    }
+
+    /**
+     * 移除长按点击弹出Toast
+     */
+    fun BottomNavigationView.removeLongTouchToast() {
+        val bottomNavigationMenuView = this.getChildAt(0) as ViewGroup
+        val size = bottomNavigationMenuView.childCount
+        for (index in 0 until size) {
+            bottomNavigationMenuView[index].setOnLongClickListener {
+                true
+            }
+        }
     }
 
 }

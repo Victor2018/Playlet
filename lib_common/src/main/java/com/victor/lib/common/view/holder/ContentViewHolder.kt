@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
  * -----------------------------------------------------------------
  */
 
-open class ContentViewHolder: RecyclerView.ViewHolder,View.OnClickListener,View.OnLongClickListener {
+open class ContentViewHolder<T>: RecyclerView.ViewHolder,View.OnClickListener,View.OnLongClickListener {
     companion object {
         const val ONITEM_LONG_CLICK: Long = -1
         const val ONITEM_CLICK: Long = 0
@@ -25,6 +25,10 @@ open class ContentViewHolder: RecyclerView.ViewHolder,View.OnClickListener,View.
 
     fun setOnItemClickListener(listener: AdapterView.OnItemClickListener?) {
         mOnItemClickListener = listener
+    }
+
+    open fun bindData (data: T?) {
+
     }
 
     constructor(itemView: View) : super(itemView) {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="home_tab_titles">
+		<item>热榜</item>
+		<item>剧单</item>
+		<item>推荐</item>
+    </string-array>
+
+    <string-array name="home_hot_tab_titles">
+		<item>推荐榜</item>
+		<item>热播榜</item>
+		<item>新剧榜</item>
+		<item>热搜榜</item>
+    </string-array>
+
+</resources>

@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewConfiguration
-import com.victor.lib.common.view.widget.HokSwipeRefreshLayout
 
 /*
  * -----------------------------------------------------------------
@@ -17,7 +16,7 @@ import com.victor.lib.common.view.widget.HokSwipeRefreshLayout
  * -----------------------------------------------------------------
  */
 
-class VpSwipeRefreshLayout: HokSwipeRefreshLayout {
+class VpSwipeRefreshLayout: ColorSwipeRefreshLayout {
     private var startY = 0f
     private var startX = 0f
 
