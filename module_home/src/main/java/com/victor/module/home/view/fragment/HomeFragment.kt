@@ -48,16 +48,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun initView() {
         pagerTitles = ResUtils.getStringArrayRes(R.array.home_tab_titles)
         fragmentList.clear()
-        fragmentList.add(HotFragment.newInstance())
-        fragmentList.add(PlayListFragment.newInstance())
-        fragmentList.add(RecommendFragment.newInstance())
+        fragmentList.add(HomeHotFragment.newInstance())
+        fragmentList.add(HomeDramaFragment.newInstance())
+        fragmentList.add(HomeRecommendFragment.newInstance())
 
         mTabPagerAdapter = TabPagerAdapter(childFragmentManager)
         mTabPagerAdapter?.titles = pagerTitles
         mTabPagerAdapter?.frags = fragmentList
         binding.mVpDetail.adapter = mTabPagerAdapter
         binding.mTabDetail.setupWithViewPager(binding.mVpDetail)
-//        binding.mVpDetail.currentItem = 2
+        binding.mVpDetail.currentItem = 2
     }
 
     private fun initData() {

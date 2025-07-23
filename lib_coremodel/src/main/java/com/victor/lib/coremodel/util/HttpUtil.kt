@@ -1,7 +1,7 @@
 package com.victor.lib.coremodel.util
 
 import android.content.Context
-import com.victor.lib.coremodel.data.request.HttpHeaderReq
+import com.victor.lib.coremodel.data.remote.entity.request.HttpHeaderReq
 
 /*
  * -----------------------------------------------------------------

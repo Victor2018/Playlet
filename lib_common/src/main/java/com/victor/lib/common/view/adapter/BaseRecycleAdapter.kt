@@ -12,7 +12,7 @@ import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.holder.BottomViewHolder
 import com.victor.lib.common.view.holder.HeaderViewHolder
 import com.victor.lib.common.view.widget.LMRecyclerView
-import com.victor.lib.coremodel.data.bean.ListData
+import com.victor.lib.coremodel.data.remote.entity.bean.ListData
 import com.victor.lib.coremodel.util.WebConfig
 import org.victor.http.lib.util.JsonUtils
 
@@ -360,7 +360,7 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         notifyDataSetChanged()
     }
 
-    fun showData (data: ListData<T>?, mEmptyView: View?, rv: LMRecyclerView?, currentPage: Int,hideRv: Boolean) {
+    fun showData (data: ListData<T>?, mEmptyView: View?, rv: LMRecyclerView?, currentPage: Int, hideRv: Boolean) {
         if (data == null) {
             mEmptyView?.show()
             if (!isHeaderVisible && hideRv) {
@@ -416,7 +416,7 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
     }
 
     fun showData (data: ListData<T>?, mEmptyView: View?, rv: LMRecyclerView?, currentPage: Int,
-                  hideRv: Boolean,footerVisible: Boolean) {
+                  hideRv: Boolean, footerVisible: Boolean) {
         setFooterVisible(footerVisible)
 
         if (data == null) {
@@ -561,7 +561,7 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         notifyDataSetChanged()
     }
 
-    fun showRecordData (data: ListData<T>?, mEmptyView: List<View>?, rv: LMRecyclerView?, currentPage: Int,hideRv: Boolean) {
+    fun showRecordData (data: ListData<T>?, mEmptyView: List<View>?, rv: LMRecyclerView?, currentPage: Int, hideRv: Boolean) {
         if (data == null) {
             mEmptyView?.forEach { it?.show() }
             if (!isHeaderVisible && hideRv) {
@@ -616,7 +616,7 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         notifyDataSetChanged()
     }
 
-    fun showItemData (data: ListData<T>?, mEmptyView: List<View>?, rv: LMRecyclerView?, currentPage: Int,hideRv: Boolean) {
+    fun showItemData (data: ListData<T>?, mEmptyView: List<View>?, rv: LMRecyclerView?, currentPage: Int, hideRv: Boolean) {
         if (data == null) {
             mEmptyView?.forEach { it?.show() }
             if (!isHeaderVisible && hideRv) {

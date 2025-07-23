@@ -23,15 +23,12 @@ open class ContentViewHolder<T>: RecyclerView.ViewHolder,View.OnClickListener,Vi
 
     var mOnItemClickListener: AdapterView.OnItemClickListener? = null
 
-    fun setOnItemClickListener(listener: AdapterView.OnItemClickListener?) {
-        mOnItemClickListener = listener
-    }
-
     open fun bindData (data: T?) {
 
     }
 
-    constructor(itemView: View) : super(itemView) {
+    constructor(itemView: View, listener: AdapterView.OnItemClickListener?) : super(itemView) {
+        mOnItemClickListener = listener
         itemView.setOnClickListener(this)
         itemView.setOnLongClickListener(this)
     }

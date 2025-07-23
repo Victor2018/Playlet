@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
-import com.victor.lib.coremodel.db.AppDatabase
-import com.victor.lib.coremodel.db.repository.SearchKeywordRepository
-import com.victor.lib.coremodel.vm.factory.*
+import com.victor.lib.coremodel.data.local.AppDatabase
+import com.victor.lib.coremodel.data.local.repository.SearchKeywordRepository
+import com.victor.lib.coremodel.data.local.vm.factory.SearchKeywordVMFactory
+import com.victor.lib.coremodel.data.remote.vm.factory.HomeVMFactory
+import com.victor.lib.coremodel.data.remote.vm.factory.TheaterVMFactory
 import org.victor.http.lib.vm.BaseVMFactory
 
 /*
@@ -37,8 +39,12 @@ object InjectorUtils {
         return SearchKeywordVMFactory(getSearchKeywordRepository(activity),activity,userId)
     }
 
-    fun provideGankGirlVm(owner: SavedStateRegistryOwner): GankGirlVMFactory {
-        return GankGirlVMFactory(owner)
+    fun provideHomeVM(owner: SavedStateRegistryOwner): HomeVMFactory {
+        return HomeVMFactory(owner)
+    }
+
+    fun provideTheaterVM(owner: SavedStateRegistryOwner): TheaterVMFactory {
+        return TheaterVMFactory(owner)
     }
 
 

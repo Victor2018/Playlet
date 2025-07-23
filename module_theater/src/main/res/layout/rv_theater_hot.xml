@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_10"
+    android:paddingStart="@dimen/dp_32"
+    android:paddingEnd="@dimen/dp_32"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    tools:ignore="ResourceName">
+
+    <com.victor.lib.common.view.widget.ShapedImageView
+        android:id="@+id/mIvPoster"
+        android:layout_width="@dimen/dp_180"
+        android:layout_height="@dimen/dp_220"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@color/color_CCCCCC"
+        android:scaleType="centerCrop"
+        app:shape_mode="round_rect"
+        app:round_radius="@dimen/dp_8"/>
+
+    <TextView
+        android:id="@+id/mTvContentName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/mIvPoster"
+        app:layout_constraintStart_toEndOf="@+id/mIvPoster"
+        app:layout_constraintEnd_toStartOf="@+id/mTvFire"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_20"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="实习生是老板千金"/>
+
+    <TextView
+        android:id="@+id/mTvFire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/mIvPoster"
+        app:layout_constraintStart_toEndOf="@+id/mTvContentName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/dp_10"
+        android:drawableLeft="@mipmap/ic_hot_fire"
+        android:drawablePadding="@dimen/dp_4"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="2101.1万"/>
+
+    <TextView
+        android:id="@+id/mTvType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/mTvContentName"
+        app:layout_constraintStart_toStartOf="@+id/mTvContentName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dp_8"
+        android:textColor="@color/color_777777"
+        android:textSize="@dimen/dp_24"
+        android:text="都市/甜宠"/>
+
+    <TextView
+        android:id="@+id/mTvDescribe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/mIvPoster"
+        app:layout_constraintStart_toStartOf="@+id/mTvContentName"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:textColor="@color/color_777777"
+        android:textSize="@dimen/dp_24"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:text="穷苦家庭出生的林忆苦，在男友张扬的哄骗下签下了全城最热门的订单后，却被男友一脚踹开，并将功劳据为己有，势单力薄的林忆苦尝试了各种寻求公道的办法后均以失败告终，而她不知道的是，表面上贫穷的父亲，实际上是掌控整个城市经济命脉的首富，父亲得知此事以后十分生气，并决定向林忆苦坦白自己的真实实力。。。"/>
+
+    <TextView
+        android:id="@+id/mTvPosition"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/mIvPoster"
+        app:layout_constraintStart_toStartOf="@+id/mIvPoster"
+        android:background="@drawable/shape_99000000_lt_br_radius_12"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_28"
+        android:textStyle="bold"
+        android:text="10"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

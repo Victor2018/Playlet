@@ -18,7 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 open class HeaderViewHolder: RecyclerView.ViewHolder,View.OnClickListener {
     var mOnItemClickListener: AdapterView.OnItemClickListener? = null
 
-    constructor(itemView: View) : super(itemView) {
+    constructor(itemView: View, listener: AdapterView.OnItemClickListener?) : super(itemView) {
+        mOnItemClickListener = listener
         itemView.setOnClickListener(this)
     }
 

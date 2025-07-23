@@ -2,9 +2,13 @@ package com.victor.module.theater.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.hok.lib.common.base.ARouterPath
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.util.ResUtils
+import com.victor.lib.common.view.adapter.TabPagerAdapter
+import com.victor.module.theater.R
 import com.victor.module.theater.databinding.FragmentTheaterBinding
 
 @Route(path = ARouterPath.TheaterFgt)
@@ -23,6 +27,10 @@ class TheaterFragment : BaseFragment<FragmentTheaterBinding>(FragmentTheaterBind
         }
     }
 
+    var mTabPagerAdapter: TabPagerAdapter? = null
+    private var pagerTitles: Array<String>? = null
+    private var fragmentList: ArrayList<Fragment> = ArrayList()
+
     override fun handleBackEvent(): Boolean {
         return false
     }
@@ -33,6 +41,23 @@ class TheaterFragment : BaseFragment<FragmentTheaterBinding>(FragmentTheaterBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+        initData()
+    }
 
+    private fun initView() {
+        pagerTitles = ResUtils.getStringArrayRes(R.array.theater_tab_titles)
+        fragmentList.clear()
+        fragmentList.add(TheaterHotFragment.newInstance())
+        fragmentList.add(TheaterFoundFragment.newInstance())
+
+        mTabPagerAdapter = TabPagerAdapter(childFragmentManager)
+        mTabPagerAdapter?.titles = pagerTitles
+        mTabPagerAdapter?.frags = fragmentList
+        binding.mVpDetail.adapter = mTabPagerAdapter
+        binding.mTabDetail.setupWithViewPager(binding.mVpDetail)
+    }
+
+    private fun initData() {
     }
 }

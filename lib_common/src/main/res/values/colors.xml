@@ -245,5 +245,7 @@
     <color name="color_FFF3E9">#FFF3E9</color>
     <color name="color_DEE9FF">#DEE9FF</color>
     <color name="color_AAABAB">#AAABAB</color>
+    <color name="color_8A000000">#8A000000</color>
+    <color name="color_33FFEEED">#33FFEEED</color>
 
 </resources>

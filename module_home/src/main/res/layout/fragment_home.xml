@@ -42,7 +42,7 @@
                     <com.victor.lib.common.view.widget.ScaleTitleTabLayout
                         android:id="@+id/mTabDetail"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/dp_78"
+                        android:layout_height="@dimen/dp_68"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/mIvSearch"

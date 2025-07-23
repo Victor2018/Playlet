@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.module.home.view.holder.HotRecommendContentHolder
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
+import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 import com.victor.module.home.R
 import com.victor.module.home.view.data.HotType
 import com.victor.module.home.view.holder.HotNewContentHolder
@@ -24,7 +25,7 @@ import com.victor.module.home.view.holder.HotSearchContentHolder
  */
 
 class HotAdapter(context: Context, listener: AdapterView.OnItemClickListener) :
-    BaseRecycleAdapter<String, RecyclerView.ViewHolder>(context, listener) {
+    BaseRecycleAdapter<HomeItemInfo, RecyclerView.ViewHolder>(context, listener) {
 
     var hotType = HotType.RECOMMEND
 
@@ -32,39 +33,35 @@ class HotAdapter(context: Context, listener: AdapterView.OnItemClickListener) :
         return null
     }
 
-    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: String?, position: Int) {
+    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             HotType.RECOMMEND -> {
-                return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend, parent))
+                return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend, parent),listener)
             }
             HotType.PLAY -> {
-                return HotPlayContentHolder(inflate(R.layout.rv_hot_play, parent))
+                return HotPlayContentHolder(inflate(R.layout.rv_hot_play, parent),listener)
             }
             HotType.NEW -> {
-                return HotNewContentHolder(inflate(R.layout.rv_hot_new, parent))
+                return HotNewContentHolder(inflate(R.layout.rv_hot_new, parent),listener)
             }
             HotType.SEARCH -> {
-                return HotSearchContentHolder(inflate(R.layout.rv_hot_search, parent))
+                return HotSearchContentHolder(inflate(R.layout.rv_hot_search, parent),listener)
             }
         }
-        return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend, parent))
+        return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend, parent),listener)
     }
 
-    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: String?, position: Int) {
+    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {
         if (viewHolder is HotRecommendContentHolder) {
-            viewHolder.mOnItemClickListener = listener
             viewHolder.bindData(data)
         } else if (viewHolder is HotPlayContentHolder) {
-            viewHolder.mOnItemClickListener = listener
             viewHolder.bindData(data)
         } else if (viewHolder is HotNewContentHolder) {
-            viewHolder.mOnItemClickListener = listener
             viewHolder.bindData(data)
         } else if (viewHolder is HotSearchContentHolder) {
-            viewHolder.mOnItemClickListener = listener
             viewHolder.bindData(data)
         }
     }

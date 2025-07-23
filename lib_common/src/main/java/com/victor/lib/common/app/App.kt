@@ -13,10 +13,11 @@ import com.victor.library.bus.LiveDataBus
 import com.victor.crash.library.SpiderCrashHandler
 import com.victor.lib.common.util.Loger
 import com.victor.lib.coremodel.action.LoginActions
-import com.victor.lib.coremodel.data.bean.LoginData
-import com.victor.lib.coremodel.data.bean.UserInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.LoginData
+import com.victor.lib.coremodel.data.remote.entity.bean.UserInfo
 import com.victor.lib.coremodel.util.AppUtil
 import com.victor.lib.coremodel.util.HttpUtil
+import com.victor.lib.coremodel.util.WebConfig
 import org.victor.http.lib.ApiClient
 import org.victor.http.lib.util.JsonUtils
 import java.lang.ref.WeakReference
@@ -62,6 +63,7 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         //初始化主进程
         if (AppUtil.inMainProcess(this)) {
 //            PluginCore.instance.init(this)
+            ApiClient.BASE_URL = WebConfig.getBaseUrl()
         }
         UMengEventModule.preInitSdk(this)
 
@@ -86,15 +88,15 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         return null
     }
 
-    fun setUserInfo(userInfo: UserInfo?) {
+    fun setUserInfo(userInfo: com.victor.lib.coremodel.data.remote.entity.bean.UserInfo?) {
         mUserInfo = userInfo
         SharedPreferencesUtils.userInfo = JsonUtils.toJSONString(mUserInfo)
     }
 
-    fun getUserInfo(): UserInfo? {
+    fun getUserInfo(): com.victor.lib.coremodel.data.remote.entity.bean.UserInfo? {
         val userRes = SharedPreferencesUtils.userInfo
         if (!TextUtils.isEmpty(userRes)) {
-            mUserInfo = JsonUtils.parseObject(userRes, UserInfo::class.java)
+            mUserInfo = JsonUtils.parseObject(userRes, com.victor.lib.coremodel.data.remote.entity.bean.UserInfo::class.java)
             return mUserInfo
         }
         return null

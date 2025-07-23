@@ -137,7 +137,7 @@
     <style name="ScrollableTabStyle" parent="Widget.Design.TabLayout" tools:ignore="ResourceName">
         <item name="tabIndicator">@drawable/tab_indicator</item>
         <item name="tabIndicatorColor">@color/color_EB4F3A</item>
-        <item name="tabIndicatorHeight">@dimen/dp_16</item>
+        <item name="tabIndicatorHeight">@dimen/dp_8</item>
         <item name="tabIndicatorFullWidth">false</item>
         <item name="android:foreground">@null</item>
         <item name="tabBackground">@null</item>

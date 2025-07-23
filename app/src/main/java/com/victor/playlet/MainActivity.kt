@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
@@ -26,7 +25,6 @@ import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.adapter.ViewPagerAdapter
 import com.victor.lib.coremodel.util.InjectorUtils
-import com.victor.lib.coremodel.vm.GankGirlVM
 import com.victor.playlet.databinding.ActivityMainBinding
 
 
@@ -34,8 +32,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener {
 
 
-    private val gankGirlVm by viewModels<GankGirlVM> {
-        InjectorUtils.provideGankGirlVm(this)
+    private val homeVM by viewModels<com.victor.lib.coremodel.data.remote.vm.HomeVM> {
+        InjectorUtils.provideHomeVM(this)
     }
 
     var mViewPagerAdapter: ViewPagerAdapter? = null
@@ -76,7 +74,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.mVpHome.adapter = mViewPagerAdapter
 
         binding.mVpHome.offscreenPageLimit = fragmentList.size
-        binding.mVpHome.canScroll = false
+        binding.mVpHome.canScroll = true
 
         binding.mBottomNav.itemIconTintList = null//解决图标被颜色覆盖问题
         binding.mBottomNav.setOnItemSelectedListener(this)
