@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.victor.lib.common.view.widget.kenburnsview.KenBurnsView
+        android:id="@+id/mIvPoster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <com.victor.lib.common.view.widget.VerticalTextView
+        android:id="@+id/mTvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/dp_58"
+        android:textColor="?attr/colorPrimary"
+        android:textColorLink="?attr/colorPrimaryDark"
+        android:fontFamily="@font/zuo_an_lian_ren"
+        app:charSpacingExtra="@dimen/dp_2"
+        app:lineSpacingExtra="@dimen/dp_10"
+        app:textLeftToRight="false"
+        app:underLineText="true"
+        app:underLineColor="@color/colorAccent"
+        app:underLineWidth="@dimen/dp_1"
+        app:textHeightLightColor="@color/colorAccent"
+        app:underlineOffset="@dimen/dp_3"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

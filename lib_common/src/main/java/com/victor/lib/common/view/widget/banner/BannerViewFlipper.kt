@@ -8,7 +8,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.AdapterView
-import android.widget.ImageView
+import android.widget.TextView
 import android.widget.ViewFlipper
 import androidx.annotation.AnimRes
 import androidx.annotation.FontRes
@@ -17,6 +17,7 @@ import com.victor.lib.common.R
 import com.victor.lib.common.util.DensityUtil
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.Loger
+import com.victor.lib.common.util.ViewUtils
 import com.victor.lib.common.view.widget.kenburnsview.KenBurnsView
 import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 
@@ -174,7 +175,7 @@ class BannerViewFlipper: ViewFlipper {
             throw RuntimeException("The messages cannot be empty!")
         }
         position = 0
-        addView(createImageView(messages[position]))
+        addView(getBannerView(messages[position]))
         if (messages.size > 1) {
             setInAndOutAnimation(inAnimResId, outAnimResID)
             startFlipping()
@@ -193,8 +194,8 @@ class BannerViewFlipper: ViewFlipper {
                     if (position >= messages.size) {
                         position = 0
                     }
-                    val view: View = createImageView(messages[position])!!
-                    if (view.getParent() == null) {
+                    val view: View = getBannerView(messages[position])
+                    if (view.parent == null) {
                         addView(view)
                     }
                     isAnimStart = false
@@ -209,27 +210,17 @@ class BannerViewFlipper: ViewFlipper {
         }
     }
 
-    private fun createImageView(marqueeItem: HomeItemInfo): KenBurnsView? {
-        var imageView: KenBurnsView? = null
-
-        if (childCount >= 3) {
-            imageView = getChildAt((displayedChild + 1) % 3) as KenBurnsView
+    private fun getBannerView(marqueeItem: HomeItemInfo): View {
+        val rootView = ViewUtils.getViewByLayout(context,R.layout.banner_item)
+        val mIvPoster = rootView.findViewById<KenBurnsView>(R.id.mIvPoster)
+        val mTvTitle = rootView.findViewById<TextView>(R.id.mTvTitle)
+        rootView.setOnClickListener {v ->
+            onItemClickListener?.onItemClick(null,v,getCurrentPosition(), ON_BANNER_ITEM_CLICK)
         }
 
-        if (imageView == null) {
-            imageView = KenBurnsView(context)
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP)
-            val padding = context.resources.getDimension(com.victor.screen.match.library.R.dimen.dp_4).toInt()
-            imageView.setPadding(padding, padding, padding, padding)
-            imageView.setOnClickListener(OnClickListener { v ->
-                if (onItemClickListener != null) {
-                    onItemClickListener!!.onItemClick(null,v,getCurrentPosition(), ON_BANNER_ITEM_CLICK)
-                }
-            })
-        }
-//        imageView.setTag(position);
-        ImageUtils.instance.loadImage(context!!,imageView,marqueeItem.data?.content?.data?.cover?.feed)
-        return imageView
+        ImageUtils.instance.loadImage(context!!,mIvPoster,marqueeItem.data?.content?.data?.cover?.feed)
+        mTvTitle.text = marqueeItem.data?.content?.data?.title
+        return rootView
     }
 
     /**

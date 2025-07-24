@@ -59,7 +59,7 @@
                         app:layout_constraintStart_toEndOf="@+id/mTabDetail"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginStart="@dimen/dp_24"
-                        android:src="@mipmap/ic_home_search"/>
+                        android:src="@mipmap/ic_search"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

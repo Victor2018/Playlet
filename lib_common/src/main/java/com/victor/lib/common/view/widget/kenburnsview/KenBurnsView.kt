@@ -1,6 +1,5 @@
 package com.victor.lib.common.view.widget.kenburnsview
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -13,6 +12,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatImageView
 
 
 /*
@@ -25,8 +25,7 @@ import androidx.annotation.RequiresApi
  * Description: 
  * -----------------------------------------------------------------
  */
-@SuppressLint("AppCompatCustomView")
-class KenBurnsView: ImageView {
+class KenBurnsView: AppCompatImageView {
     /** Delay between a pair of frames at a 60 FPS frame rate.  */
     private val FRAME_DELAY = 1000 / 60.toLong()
 

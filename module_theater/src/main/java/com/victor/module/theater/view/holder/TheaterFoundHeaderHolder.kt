@@ -33,33 +33,8 @@ class TheaterFoundHeaderHolder(itemView: View, listener: OnItemClickListener?) :
 
     fun bindData(data: HomeItemInfo?) {
         val mBsvBanner = itemView.findViewById<BannerViewFlipper>(R.id.mBsvBanner)
-        val mTsDescription = itemView.findViewById<TextSwitcher>(R.id.mTsDescription)
-
-        if (mTsDescription.childCount < 2) {
-            mTsDescription.setFactory(DescriptionViewSwitcherFactory(itemView.context))
-        }
-
-        mTsDescription.setInAnimation(itemView.context, android.R.anim.fade_in)
-        mTsDescription.setOutAnimation(itemView.context, android.R.anim.fade_out)
-        mBsvBanner.onItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (id == BannerViewFlipper.ON_BANNER_ITEM_CLICK) {
-                    mOnItemClickListener?.onItemClick(null, view, bindingAdapterPosition, 0)
-                }
-                if (id == BannerViewFlipper.ON_BANNER_ITEM_SELECT) {
-                    val title = mBsvBanner?.messages?.get(position)?.data?.content?.data?.title
-                    mTsDescription.setText(title)
-                }
-            }
-        }
-
+        mBsvBanner.onItemClickListener = mOnItemClickListener
         mBsvBanner.startWithList(data?.data?.itemList)
-
     }
 
 }
