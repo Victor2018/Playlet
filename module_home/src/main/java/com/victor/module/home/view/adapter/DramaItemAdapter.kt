@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
-import com.victor.module.home.view.holder.FollowCellContentViewHolder
+import com.victor.module.home.view.holder.DramaItemContentViewHolder
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 import com.victor.module.home.R
@@ -31,11 +31,11 @@ class DramaItemAdapter(context: Context?, listener: AdapterView.OnItemClickListe
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return FollowCellContentViewHolder(inflate(R.layout.rv_drama_item_cell ,parent),listener,parentPosition)
+        return DramaItemContentViewHolder(inflate(R.layout.rv_drama_item_cell ,parent),listener,parentPosition)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo?, position: Int) {
-        val contentViewHolder = viewHolder as FollowCellContentViewHolder
+        val contentViewHolder = viewHolder as DramaItemContentViewHolder
         contentViewHolder.mOnItemClickListener = listener
         contentViewHolder.bindData(data)
     }

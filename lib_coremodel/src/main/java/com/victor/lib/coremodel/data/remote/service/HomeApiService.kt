@@ -35,4 +35,7 @@ interface HomeApiService {
 
     @GET(HomeApi.HOT_SEARCH)
     suspend fun fetchHotSearch(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+
+    @GET(HomeApi.HOME_PLAYING)
+    suspend fun fetchHomePlaying(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 }

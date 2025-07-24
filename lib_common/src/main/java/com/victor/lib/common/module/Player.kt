@@ -11,7 +11,10 @@ import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
+import android.view.View
 import com.victor.lib.common.data.SubTitleInfo
+import com.victor.lib.common.util.Loger
+import com.victor.lib.common.util.ResUtils
 import java.util.*
 
 
@@ -220,6 +223,9 @@ class Player : TextureView.SurfaceTextureListener,
         Log.e(TAG, "onPrepared()......videoWidth = $videoWidth")
         Log.e(TAG, "onPrepared()......videoHeight = $videoHeight")
 
+        //设置显示宽高比，避免画面拉伸
+        setSurfaceViewParms()
+
         //会导致音频播放状态异常
 //        if (videoHeight != 0 && videoWidth != 0) {
         mNotifyHandler?.removeMessages(PLAYER_PREPARED)
@@ -319,6 +325,9 @@ class Player : TextureView.SurfaceTextureListener,
         return if (mMediaPlayer == null) false else mMediaPlayer!!.isPlaying()
     }
 
+    fun playUrl(videoUrl: String?) {
+        playUrl(videoUrl,false)
+    }
     fun playUrl(videoUrl: String?, isLive: Boolean) {
         Log.e(TAG, "playUrl()......$videoUrl")
         mPlayUrl = videoUrl
@@ -485,5 +494,29 @@ class Player : TextureView.SurfaceTextureListener,
             }
         }
         return subTitle
+    }
+
+    fun setSurfaceViewParms() {
+        if (mSurfaceView != null) {
+            setSurfaceViewParms(mSurfaceView)
+        }
+        if (mTextureView != null) {
+            setSurfaceViewParms(mTextureView)
+        }
+    }
+
+    fun setSurfaceViewParms(displayView: View?) {
+        if (displayView != null) {
+            val layoutParams = displayView.layoutParams
+            val videoWidth = videoWidth.toDouble()
+            val videoHeight = videoHeight.toDouble()
+            if (videoWidth > 0 && videoHeight > 0) {
+                val aspectRatio = videoWidth / videoHeight
+                Loger.e(TAG, "setSurfaceViewParms-aspectRatio = $aspectRatio")
+                var width = ResUtils.getDimenPixRes(com.victor.screen.match.library.R.dimen.dp_750)
+                layoutParams?.height = (width / aspectRatio).toInt()
+            }
+            displayView.layoutParams = layoutParams
+        }
     }
 }

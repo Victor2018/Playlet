@@ -32,4 +32,7 @@ interface IHomeDS {
 
     val hotSearchData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
     suspend fun fetchHotSearch()
+
+    val homePlayingData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
+    suspend fun fetchHomePlaying()
 }

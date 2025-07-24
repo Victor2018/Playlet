@@ -65,6 +65,14 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
         }
     }
 
+    override val homePlayingData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHomePlaying() {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            homePlayingData.value = fetchHomePlayingReq()
+        }
+    }
+
     private suspend fun <T> fetchDramaListReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(HomeApiService::class.java)
             .fetchDramaList()) as T
@@ -88,5 +96,10 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
     private suspend fun <T> fetchHotSearchReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(HomeApiService::class.java)
             .fetchHotSearch()) as T
+    }
+
+    private suspend fun <T> fetchHomePlayingReq(): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
+            .fetchHomePlaying()) as T
     }
 }

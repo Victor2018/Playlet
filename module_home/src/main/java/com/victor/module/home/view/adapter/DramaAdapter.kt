@@ -9,7 +9,7 @@ import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.common.view.widget.layoutmanager.GravitySnapHelper
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
 import com.victor.module.home.R
-import com.victor.module.home.view.holder.FollowContentViewHolder
+import com.victor.module.home.view.holder.DramaContentViewHolder
 
 /*
  * -----------------------------------------------------------------
@@ -37,11 +37,11 @@ class DramaAdapter(context: Context, listener: AdapterView.OnItemClickListener?)
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return FollowContentViewHolder(inflate(R.layout.rv_drama_cell, parent), listener)
+        return DramaContentViewHolder(inflate(R.layout.rv_drama_cell, parent), listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.FollowItem?, position: Int) {
-        val contentViewHolder = viewHolder as FollowContentViewHolder
+        val contentViewHolder = viewHolder as DramaContentViewHolder
         contentViewHolder.mOnItemClickListener = listener
         contentViewHolder.bindData(data)
     }
