@@ -9,6 +9,12 @@
     android:orientation="vertical"
     tools:ignore="MissingDefaultResource,ResourceName">
 
+    <ImageView
+        android:id="@+id/mIvPoster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
     <FrameLayout
         android:id="@+id/mFlPlay"
         android:layout_width="match_parent"

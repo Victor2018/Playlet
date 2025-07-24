@@ -2,7 +2,7 @@ package com.victor.lib.common.view.widget
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.SurfaceView
+import android.view.TextureView
 import com.victor.lib.common.module.Player
 import com.victor.lib.common.util.MainHandler
 
@@ -16,7 +16,7 @@ import com.victor.lib.common.util.MainHandler
  * Description: 
  * -----------------------------------------------------------------
  */
-class RvPlayCellView: SurfaceView {
+class RvPlayCellView: TextureView {
     private var mPlayer: Player? = null
 
     constructor(context: Context) : this(context,null)

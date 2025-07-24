@@ -126,8 +126,8 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         playCell.play(playUrl)
 
         val params = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT,
             Gravity.CENTER
         )
         mFlPlay.removeAllViews()

@@ -6,6 +6,8 @@
     android:id="@+id/mSrlRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/dp_143"
+    android:background="@color/white"
     tools:ignore="ResourceName">
 
     <androidx.constraintlayout.widget.ConstraintLayout
