@@ -12,6 +12,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
 import android.view.View
+import android.view.ViewGroup
 import com.victor.lib.common.data.SubTitleInfo
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.ResUtils
@@ -51,9 +52,6 @@ class Player : TextureView.SurfaceTextureListener,
         const val PLAYER_SEEK_COMPLETE = 0xf112
         const val TRACK_READY = 0xf113
         const val PLAYER_REPLAY = 0xf114
-        const val NO_LIVE_AT_PRESENT = 0xf115
-        const val LIVE_END = 0xf116
-        const val PLAYER_LOADING_PROGRESS = 0xf117
     }
 
     private val TAG = "Player"
@@ -84,6 +82,7 @@ class Player : TextureView.SurfaceTextureListener,
     }
 
     constructor(textureView: TextureView, handler: Handler?) {
+        Log.d(TAG, "create by......textureView")
         mNotifyHandler = handler
         mTextureView = textureView
         mTextureView?.surfaceTextureListener = this
@@ -91,6 +90,7 @@ class Player : TextureView.SurfaceTextureListener,
     }
 
     constructor(surfaceView: SurfaceView, handler: Handler?) {
+        Log.d(TAG, "create by......surfaceView")
         mNotifyHandler = handler
         open(surfaceView)
         createMediaPlayer()
@@ -101,6 +101,7 @@ class Player : TextureView.SurfaceTextureListener,
         width: Int,
         height: Int
     ) {
+        Log.d(TAG, "onSurfaceTextureAvailable()......")
         if (mSurfaceTexture == null) {
             mSurfaceTexture = surfaceTexture
             createMediaPlayer()
@@ -116,12 +117,14 @@ class Player : TextureView.SurfaceTextureListener,
         width: Int,
         height: Int
     ) {
+        Log.d(TAG, "onSurfaceTextureSizeChanged()......")
     }
 
     override fun onSurfaceTextureUpdated(surfaceTexture: SurfaceTexture) {
     }
 
     override fun onSurfaceTextureDestroyed(surfaceTexture: SurfaceTexture): Boolean {
+        Log.e(TAG, "onSurfaceTextureDestroyed()......")
         return mSurfaceTexture == null
     }
 
@@ -164,7 +167,6 @@ class Player : TextureView.SurfaceTextureListener,
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     fun setDisplay() {
@@ -428,10 +430,14 @@ class Player : TextureView.SurfaceTextureListener,
             mMediaPlayer?.release()
             mMediaPlayer = null
         }
+
+        mTextureView?.surfaceTextureListener = null
         mSurfaceTexture?.release()
         mSurfaceTexture = null
         mSurface?.release()
         mSurface = null
+        mTextureView = null
+        mSurfaceView = null
     }
 
     fun getLastPlayUrl(): String? {
@@ -505,7 +511,7 @@ class Player : TextureView.SurfaceTextureListener,
         }
     }
 
-    fun setSurfaceViewParms(displayView: View?) {
+    private fun setSurfaceViewParms(displayView: View?) {
         if (displayView != null) {
             val layoutParams = displayView.layoutParams
             val videoWidth = videoWidth.toDouble()
@@ -513,7 +519,7 @@ class Player : TextureView.SurfaceTextureListener,
             if (videoWidth > 0 && videoHeight > 0) {
                 val aspectRatio = videoWidth / videoHeight
                 Loger.e(TAG, "setSurfaceViewParms-aspectRatio = $aspectRatio")
-                var width = ResUtils.getDimenPixRes(com.victor.screen.match.library.R.dimen.dp_750)
+                val width = ResUtils.getDimenPixRes(com.victor.screen.match.library.R.dimen.dp_750)
                 layoutParams?.height = (width / aspectRatio).toInt()
             }
             displayView.layoutParams = layoutParams

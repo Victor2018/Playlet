@@ -23,6 +23,7 @@ import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.module.home.R
 import com.victor.module.home.databinding.FragmentHomeRecommendBinding
 import com.victor.module.home.view.adapter.PlayingAdapter
+import com.victor.module.home.view.holder.PlayingContentViewHolder
 import org.victor.http.lib.data.HttpResult
 
 
@@ -67,6 +68,8 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         val layoutManager = ViewPagerLayoutManager(requireContext(), LinearLayoutManager.VERTICAL)
         layoutManager.setOnViewPagerListener(this)
         binding.mRvPlaying.layoutManager = layoutManager
+
+        binding.mSrlRefresh.setOnRefreshListener(this)
         subscribeUi()
     }
 
@@ -107,8 +110,8 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         Log.i(TAG,"onPageRelease()......isNext = $isNext")
         Log.i(TAG,"onPageRelease()......position = $position")
 
-        val itemView: View = binding.mRvPlaying.getChildAt(0)
-        val mFlPlay = itemView.findViewById<FrameLayout>(R.id.mFlPlay)
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position) as PlayingContentViewHolder
+        val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
         mFlPlay.removeAllViews()
     }
 
@@ -117,22 +120,18 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         Log.i(TAG,"onPageSelected()......isBottom = $isBottom")
         Log.i(TAG,"onPageSelected()......position = $position")
 
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position) as PlayingContentViewHolder
+        val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
+        val playCell = RvPlayCellView(requireContext())
+
+        mFlPlay.removeAllViews()
+        mFlPlay.addView(playCell)
+
         val data = mPlayingAdapter?.getItem(position)
         val playUrl = data?.data?.playUrl
         Log.i(TAG,"onPageSelected()......playUrl = $playUrl")
-        val itemView: View = binding.mRvPlaying.getChildAt(0)
-        val mFlPlay = itemView.findViewById<FrameLayout>(R.id.mFlPlay)
-        val playCell = RvPlayCellView(requireContext())
         playCell.play(playUrl)
 
-        val params = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.WRAP_CONTENT,
-            FrameLayout.LayoutParams.WRAP_CONTENT,
-            Gravity.CENTER
-        )
-        mFlPlay.removeAllViews()
-        mFlPlay.addView(playCell,params)
     }
-
 
 }

@@ -3,7 +3,6 @@ package com.victor.module.home.view.holder
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
-import android.widget.TextView
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
@@ -23,8 +22,6 @@ class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClick
     ContentViewHolder<HomeItemInfo>(itemView,listener) {
 
     override fun bindData(data: HomeItemInfo?) {
-        val mTvTitle = itemView.findViewById<TextView>(R.id.mTvTitle)
-        mTvTitle.text = data?.data?.title ?: ""
         val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
         val url = data?.data?.cover?.feed ?: ""
         ImageUtils.instance.imageGauss(itemView.context,mIvPoster, url,20)
