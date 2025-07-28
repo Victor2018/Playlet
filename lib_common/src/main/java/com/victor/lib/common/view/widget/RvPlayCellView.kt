@@ -5,11 +5,15 @@ import android.os.Message
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.OnClickListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.victor.lib.common.databinding.PlayCellBinding
 import com.victor.lib.common.module.Player
 import com.victor.lib.common.util.MainHandler
 import com.victor.lib.common.util.NetworkUtils
+import com.victor.lib.common.util.ViewUtils.hide
+import com.victor.lib.common.util.ViewUtils.show
 
 /*
  * -----------------------------------------------------------------
@@ -21,7 +25,7 @@ import com.victor.lib.common.util.NetworkUtils
  * Description: 
  * -----------------------------------------------------------------
  */
-class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl {
+class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickListener {
     private val TAG = "RvPlayCellView"
     private lateinit var binding: PlayCellBinding
     private var mPlayer: Player? = null
@@ -39,10 +43,23 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl {
         MainHandler.get().register(this)
         binding = PlayCellBinding.inflate(LayoutInflater.from(context), this, true)
         mPlayer = Player(binding.mTvPlay,MainHandler.get())
+        setOnClickListener(this)
     }
 
     fun play(playUrl: String?) {
         mPlayer?.playUrl(playUrl)
+    }
+
+    fun pause() {
+        if (mPlayer?.isPlaying() == false) return
+        mPlayer?.pause()
+        binding.mIvPlay.show()
+    }
+
+    fun resume() {
+        if (mPlayer?.isPlaying() == true) return
+        mPlayer?.resume()
+        binding.mIvPlay.hide()
     }
 
     private fun startLoadingAnimation() {
@@ -127,6 +144,14 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl {
             Player.PLAYER_COMPLETE -> {
                 //这里放在外层处理有可能还有其他试看视频
             }
+        }
+    }
+
+    override fun onClick(v: View?) {
+        if (mPlayer?.isPlaying() == true) {
+            pause()
+        } else {
+            resume()
         }
     }
 }

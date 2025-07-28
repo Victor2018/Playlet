@@ -25,6 +25,7 @@ import com.victor.module.home.databinding.FragmentHomeRecommendBinding
 import com.victor.module.home.view.adapter.PlayingAdapter
 import com.victor.module.home.view.holder.PlayingContentViewHolder
 import org.victor.http.lib.data.HttpResult
+import androidx.core.view.isNotEmpty
 
 
 class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(FragmentHomeRecommendBinding::inflate),
@@ -45,6 +46,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
     private lateinit var mHomeVM: HomeVM
     private var mPlayingAdapter: PlayingAdapter? = null
+    private var currentPosition = -1
 
     override fun handleBackEvent(): Boolean {
         return false
@@ -58,6 +60,16 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         super.onViewCreated(view, savedInstanceState)
         initView()
         initData()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getCurrentPlayView()?.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getCurrentPlayView()?.resume()
     }
 
     private fun initView() {
@@ -116,6 +128,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     override fun onPageSelected(position: Int, isBottom: Boolean) {
+        currentPosition = position
         //isBottom == true 可以加载下一页数据
         Log.i(TAG,"onPageSelected()......isBottom = $isBottom")
         Log.i(TAG,"onPageSelected()......position = $position")
@@ -131,7 +144,19 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         val playUrl = data?.data?.playUrl
         Log.i(TAG,"onPageSelected()......playUrl = $playUrl")
         playCell.play(playUrl)
+    }
 
+    private fun getCurrentPlayView(): RvPlayCellView? {
+        if (currentPosition == -1) return null
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
+            val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
+            if (mFlPlay?.isNotEmpty() == true) {
+                val childView = mFlPlay.getChildAt(0)
+                if (childView is RvPlayCellView) {
+                    return childView
+                }
+            }
+        return null
     }
 
 }

@@ -21,7 +21,8 @@ import androidx.core.content.withStyledAttributes
  * File: ExpandableTextView
  * Author: Victor
  * Date: 2022/4/27 12:13
- * Description: 
+ * Description:
+ * https://github.com/Blogcat/Android-ExpandableTextView
  * -----------------------------------------------------------------
  */
 
