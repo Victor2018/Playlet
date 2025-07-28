@@ -277,6 +277,11 @@
 
     <declare-styleable name="ExpandableTextView">
         <attr name="animation_duration" format="integer"/>
+        <attr name="expandText" format="string" />
+        <attr name="collapseText" format="string" />
+        <attr name="stateTextColor" format="color" />
+        <attr name="stateTextSize" format="dimension" />
+        <attr name="showStateText" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SwipeMenuLayout">

@@ -39,19 +39,19 @@ class HotAdapter(context: Context, listener: AdapterView.OnItemClickListener) :
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             HotType.RECOMMEND -> {
-                return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend, parent),listener)
+                return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend_cell, parent),listener)
             }
             HotType.PLAY -> {
-                return HotPlayContentHolder(inflate(R.layout.rv_hot_play, parent),listener)
+                return HotPlayContentHolder(inflate(R.layout.rv_hot_play_cell, parent),listener)
             }
             HotType.NEW -> {
-                return HotNewContentHolder(inflate(R.layout.rv_hot_new, parent),listener)
+                return HotNewContentHolder(inflate(R.layout.rv_hot_new_cell, parent),listener)
             }
             HotType.SEARCH -> {
-                return HotSearchContentHolder(inflate(R.layout.rv_hot_search, parent),listener)
+                return HotSearchContentHolder(inflate(R.layout.rv_hot_search_cell, parent),listener)
             }
         }
-        return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend, parent),listener)
+        return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend_cell, parent),listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {

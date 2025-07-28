@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/dp_128"
+    android:paddingStart="@dimen/dp_32"
+    android:paddingEnd="@dimen/dp_32"
+    app:layout_collapseMode="parallax"
+    app:layout_collapseParallaxMultiplier="0.9"
+    tools:ignore="ResourceName">
+    
+    <com.victor.lib.common.view.widget.ShapedImageView
+        android:id="@+id/mCivAvatar"
+        android:layout_width="@dimen/dp_110"
+        android:layout_height="@dimen/dp_110"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ic_avatar"
+        android:scaleType="centerCrop"
+        app:shape_mode="circle"
+        app:stroke_color="@color/white"
+        app:stroke_width="@dimen/dp_2"/>
+
+    <ImageView
+        android:id="@+id/mIvSex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/mCivAvatar"
+        app:layout_constraintEnd_toEndOf="@+id/mCivAvatar"
+        android:src="@mipmap/ic_me_male"/>
+
+    <TextView
+        android:id="@+id/mTvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/mCivAvatar"
+        app:layout_constraintTop_toTopOf="@+id/mCivAvatar"
+        app:layout_constraintBottom_toBottomOf="@+id/mCivAvatar"
+        android:layout_marginStart="@dimen/dp_25"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textStyle="bold"
+        android:textSize="@dimen/dp_40"
+        android:textColor="@color/color_333333"
+        android:text="王大锤"/>
+
+    <ImageView
+        android:id="@+id/mIvEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        app:layout_constraintStart_toEndOf="@+id/mTvUserName"
+        app:layout_constraintTop_toTopOf="@+id/mTvUserName"
+        app:layout_constraintBottom_toBottomOf="@+id/mTvUserName"
+        android:layout_marginStart="@dimen/dp_27"
+        android:src="@mipmap/ic_me_edit"/>
+
+    <View
+        android:id="@+id/view_action_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_120"
+        app:layout_constraintTop_toBottomOf="@+id/mCivAvatar"
+        android:background="@drawable/shape_white_radius_12"
+        android:layout_marginTop="@dimen/dp_20"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

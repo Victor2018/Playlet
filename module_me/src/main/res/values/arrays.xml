@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="me_tab_titles">
+		<item>历史</item>
+		<item>在追</item>
+		<item>点赞</item>
+		<item>已购</item>
+		<item>下载</item>
+    </string-array>
+
+</resources>
