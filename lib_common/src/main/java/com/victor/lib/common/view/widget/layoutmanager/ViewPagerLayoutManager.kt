@@ -62,13 +62,15 @@ class ViewPagerLayoutManager: LinearLayoutManager {
         when (state) {
             RecyclerView.SCROLL_STATE_IDLE -> {
                 val viewIdle = mPagerSnapHelper?.findSnapView(this)
-                val positionIdle = getPosition(viewIdle!!)
-                if (positionIdle != mLastSelectPosition) {
-                    val isBottom = positionIdle == itemCount - 1
-                    mOnViewPagerListener?.onPageSelected(positionIdle, isBottom)
-                }
+                if (viewIdle != null) {
+                    val positionIdle = getPosition(viewIdle)
+                    if (positionIdle != mLastSelectPosition) {
+                        val isBottom = positionIdle == itemCount - 1
+                        mOnViewPagerListener?.onPageSelected(positionIdle, isBottom)
+                    }
 
-                mLastSelectPosition = positionIdle
+                    mLastSelectPosition = positionIdle
+                }
             }
 
             RecyclerView.SCROLL_STATE_DRAGGING -> {

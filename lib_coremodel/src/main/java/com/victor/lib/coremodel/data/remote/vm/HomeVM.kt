@@ -57,10 +57,10 @@ class HomeVM(private val dataSource: IHomeDS): ViewModel() {
     }
 
     val homePlayingData = dataSource.homePlayingData
-    fun fetchHomePlaying() {
+    fun fetchHomePlaying(id: Int) {
         // Launch a coroutine that reads from a remote data source and updates cache
         viewModelScope.launch {
-            dataSource.fetchHomePlaying()
+            dataSource.fetchHomePlaying(id)
         }
     }
 }

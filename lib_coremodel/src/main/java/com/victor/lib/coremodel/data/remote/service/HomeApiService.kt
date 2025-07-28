@@ -7,6 +7,8 @@ import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import org.victor.http.lib.adapter.NetworkResponse
 import org.victor.http.lib.data.HttpError
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 /*
@@ -37,5 +39,9 @@ interface HomeApiService {
     suspend fun fetchHotSearch(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 
     @GET(HomeApi.HOME_PLAYING)
-    suspend fun fetchHomePlaying(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+    suspend fun fetchHomePlaying(
+        @Query("id") id: Int,
+        @Query("deviceModel") deviceModel: String?,
+        @Query("udid") udid: String?
+    ): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 }

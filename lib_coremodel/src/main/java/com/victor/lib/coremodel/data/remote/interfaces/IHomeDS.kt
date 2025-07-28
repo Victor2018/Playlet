@@ -34,5 +34,5 @@ interface IHomeDS {
     suspend fun fetchHotSearch()
 
     val homePlayingData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
-    suspend fun fetchHomePlaying()
+    suspend fun fetchHomePlaying(id: Int)
 }

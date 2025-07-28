@@ -17,5 +17,5 @@ object HomeApi {
     const val HOT_PLAY = "api/v4/rankList/videos?strategy=monthly"
     const val HOT_NEW = "api/v5/index/tab/feed"
     const val HOT_SEARCH = "api/v4/rankList/videos?strategy=historical"
-    const val HOME_PLAYING = "api/v4/categories/videoList?udid=d2807c895f0348a180148c9dfa6f2feeac0781b5&deviceModel=Android&id=22"
+    const val HOME_PLAYING = "api/v4/categories/videoList"
 }

@@ -26,6 +26,8 @@ import com.victor.module.home.view.adapter.PlayingAdapter
 import com.victor.module.home.view.holder.PlayingContentViewHolder
 import org.victor.http.lib.data.HttpResult
 import androidx.core.view.isNotEmpty
+import com.victor.lib.common.util.DramaShowUtil
+import kotlin.random.Random
 
 
 class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(FragmentHomeRecommendBinding::inflate),
@@ -104,7 +106,9 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     fun sendHomePlayingRequest() {
-        mHomeVM.fetchHomePlaying()
+        val ids = listOf(2, 4, 6, 8, 10, 12, 14,18,20,22,24,26,28,30,32,34,36,38)
+        val id = ids.random()
+        mHomeVM.fetchHomePlaying(id)
     }
 
     fun showHomePlayingData(data: BaseRes<HomeItemInfo>) {
