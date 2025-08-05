@@ -30,7 +30,7 @@ class TheaterHotAdapter(context: Context?, listener: AdapterView.OnItemClickList
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TheaterHotContentHolder(inflate(R.layout.rv_theater_hot, parent), listener)
+        return TheaterHotContentHolder(inflate(R.layout.rv_theater_hot_cell, parent), listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {

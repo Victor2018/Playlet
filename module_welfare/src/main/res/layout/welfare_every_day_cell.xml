@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_20"
+    android:paddingStart="@dimen/dp_20"
+    android:paddingEnd="@dimen/dp_20"
+    android:background="@drawable/shape_white_radius_16"
+    tools:ignore="ResourceName">
+
+    <View
+        android:id="@+id/line_everyday"
+        android:layout_width="@dimen/dp_8"
+        android:layout_height="@dimen/dp_28"
+        app:layout_constraintTop_toTopOf="@+id/mTvEveryDay"
+        app:layout_constraintBottom_toBottomOf="@+id/mTvEveryDay"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/shape_ff5722_radius_4"/>
+
+    <TextView
+        android:id="@+id/mTvEveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_80"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/line_everyday"
+        android:layout_marginStart="@dimen/dp_8"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_36"
+        android:text="每日看剧赚钱"/>
+
+    <TextView
+        android:id="@+id/tv_watch_drama_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/mTvEveryDay"
+        app:layout_constraintStart_toStartOf="@+id/mTvEveryDay"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="看短剧领金币"/>
+
+    <com.victor.lib.common.view.widget.DrawableCenterTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_watch_drama_coin"
+        app:layout_constraintStart_toEndOf="@+id/tv_watch_drama_coin"
+        android:layout_marginStart="@dimen/dp_10"
+        android:gravity="center"
+        android:drawableLeft="@mipmap/ic_welfare_coin"
+        android:drawablePadding="@dimen/dp_5"
+        android:textColor="@color/color_FF8F18"
+        android:textSize="@dimen/dp_28"
+        android:text="最高6600"/>
+
+    <TextView
+        android:id="@+id/tv_watch_drama_coin_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_watch_drama_coin"
+        app:layout_constraintStart_toStartOf="@+id/mTvEveryDay"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/dp_20"
+        android:text="再攒600金币，可领取600金币"/>
+
+    <TextView
+        android:id="@+id/mTvCoinWatch"
+        android:layout_width="@dimen/dp_160"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/tv_watch_drama_coin"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_watch_drama_coin_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:gravity="center"
+        android:background="@drawable/border_33ff5722_radius_8"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="去观看"/>
+
+    <com.victor.lib.common.view.widget.LMRecyclerView
+        android:id="@+id/mRvEveryDay"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_160"
+        app:layout_constraintTop_toBottomOf="@+id/tv_watch_drama_coin_tip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mTvEveryDayCoin"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:requiresFadingEdge="horizontal"
+        android:fadingEdgeLength="@dimen/dp_10"/>
+
+    <TextView
+        android:id="@+id/mTvEveryDayCoin"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_160"
+        app:layout_constraintBottom_toBottomOf="@+id/mRvEveryDay"
+        app:layout_constraintStart_toEndOf="@+id/mRvEveryDay"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@mipmap/img_red_pkg"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/mTvEveryDayCoin"
+        app:layout_constraintStart_toStartOf="@+id/mTvEveryDayCoin"
+        app:layout_constraintEnd_toEndOf="@+id/mTvEveryDayCoin"
+        android:layout_marginBottom="@dimen/dp_46"
+        android:src="@mipmap/ic_red_pkg_icon"/>
+
+    <TextView
+        android:id="@+id/mTvCoinValue"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_100"
+        app:layout_constraintTop_toTopOf="@+id/mTvEveryDayCoin"
+        app:layout_constraintStart_toStartOf="@+id/mTvEveryDayCoin"
+        app:layout_constraintEnd_toEndOf="@+id/mTvEveryDayCoin"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/dp_42"
+        android:textColor="@color/white"
+        android:text="888"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

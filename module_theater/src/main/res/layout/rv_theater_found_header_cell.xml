@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.victor.lib.common.view.widget.banner.BannerViewFlipper
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mBsvBanner"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_298"
+    app:mvAnimDuration="1000"
+    app:mvInterval="10000"
+    app:mvDirection="right_to_left"
+    tools:ignore="ResourceName" />
+

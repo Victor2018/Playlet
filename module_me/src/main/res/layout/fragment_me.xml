@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_456"
+        android:layout_height="@dimen/dp_520"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
 
@@ -47,17 +47,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/mIvBack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginStart="@dimen/dp_12"
-                        android:padding="@dimen/dp_20"
-                        android:src="@mipmap/ic_black_arrow_left"/>
-
                     <TextView
                         android:id="@+id/mTvTitle"
                         android:layout_width="wrap_content"
@@ -69,7 +58,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/dp_36"
-                        android:text="导师简介"/>
+                        android:text="我的"/>
 
                     <ImageView
                         android:id="@+id/mIvSetting"
@@ -85,6 +74,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.appcompat.widget.Toolbar>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -93,7 +83,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_white_top_radius_20"
+        android:background="@drawable/shape_white_top_radius_40"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -103,10 +93,11 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/mTabDetail"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_74"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/FixedTabStyle" />
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/ScrollableTabStyle" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/mVpDetail"

@@ -139,6 +139,7 @@
         <item name="tabIndicatorColor">@color/color_EB4F3A</item>
         <item name="tabIndicatorHeight">@dimen/dp_8</item>
         <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabMinWidth">@dimen/dp_130</item>
         <item name="android:foreground">@null</item>
         <item name="tabBackground">@null</item>
         <item name="tabRippleColor">@null</item>
@@ -175,7 +176,6 @@
         <item name="tabSelectedTextColor">@color/colorPrimary</item>
         <item name="tabMode">scrollable</item>
     </style>
-
 
     <style name="TransparentBottomSheetStyle" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/SheetStyle</item>

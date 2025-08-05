@@ -26,7 +26,7 @@ class TheaterFoundAdapter(context: Context?, listener: AdapterView.OnItemClickLi
     var mHomeItemInfo: HomeItemInfo? = null
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TheaterFoundHeaderHolder(inflate(R.layout.rv_theater_found_header, parent), listener)
+        return TheaterFoundHeaderHolder(inflate(R.layout.rv_theater_found_header_cell, parent), listener)
     }
 
     override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {
@@ -35,7 +35,7 @@ class TheaterFoundAdapter(context: Context?, listener: AdapterView.OnItemClickLi
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TheaterFoundContentHolder(inflate(R.layout.rv_theater_found, parent), listener)
+        return TheaterFoundContentHolder(inflate(R.layout.rv_theater_found_cell, parent), listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {

@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.hok.lib.common.base.ARouterPath
@@ -57,7 +56,6 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
         fragmentList.add(FollowingFragment.newInstance())
         fragmentList.add(LikesFragment.newInstance())
         fragmentList.add(PurchasedFragment.newInstance())
-        fragmentList.add(DowloadsFragment.newInstance())
 
         mTabPagerAdapter = TabPagerAdapter(childFragmentManager)
         mTabPagerAdapter?.titles = pagerTitles
@@ -75,12 +73,10 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
         val totalScrollRange = appBarLayout?.totalScrollRange ?: 0
         if (verticalOffset == 0) {
             //展开状态
-            binding.mIvBack.setImageResource(com.victor.lib.common.R.mipmap.ic_black_arrow_left)
             binding.mIvSetting.setImageResource(R.mipmap.ic_me_setting_black)
             binding.mTvTitle.setTextColor(ResUtils.getColorRes(com.victor.lib.common.R.color.color_333333))
         } else if (Math.abs(verticalOffset) >= totalScrollRange) {
             //折叠状态
-            binding.mIvBack.setImageResource(com.victor.lib.common.R.mipmap.ic_back_white)
             binding.mIvSetting.setImageResource(R.mipmap.ic_me_setting_white)
             binding.mTvTitle.setTextColor(ResUtils.getColorRes(com.victor.lib.common.R.color.white))
         } else {

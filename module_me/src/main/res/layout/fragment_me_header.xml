@@ -41,28 +41,79 @@
         app:layout_constraintBottom_toBottomOf="@+id/mCivAvatar"
         android:layout_marginStart="@dimen/dp_25"
         android:layout_marginTop="@dimen/dp_10"
+        android:drawableRight="@mipmap/ic_me_header_edit"
+        android:drawablePadding="@dimen/dp_10"
         android:textStyle="bold"
         android:textSize="@dimen/dp_40"
         android:textColor="@color/color_333333"
         android:text="王大锤"/>
 
-    <ImageView
-        android:id="@+id/mIvEditProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
-        app:layout_constraintStart_toEndOf="@+id/mTvUserName"
-        app:layout_constraintTop_toTopOf="@+id/mTvUserName"
-        app:layout_constraintBottom_toBottomOf="@+id/mTvUserName"
-        android:layout_marginStart="@dimen/dp_27"
-        android:src="@mipmap/ic_me_edit"/>
-
     <View
         android:id="@+id/view_action_bg"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_120"
+        android:layout_height="@dimen/dp_140"
         app:layout_constraintTop_toBottomOf="@+id/mCivAvatar"
         android:background="@drawable/shape_white_radius_12"
-        android:layout_marginTop="@dimen/dp_20"/>
+        android:layout_marginTop="@dimen/dp_40"/>
+
+    <TextView
+        android:id="@+id/mTvWithdrawal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/view_action_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/view_action_bg"
+        app:layout_constraintStart_toStartOf="@+id/view_action_bg"
+        app:layout_constraintEnd_toStartOf="@+id/mTvMessage"
+        android:drawableTop="@mipmap/ic_me_withdrawal"
+        android:drawablePadding="@dimen/dp_5"
+        android:gravity="center"
+        android:textSize="@dimen/dp_28"
+        android:textColor="@color/color_333333"
+        android:text="提现"/>
+
+    <TextView
+        android:id="@+id/mTvMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/view_action_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/view_action_bg"
+        app:layout_constraintStart_toEndOf="@+id/mTvWithdrawal"
+        app:layout_constraintEnd_toStartOf="@+id/mTvPreference"
+        android:drawableTop="@mipmap/ic_me_message"
+        android:drawablePadding="@dimen/dp_5"
+        android:gravity="center"
+        android:textSize="@dimen/dp_28"
+        android:textColor="@color/color_333333"
+        android:text="消息"/>
+
+    <TextView
+        android:id="@+id/mTvPreference"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/view_action_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/view_action_bg"
+        app:layout_constraintStart_toEndOf="@+id/mTvMessage"
+        app:layout_constraintEnd_toStartOf="@+id/mTvCustomerService"
+        android:drawableTop="@mipmap/ic_me_preference"
+        android:drawablePadding="@dimen/dp_5"
+        android:gravity="center"
+        android:textSize="@dimen/dp_28"
+        android:textColor="@color/color_333333"
+        android:text="偏好"/>
+
+    <TextView
+        android:id="@+id/mTvCustomerService"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/view_action_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/view_action_bg"
+        app:layout_constraintStart_toEndOf="@+id/mTvPreference"
+        app:layout_constraintEnd_toEndOf="@+id/view_action_bg"
+        android:drawableTop="@mipmap/ic_me_customer_service"
+        android:drawablePadding="@dimen/dp_5"
+        android:gravity="center"
+        android:textSize="@dimen/dp_28"
+        android:textColor="@color/color_333333"
+        android:text="客服"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
