@@ -46,7 +46,7 @@
         android:textSize="@dimen/dp_28"
         android:text="打开通知领1200金币"/>
 
-    <com.victor.lib.common.view.widget.DrawableCenterTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_daily_task_coin"
@@ -69,11 +69,11 @@
         android:gravity="center"
         android:textColor="@color/color_999999"
         android:textSize="@dimen/dp_20"
-        android:text="打开通知开关，好句不错过"/>
+        android:text="打开通知开关，好剧不错过"/>
 
     <TextView
         android:id="@+id/mTvDailyTaskGet"
-        android:layout_width="@dimen/dp_160"
+        android:layout_width="@dimen/dp_140"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/tv_daily_task_coin"
         app:layout_constraintBottom_toBottomOf="@+id/tv_daily_task_coin"
@@ -106,7 +106,7 @@
         android:textSize="@dimen/dp_28"
         android:text="提现0.3元"/>
 
-    <com.victor.lib.common.view.widget.DrawableCenterTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_withdrawal"
@@ -133,7 +133,7 @@
 
     <TextView
         android:id="@+id/mTvWithdrawal"
-        android:layout_width="@dimen/dp_160"
+        android:layout_width="@dimen/dp_140"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/line_coin"
         app:layout_constraintBottom_toBottomOf="@+id/tv_withdrawal_tip"
@@ -166,7 +166,7 @@
         android:textSize="@dimen/dp_28"
         android:text="签到领金币"/>
 
-    <com.victor.lib.common.view.widget.DrawableCenterTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_check_in"
@@ -193,7 +193,7 @@
 
     <TextView
         android:id="@+id/mTvCheckIn"
-        android:layout_width="@dimen/dp_160"
+        android:layout_width="@dimen/dp_140"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/tv_check_in"
         app:layout_constraintBottom_toBottomOf="@+id/tv_check_in_tip"
@@ -226,7 +226,7 @@
         android:textSize="@dimen/dp_28"
         android:text="添加桌面看剧组件"/>
 
-    <com.victor.lib.common.view.widget.DrawableCenterTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_desktop_widget"
@@ -253,7 +253,7 @@
 
     <TextView
         android:id="@+id/mTvAddDesktopWidget"
-        android:layout_width="@dimen/dp_160"
+        android:layout_width="@dimen/dp_140"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/tv_desktop_widget"
         app:layout_constraintBottom_toBottomOf="@+id/tv_desktop_widget_tip"
@@ -265,5 +265,277 @@
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/dp_28"
         android:text="去添加"/>
-    
+
+    <View
+        android:id="@+id/line_prize_draw"
+        style="@style/base_line_horizontal"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desktop_widget_tip"
+        android:layout_marginTop="@dimen/dp_20"/>
+
+    <TextView
+        android:id="@+id/tv_prize_draw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/line_prize_draw"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="天天抽奖赚金币"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_prize_draw"
+        app:layout_constraintStart_toEndOf="@+id/tv_prize_draw"
+        android:layout_marginStart="@dimen/dp_10"
+        android:gravity="center"
+        android:drawableLeft="@mipmap/ic_welfare_coin"
+        android:drawablePadding="@dimen/dp_5"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="最高15000"/>
+
+    <TextView
+        android:id="@+id/tv_prize_draw_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_prize_draw"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/dp_20"
+        android:text="连抽5天可额外得1740金币"/>
+
+    <TextView
+        android:id="@+id/mTvPrizeDraw"
+        android:layout_width="@dimen/dp_140"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/tv_prize_draw"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_prize_draw_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:background="@drawable/border_33ff5722_radius_8"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="去抽奖"/>
+
+    <View
+        android:id="@+id/line_meal"
+        style="@style/base_line_horizontal"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_prize_draw_tip"
+        android:layout_marginTop="@dimen/dp_20"/>
+
+    <TextView
+        android:id="@+id/tv_meal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/line_meal"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="到饭点领饭补"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_meal"
+        app:layout_constraintStart_toEndOf="@+id/tv_meal"
+        android:layout_marginStart="@dimen/dp_10"
+        android:gravity="center"
+        android:drawableLeft="@mipmap/ic_welfare_coin"
+        android:drawablePadding="@dimen/dp_5"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="最高4540"/>
+
+    <TextView
+        android:id="@+id/tv_meal_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_meal"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/dp_20"
+        android:text="你有饭补未领取哦，立即领取"/>
+
+    <TextView
+        android:id="@+id/mTvMeal"
+        android:layout_width="@dimen/dp_140"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/tv_meal"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_meal_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:background="@drawable/border_33ff5722_radius_8"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="去领取"/>
+
+    <View
+        android:id="@+id/line_invite"
+        style="@style/base_line_horizontal"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_meal_tip"
+        android:layout_marginTop="@dimen/dp_20"/>
+
+    <TextView
+        android:id="@+id/tv_invite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/line_invite"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="邀请新朋友得现金"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_invite"
+        app:layout_constraintStart_toEndOf="@+id/tv_invite"
+        android:layout_marginStart="@dimen/dp_10"
+        android:gravity="center"
+        android:drawableLeft="@mipmap/ic_welfare_cash"
+        android:drawablePadding="@dimen/dp_5"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="32元"/>
+
+    <TextView
+        android:id="@+id/tv_invite_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_invite"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/dp_20"
+        android:text="邀请1人可得32元，多邀多得"/>
+
+    <TextView
+        android:id="@+id/mTvInvite"
+        android:layout_width="@dimen/dp_140"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/tv_invite"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_invite_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:background="@drawable/border_33ff5722_radius_8"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="去赚钱"/>
+
+    <com.victor.lib.common.view.widget.DrawableCenterTextView
+        android:id="@+id/mTvWechatShare"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_60"
+        app:layout_constraintTop_toBottomOf="@+id/tv_invite_tip"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        app:layout_constraintEnd_toStartOf="@+id/mTvCodeShare"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@drawable/shape_fafafa_radius_8"
+        android:gravity="center"
+        android:drawableLeft="@mipmap/ic_welfare_wechat_share"
+        android:drawablePadding="@dimen/dp_10"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="微信邀请"/>
+
+    <com.victor.lib.common.view.widget.DrawableCenterTextView
+        android:id="@+id/mTvCodeShare"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_60"
+        app:layout_constraintBaseline_toBaselineOf="@+id/mTvWechatShare"
+        app:layout_constraintStart_toEndOf="@+id/mTvWechatShare"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/dp_20"
+        android:background="@drawable/shape_fafafa_radius_8"
+        android:gravity="center"
+        android:drawableLeft="@mipmap/ic_welfare_code_share"
+        android:drawablePadding="@dimen/dp_10"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="面对面邀请"/>
+
+    <View
+        android:id="@+id/line_like"
+        style="@style/base_line_horizontal"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/mTvWechatShare"
+        android:layout_marginTop="@dimen/dp_30"/>
+
+    <TextView
+        android:id="@+id/tv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/line_like"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="点赞剧集领400金币"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_like"
+        app:layout_constraintStart_toEndOf="@+id/tv_like"
+        android:layout_marginStart="@dimen/dp_10"
+        android:gravity="center"
+        android:drawableLeft="@mipmap/ic_welfare_coin"
+        android:drawablePadding="@dimen/dp_5"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="800"/>
+
+    <TextView
+        android:id="@+id/tv_like_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_like"
+        app:layout_constraintStart_toStartOf="@+id/mTvDailyTask"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/dp_20"
+        android:text="今日已领取（0/2）"/>
+
+    <TextView
+        android:id="@+id/mTvLike"
+        android:layout_width="@dimen/dp_140"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/tv_like"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_like_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:background="@drawable/border_33ff5722_radius_8"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/dp_28"
+        android:text="去点赞"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

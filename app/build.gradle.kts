@@ -25,6 +25,14 @@ android {
             )
         }
     }
+
+    applicationVariants.all {
+        outputs.all {
+            val outputImpl = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            outputImpl.outputFileName = "${rootProject.name}_${productFlavors[0].name}_${buildType.name}_v" +
+                    "${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+        }
+    }
 }
 
 dependencies {

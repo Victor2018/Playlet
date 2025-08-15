@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.appbar.AppBarLayout
 import com.hok.lib.common.base.ARouterPath
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.view.widget.LMRecyclerView
@@ -14,7 +15,8 @@ import com.victor.module.welfare.view.adapter.EveryDayAdapter
 import com.victor.module.welfare.view.adapter.NewComerAdapter
 
 @Route(path = ARouterPath.WelfareFgt)
-class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBinding::inflate),OnItemClickListener {
+class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBinding::inflate),
+    OnItemClickListener, AppBarLayout.OnOffsetChangedListener {
 
     companion object {
         fun newInstance(): WelfareFragment {
@@ -52,6 +54,8 @@ class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBind
 
         binding.root.findViewById<LMRecyclerView>(R.id.mRvEveryDay).adapter = mEveryDayAdapter
         binding.root.findViewById<LMRecyclerView>(R.id.mRvMeetingGift).adapter = mNewComerAdapter
+
+        binding.appbar.addOnOffsetChangedListener(this)
     }
 
     private fun initData() {
@@ -66,5 +70,9 @@ class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBind
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        binding.mSrlRefresh.isEnabled = verticalOffset >= 0
     }
 }

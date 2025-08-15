@@ -46,7 +46,7 @@
         android:textSize="@dimen/dp_28"
         android:text="现金红包"/>
 
-    <com.victor.lib.common.view.widget.DrawableCenterTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_cash_red_pkg"
@@ -73,7 +73,7 @@
 
     <TextView
         android:id="@+id/mTvNewComerWithdrawal"
-        android:layout_width="@dimen/dp_160"
+        android:layout_width="@dimen/dp_140"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/tv_cash_red_pkg"
         app:layout_constraintBottom_toBottomOf="@+id/tv_cash_red_pkg_tip"
@@ -106,7 +106,7 @@
         android:textSize="@dimen/dp_28"
         android:text="提现1元现金"/>
 
-    <com.victor.lib.common.view.widget.DrawableCenterTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_withdrawal"
@@ -133,7 +133,7 @@
 
     <TextView
         android:id="@+id/mTvWithdrawal"
-        android:layout_width="@dimen/dp_160"
+        android:layout_width="@dimen/dp_140"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/line_new_comer"
         app:layout_constraintBottom_toBottomOf="@+id/tv_withdrawal_tip"
@@ -166,7 +166,7 @@
         android:textSize="@dimen/dp_28"
         android:text="七天见面礼"/>
 
-    <com.victor.lib.common.view.widget.DrawableCenterTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_meeting_gift"
@@ -193,7 +193,7 @@
 
     <TextView
         android:id="@+id/mTvMeetingGift"
-        android:layout_width="@dimen/dp_160"
+        android:layout_width="@dimen/dp_140"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/tv_meeting_gift"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meeting_gift_tip"
@@ -237,7 +237,7 @@
         android:textSize="@dimen/dp_28"
         android:text="今日看剧30分钟"/>
 
-    <com.victor.lib.common.view.widget.DrawableCenterTextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_today"
@@ -264,7 +264,7 @@
 
     <TextView
         android:id="@+id/mTvTodayWatch"
-        android:layout_width="@dimen/dp_160"
+        android:layout_width="@dimen/dp_140"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/line_today"
         app:layout_constraintBottom_toBottomOf="@+id/tv_today_tip"
