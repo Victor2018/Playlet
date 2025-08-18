@@ -5,12 +5,15 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.victor.lib.common.R
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
 import com.victor.lib.common.databinding.ActivitySplashBinding
+import com.victor.lib.common.databinding.StubGuideContentBinding
+import com.victor.lib.common.databinding.StubSplashContentBinding
 import com.victor.lib.common.interfaces.OnCountDownTimerListener
 import com.victor.lib.common.module.AppInitModule
 import com.victor.lib.common.module.SmsCountDownTimer
@@ -41,8 +44,8 @@ class SplashActivity: BaseActivity<ActivitySplashBinding>(ActivitySplashBinding:
 //    private val homeVM by viewModels<HomeVM> {
 //        InjectorUtils.provideHomeVMFactory(this)
 //    }
-    var guideRootView: View? = null
-    var splashRootView: View? = null
+    var mStubGuideContentBinding: StubGuideContentBinding? = null
+    var mStubSplashContentBinding: StubSplashContentBinding? = null
     var mSplashViewPagerAdapter: SplashViewPagerAdapter? = null
     var mSmsCountDownTimer: SmsCountDownTimer? = null
     val countDownTime: Long = 4
@@ -72,23 +75,23 @@ class SplashActivity: BaseActivity<ActivitySplashBinding>(ActivitySplashBinding:
 
     fun initialize (hasShowGuide: Boolean) {
         if (hasShowGuide) {
-            if (splashRootView == null) {
-                splashRootView = binding.stubSplash.inflate()
-                splashRootView?.findViewById<TextView>(R.id.mTvSkip)?.setOnClickListener(this)
-                splashRootView?.findViewById<TextView>(R.id.mIvSplashAd)?.setOnClickListener(this)
-                splashRootView?.findViewById<TextView>(R.id.mTvSkip)?.setOnClickListener(this)
+            if (mStubSplashContentBinding == null) {
+                mStubSplashContentBinding = StubSplashContentBinding.bind(binding.stubSplash.inflate())
+                mStubSplashContentBinding?.mTvSkip?.setOnClickListener(this)
+                mStubSplashContentBinding?.mIvSplashAd?.setOnClickListener(this)
+                mStubSplashContentBinding?.mTvSkip?.setOnClickListener(this)
             }
         } else {
             mSplashViewPagerAdapter = SplashViewPagerAdapter(this)
             mSplashViewPagerAdapter?.mOnClickListener = this
 
-            if (guideRootView == null) {
-                guideRootView = binding.stubGuide.inflate()
-                guideRootView?.findViewById<ViewPager>(R.id.mVpSplash)?.adapter = mSplashViewPagerAdapter
-                guideRootView?.findViewById<ViewPager>(R.id.mVpSplash)?.addOnPageChangeListener(this)
-                guideRootView?.findViewById<IndicatorView>(R.id.mSplashIndicator)?.setupWithViewPager(guideRootView?.findViewById<ViewPager>(R.id.mVpSplash))
-                guideRootView?.findViewById<IndicatorView>(R.id.mSplashIndicator)?.setIndicatorTransformer(IndicatorView.TranslationIndicatorTransformer())
-                guideRootView?.findViewById<TextView>(R.id.mTvGo)?.setOnClickListener(this)
+            if (mStubGuideContentBinding == null) {
+                mStubGuideContentBinding = StubGuideContentBinding.bind(binding.stubGuide.inflate())
+                mStubGuideContentBinding?.mVpSplash?.adapter = mSplashViewPagerAdapter
+                mStubGuideContentBinding?.mVpSplash?.addOnPageChangeListener(this)
+                mStubGuideContentBinding?.mSplashIndicator?.setupWithViewPager(mStubGuideContentBinding?.mVpSplash)
+                mStubGuideContentBinding?.mSplashIndicator?.setIndicatorTransformer(IndicatorView.TranslationIndicatorTransformer())
+                mStubGuideContentBinding?.mTvGo?.setOnClickListener(this)
             }
 
             val datas = ArrayList<Int>()
@@ -113,6 +116,7 @@ class SplashActivity: BaseActivity<ActivitySplashBinding>(ActivitySplashBinding:
         }
 
         var hasShowGuide = SharedPreferencesUtils.hasShowGuide
+        hasShowGuide = true
         initialize(hasShowGuide)
 
         var agreePrivacyPolicy = SharedPreferencesUtils.agreePrivacyPolicy
@@ -124,6 +128,8 @@ class SplashActivity: BaseActivity<ActivitySplashBinding>(ActivitySplashBinding:
         } else {
             showPrivacyPolicyDlg()
         }
+
+        startTimer()
     }
 
     fun subscribeUi() {
@@ -222,15 +228,15 @@ class SplashActivity: BaseActivity<ActivitySplashBinding>(ActivitySplashBinding:
     override fun onPageSelected(position: Int) {
         when (position) {
             0 -> {
-                guideRootView?.findViewById<TextView>(R.id.mTvGo)?.hide()
+                mStubGuideContentBinding?.mTvGo?.hide()
             }
             1 -> {
-                guideRootView?.findViewById<TextView>(R.id.mTvGo)?.hide()
+                mStubGuideContentBinding?.mTvGo?.hide()
             }
             2 -> {
-                guideRootView?.findViewById<TextView>(R.id.mTvGo)?.show()
+                mStubGuideContentBinding?.mTvGo?.show()
                 ObjectAnimator
-                    .ofFloat(guideRootView?.findViewById<TextView>(R.id.mTvGo), "alpha", 0f, 1f)
+                    .ofFloat(mStubGuideContentBinding?.mTvGo, "alpha", 0f, 1f)
                     .setDuration(1000)
                     .start()
             }
@@ -238,7 +244,7 @@ class SplashActivity: BaseActivity<ActivitySplashBinding>(ActivitySplashBinding:
     }
 
     override fun onTick(millisUntilFinished: Long) {
-        guideRootView?.findViewById<TextView>(R.id.mTvSkip)?.text = "${millisUntilFinished / 1000} 跳过"
+        mStubSplashContentBinding?.mTvSkip?.text = "${millisUntilFinished / 1000} 跳过"
     }
 
     override fun onFinish() {

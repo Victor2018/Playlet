@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
@@ -28,6 +29,7 @@ import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.playlet.databinding.ActivityMainBinding
 
 
+@Route(path = ARouterPath.MainAct)
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
     OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener {
 

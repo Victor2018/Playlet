@@ -57,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view_bottom"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/dp_142"
-        android:src="@mipmap/ic_splash_logo"/>
+        android:src="@mipmap/ic_slogan"/>
 
     <TextView
         android:id="@+id/mTvAppName"
@@ -70,7 +70,7 @@
         android:textStyle="bold"
         android:textSize="@dimen/dp_40"
         android:textColor="@color/color_333333"
-        android:text="选好课 上获课"/>
+        android:text="沉浸剧岛"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,6 +80,6 @@
         android:layout_marginBottom="@dimen/dp_6"
         android:textSize="@dimen/dp_32"
         android:textColor="@color/color_777777"
-        android:text="中国知识付费交易市场"/>
+        android:text="@string/slogan"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

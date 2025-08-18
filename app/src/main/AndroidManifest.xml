@@ -16,18 +16,25 @@
         android:networkSecurityConfig="@xml/network_config"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         tools:targetApi="31">
+
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name="com.victor.lib.common.view.activity.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.victor.lib.common.view.activity.WebActivity"
