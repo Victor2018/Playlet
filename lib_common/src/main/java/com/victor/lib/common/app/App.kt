@@ -6,20 +6,23 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AppCompatDelegate
 import com.tencent.bugly.crashreport.CrashReport
-import com.victor.lib.common.module.UMengEventModule
-import com.victor.lib.common.util.SharedPreferencesUtils
-import com.victor.lib.common.base.BaseApplication
-import com.victor.library.bus.LiveDataBus
 import com.victor.crash.library.SpiderCrashHandler
+import com.victor.lib.common.base.BaseApplication
+import com.victor.lib.common.module.UMengEventModule
+import com.victor.lib.common.util.FileUtil
 import com.victor.lib.common.util.Loger
+import com.victor.lib.common.util.SharedPreferencesUtils
 import com.victor.lib.coremodel.action.LoginActions
 import com.victor.lib.coremodel.data.remote.entity.bean.LoginData
 import com.victor.lib.coremodel.data.remote.entity.bean.UserInfo
 import com.victor.lib.coremodel.util.AppUtil
 import com.victor.lib.coremodel.util.HttpUtil
 import com.victor.lib.coremodel.util.WebConfig
+import com.victor.lib.video.cache.HttpProxyCacheServer
+import com.victor.library.bus.LiveDataBus
 import org.victor.http.lib.ApiClient
 import org.victor.http.lib.util.JsonUtils
+import java.io.File
 import java.lang.ref.WeakReference
 
 /*
@@ -42,6 +45,12 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
 
     var mLoginData: LoginData? = null
     var mUserInfo: UserInfo? = null
+
+    val mHttpProxyCacheServer by lazy {
+        HttpProxyCacheServer.Builder(this)
+            .cacheDirectory(FileUtil.getRootDirFile())
+            .build()
+    }
 
     companion object {
         private lateinit var instance: App

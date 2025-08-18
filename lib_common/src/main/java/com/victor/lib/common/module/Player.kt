@@ -12,10 +12,11 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.TextureView
 import android.view.View
-import android.view.ViewGroup
+import com.victor.lib.common.app.App
 import com.victor.lib.common.data.SubTitleInfo
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.ResUtils
+import com.victor.lib.video.cache.HttpProxyCacheServer
 import java.util.*
 
 
@@ -328,8 +329,12 @@ class Player : TextureView.SurfaceTextureListener,
     }
 
     fun playUrl(videoUrl: String?) {
-        playUrl(videoUrl,false)
+        val proxy: HttpProxyCacheServer = App.get().mHttpProxyCacheServer
+        val proxyUrl = proxy.getProxyUrl(videoUrl)
+//        playUrl(videoUrl,false)
+        playUrl(proxyUrl,false)
     }
+
     fun playUrl(videoUrl: String?, isLive: Boolean) {
         Log.e(TAG, "playUrl()......$videoUrl")
         mPlayUrl = videoUrl
@@ -339,7 +344,7 @@ class Player : TextureView.SurfaceTextureListener,
 
     fun pause() {
         Log.e(TAG, "pause()......")
-        if (mMediaPlayer!!.isPlaying()) {
+        if (isPlaying()) {
             mMediaPlayer?.pause()
             mNotifyHandler?.sendEmptyMessage(PLAYER_PAUSE)
         }

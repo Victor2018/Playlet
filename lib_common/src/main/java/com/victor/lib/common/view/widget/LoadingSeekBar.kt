@@ -10,6 +10,7 @@ import android.view.animation.ScaleAnimation
 import android.widget.FrameLayout
 import com.victor.lib.common.databinding.LoadingSeekbarBinding
 import com.victor.lib.common.util.ViewUtils.hide
+import com.victor.lib.common.util.ViewUtils.invisible
 import com.victor.lib.common.util.ViewUtils.show
 
 
@@ -40,7 +41,7 @@ class LoadingSeekBar: FrameLayout {
 
     fun startLoadingAnimation() {
         binding.mViewLoading.show()
-        val scale = ScaleAnimation(
+        /*val scale = ScaleAnimation(
             0.3f, 1f, 1f, 1f,
             Animation.RELATIVE_TO_SELF, 0.5f,
             Animation.RELATIVE_TO_SELF, 0.5f
@@ -52,11 +53,11 @@ class LoadingSeekBar: FrameLayout {
         set.addAnimation(scale)
         set.addAnimation(alpha)
         set.duration = 500
-        binding.mViewLoading.startAnimation(set)
+        binding.mViewLoading.startAnimation(set)*/
     }
 
     fun stopLoadingAnimation() {
-        binding.mViewLoading.clearAnimation()
-        binding.mViewLoading.hide()
+//        binding.mViewLoading.clearAnimation()
+        binding.mViewLoading.invisible()
     }
 }

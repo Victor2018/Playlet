@@ -272,6 +272,9 @@ object FileUtil {
         return rootFolder
     }
 
+    fun getRootDirFile(): File {
+        return App.get().filesDir
+    }
     fun getRootDir(): String {
         return App.get().filesDir.path
     }

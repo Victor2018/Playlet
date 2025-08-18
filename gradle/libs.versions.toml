@@ -29,6 +29,7 @@ livedatabus = 'v2.1.0'
 match = 'v1.5'
 crash_spider = 'v1.3'
 khttp = 'v3.6'
+video_cache = 'v1.0.0'
 #convenientbanner = '2.1.5'
 
 #third
@@ -46,6 +47,7 @@ lottie = '5.2.0'
 zxing = '3.5.0'
 bugly = 'latest.release'
 wechat_sdk = '6.7.9'
+
 
 [libraries]
 #base
@@ -73,6 +75,7 @@ victor-livedatabus = { group = "com.github.Victor2018", name = "LiveDataBus", ve
 victor-match = { group = "com.github.Victor2018", name = "ScreenMatchLib", version.ref = "match" }
 victor-crash-spider = { group = "com.github.Victor2018", name = "CrashSpiderLib", version.ref = "crash_spider" }
 victor-khttp = { group = "com.github.Victor2018", name = "KHttpLib", version.ref = "khttp" }
+victor-video-cache = { group = "com.github.Victor2018", name = "VideoCache", version.ref = "video_cache" }
 #victor-convenientbanner = { group = "com.github.Victor2018", name = "ConvenientBanner", version.ref = "convenientbanner" }
 
 #third
@@ -101,6 +104,7 @@ lottie-core = { group = "com.airbnb.android", name = "lottie", version.ref = "lo
 zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
 bugly-core = { group = "com.tencent.bugly", name = "crashreport", version.ref = "bugly" }
 wechat-sdk = { group = "com.tencent.mm.opensdk", name = "wechat-sdk-android-without-mta", version.ref = "wechat_sdk" }
+video-cache = { group = "com.danikula", name = "videocache", version.ref = "video_cache" }
 
 
 # Dependencies of the included build-logic
@@ -111,7 +115,7 @@ room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", vers
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [bundles]
-victor = ["victor-easypermissions","victor-livedatabus", "victor-match", "victor-crash-spider", "victor-khttp"]
+victor = ["victor-easypermissions","victor-livedatabus", "victor-match", "victor-crash-spider", "victor-khttp","victor-video-cache"]
 coroutines = ["coroutines-core","coroutines-android"]
 lifecycle = ["lifecycle-runtime","lifecycle-java8", "lifecycle-compiler","lifecycle-viewmodel_ktx","lifecycle-livedata_ktx"]
 retrofit = ["retrofit-core","retrofit-retrofit-converter-gson"]
