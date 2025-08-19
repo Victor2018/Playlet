@@ -9,6 +9,7 @@ import com.tencent.bugly.crashreport.CrashReport
 import com.victor.crash.library.SpiderCrashHandler
 import com.victor.lib.common.base.BaseApplication
 import com.victor.lib.common.module.UMengEventModule
+import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.FileUtil
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.SharedPreferencesUtils
@@ -19,6 +20,7 @@ import com.victor.lib.coremodel.util.AppUtil
 import com.victor.lib.coremodel.util.HttpUtil
 import com.victor.lib.coremodel.util.WebConfig
 import com.victor.lib.video.cache.HttpProxyCacheServer
+import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.library.bus.LiveDataBus
 import org.victor.http.lib.ApiClient
 import org.victor.http.lib.util.JsonUtils
@@ -49,6 +51,8 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
     val mHttpProxyCacheServer by lazy {
         HttpProxyCacheServer.Builder(this)
             .cacheDirectory(FileUtil.getRootDirFile())
+            .maxCacheSize(1024 * 1024 * 1024)
+            .maxCacheFilesCount(30)
             .build()
     }
 

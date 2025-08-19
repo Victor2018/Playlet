@@ -40,7 +40,7 @@ object Constant {
     const val SUB_ORDER_ID_KEY                  = "SUB_ORDER_ID_KEY"
     const val STUDY_NOW_KEY                     = "STUDY_NOW_KEY"
     const val LIVE_ROOM_CODE_KEY                = "LIVE_ROOM_CODE_KEY"
-    const val LIVE_ROOM_ID_KEY                  = "LIVE_ROOM_ID_KEY"
+    const val PRELOAD_BUS_ID = "Muyo"
 
     const val MA_DATA                           = "madata"
     const val SHARE_TYPE                        = "text/plain"

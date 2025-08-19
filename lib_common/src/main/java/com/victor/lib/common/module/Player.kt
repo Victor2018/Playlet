@@ -14,9 +14,11 @@ import android.view.TextureView
 import android.view.View
 import com.victor.lib.common.app.App
 import com.victor.lib.common.data.SubTitleInfo
+import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.video.cache.HttpProxyCacheServer
+import com.victor.lib.video.cache.preload.PreLoadManager
 import java.util.*
 
 
@@ -329,9 +331,10 @@ class Player : TextureView.SurfaceTextureListener,
     }
 
     fun playUrl(videoUrl: String?) {
+//        playUrl(videoUrl,false)
+
         val proxy: HttpProxyCacheServer = App.get().mHttpProxyCacheServer
         val proxyUrl = proxy.getProxyUrl(videoUrl)
-//        playUrl(videoUrl,false)
         playUrl(proxyUrl,false)
     }
 

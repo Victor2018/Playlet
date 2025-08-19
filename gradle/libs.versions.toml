@@ -29,7 +29,7 @@ livedatabus = 'v2.1.0'
 match = 'v1.5'
 crash_spider = 'v1.3'
 khttp = 'v3.6'
-video_cache = 'v1.0.0'
+video_cache = 'v1.1.0'
 #convenientbanner = '2.1.5'
 
 #third

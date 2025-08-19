@@ -2,7 +2,6 @@ package com.victor.module.home.view.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
@@ -26,9 +25,10 @@ import com.victor.module.home.view.adapter.PlayingAdapter
 import com.victor.module.home.view.holder.PlayingContentViewHolder
 import org.victor.http.lib.data.HttpResult
 import androidx.core.view.isNotEmpty
-import com.victor.lib.common.util.DramaShowUtil
-import kotlin.random.Random
-
+import com.victor.lib.common.util.Constant
+import com.victor.lib.common.util.Loger
+import com.victor.lib.video.cache.preload.PreLoadManager
+import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 
 class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(FragmentHomeRecommendBinding::inflate),
     OnItemClickListener, OnRefreshListener, OnViewPagerListener {
@@ -49,6 +49,10 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     private lateinit var mHomeVM: HomeVM
     private var mPlayingAdapter: PlayingAdapter? = null
     private var currentPosition = -1
+
+    val mVideoPreLoadFuture by lazy {
+        VideoPreLoadFuture(requireContext(), Constant.PRELOAD_BUS_ID)
+    }
 
     override fun handleBackEvent(): Boolean {
         return false
@@ -113,6 +117,12 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
     fun showHomePlayingData(data: BaseRes<HomeItemInfo>) {
         mPlayingAdapter?.showData(data.itemList)
+
+        var urls = data.itemList?.map { it.data?.playUrl }
+        if (urls == null) {
+            urls = ArrayList()
+        }
+        mVideoPreLoadFuture.addUrls(urls)
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -148,6 +158,13 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         val playUrl = data?.data?.playUrl
         Log.i(TAG,"onPageSelected()......playUrl = $playUrl")
         playCell.play(playUrl)
+
+        if (PreLoadManager.getInstance(requireContext()).hasEnoughCache(playUrl)) {
+            Loger.d(TAG, "onPageSelected-playUrl()...has cached");
+        }
+
+        // 参数preloadBusId和VideoPreLoadFuture初始化的VideoPreLoadFuture保持一致，url为当前短视频播放地址
+        mVideoPreLoadFuture.currentPlayUrl(playUrl)
     }
 
     private fun getCurrentPlayView(): RvPlayCellView? {
