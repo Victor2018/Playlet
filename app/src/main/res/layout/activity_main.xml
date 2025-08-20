@@ -50,7 +50,7 @@
         app:itemTextAppearanceActive="@style/bottom_tab_title_active"
         app:itemTextAppearanceInactive="@style/bottom_tab_title_inactive"
         app:menu="@menu/bottom_nav_menu"
-        app:itemBackground="@color/white"
+        app:itemBackground="@color/color_333333"
         app:elevation="@dimen/dp_10"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,38 +24,6 @@ class HomeVM(private val dataSource: IHomeDS): ViewModel() {
         }
     }
 
-    val hotRecommendData = dataSource.hotRecommendData
-    fun fetchHotRecommend() {
-        // Launch a coroutine that reads from a remote data source and updates cache
-        viewModelScope.launch {
-            dataSource.fetchHotRecommend()
-        }
-    }
-
-    val hotPlayData = dataSource.hotPlayData
-    fun fetchHotPlay() {
-        // Launch a coroutine that reads from a remote data source and updates cache
-        viewModelScope.launch {
-            dataSource.fetchHotPlay()
-        }
-    }
-
-    val hotNewData = dataSource.hotNewData
-    fun fetchHotNew() {
-        // Launch a coroutine that reads from a remote data source and updates cache
-        viewModelScope.launch {
-            dataSource.fetchHotNew()
-        }
-    }
-
-    val hotSearchData = dataSource.hotSearchData
-    fun fetchHotSearch() {
-        // Launch a coroutine that reads from a remote data source and updates cache
-        viewModelScope.launch {
-            dataSource.fetchHotSearch()
-        }
-    }
-
     val homePlayingData = dataSource.homePlayingData
     fun fetchHomePlaying(id: Int) {
         // Launch a coroutine that reads from a remote data source and updates cache

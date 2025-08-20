@@ -14,4 +14,8 @@ package com.victor.lib.coremodel.data.remote.api
 object TheaterApi {
     const val RANKING = "api/v6/community/tab/follow"
     const val FOUND = "api/v5/index/tab/allRec"
+    const val HOT_RECOMMEND = "api/v4/rankList/videos?strategy=weekly"
+    const val HOT_PLAY = "api/v4/rankList/videos?strategy=monthly"
+    const val HOT_NEW = "api/v5/index/tab/feed"
+    const val HOT_SEARCH = "api/v4/rankList/videos?strategy=historical"
 }

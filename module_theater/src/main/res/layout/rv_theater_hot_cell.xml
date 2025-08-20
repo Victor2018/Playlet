@@ -11,6 +11,7 @@
     android:paddingEnd="@dimen/dp_32"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
+    tools:background="@color/color_3D3D3D"
     tools:ignore="ResourceName">
 
     <com.victor.lib.common.view.widget.ShapedImageView
@@ -35,7 +36,7 @@
         android:layout_marginStart="@dimen/dp_20"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textColor="@color/color_333333"
+        android:textColor="@color/white"
         android:textSize="@dimen/dp_28"
         android:text="实习生是老板千金"/>
 
@@ -56,13 +57,17 @@
 
     <TextView
         android:id="@+id/mTvType"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/mTvContentName"
         app:layout_constraintStart_toStartOf="@+id/mTvContentName"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/dp_8"
-        android:textColor="@color/color_777777"
+        android:paddingTop="@dimen/dp_2"
+        android:paddingBottom="@dimen/dp_2"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        android:background="@drawable/shape_fafafa_radius_8"
+        android:textColor="@color/color_333333"
         android:textSize="@dimen/dp_24"
         android:text="都市/甜宠"/>
 

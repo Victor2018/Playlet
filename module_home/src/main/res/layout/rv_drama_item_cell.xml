@@ -20,8 +20,8 @@
 
         <com.victor.lib.common.view.widget.ShapedImageView
             android:id="@+id/mIvPoster"
-            android:layout_width="@dimen/dp_288"
-            android:layout_height="@dimen/dp_288"
+            android:layout_width="@dimen/dp_298"
+            android:layout_height="@dimen/dp_328"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

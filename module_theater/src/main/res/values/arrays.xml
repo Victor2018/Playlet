@@ -13,4 +13,24 @@
         <item>热搜榜</item>
     </string-array>
 
+    <string-array name="theater_found_tab_titles">
+        <item>全部</item>
+        <item>新剧</item>
+        <item>甜宠</item>
+        <item>逆袭</item>
+        <item>热血</item>
+        <item>脑洞</item>
+        <item>反转</item>
+        <item>家庭</item>
+        <item>乡村</item>
+        <item>古风</item>
+        <item>年代</item>
+        <item>穿越</item>
+        <item>悬疑</item>
+        <item>武侠</item>
+        <item>校园</item>
+        <item>搞笑</item>
+        <item>都市</item>
+    </string-array>
+
 </resources>

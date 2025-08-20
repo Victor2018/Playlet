@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorTheme"
     tools:ignore="MissingDefaultResource,ResourceName">
 
     <androidx.viewpager.widget.ViewPager
@@ -15,13 +16,13 @@
     <com.victor.lib.common.view.widget.ScaleTitleTabLayout
         android:id="@+id/mTabDetail"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dp_68"
+        android:layout_height="@dimen/dp_80"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/mIvSearch"
-        android:layout_marginTop="@dimen/dp_75"
+        android:layout_marginTop="@dimen/dp_68"
         android:paddingBottom="@dimen/dp_8"
-        style="@style/ScrollableTabStyle" />
+        style="@style/NoneIndicatorTabStyle" />
 
     <ImageView
         android:id="@+id/mIvSearch"
@@ -33,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/dp_24"
         android:layout_marginEnd="@dimen/dp_32"
-        android:src="@mipmap/ic_search"/>
+        android:src="@mipmap/ic_search_white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

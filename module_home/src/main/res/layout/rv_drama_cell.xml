@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/dp_20"
-    android:orientation="vertical"
+    tools:background="@color/color_3D3D3D"
     tools:ignore="MissingDefaultResource,ResourceName">
 
     <TextView
@@ -18,7 +18,7 @@
         android:paddingEnd="@dimen/dp_32"
         android:gravity="center_vertical"
         android:textSize="@dimen/dp_32"
-        android:textColor="@color/color_333333"
+        android:textColor="@color/white"
         android:maxLines="1"
         android:ellipsize="end"
         tools:text="Snap center"/>
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mTvDescribe"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
         android:paddingBottom="@dimen/dp_10"
         android:paddingStart="@dimen/dp_32"
         android:paddingEnd="@dimen/dp_32"

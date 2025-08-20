@@ -1,25 +1,15 @@
 package com.victor.module.theater.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
-import androidx.lifecycle.Observer
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import androidx.fragment.app.Fragment
 import com.victor.lib.common.base.BaseFragment
-import com.victor.lib.common.util.ToastUtils
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
-import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
-import com.victor.lib.coremodel.data.remote.vm.TheaterVM
-import com.victor.lib.coremodel.data.remote.vm.factory.TheaterVMFactory
-import com.victor.lib.coremodel.util.InjectorUtils
+import com.victor.lib.common.util.ResUtils
+import com.victor.lib.common.view.adapter.TabPagerAdapter
+import com.victor.module.theater.R
 import com.victor.module.theater.databinding.FragmentTheaterFoundBinding
-import com.victor.module.theater.view.adapter.TheaterFoundAdapter
-import org.victor.http.lib.data.HttpResult
 
-class TheaterFoundFragment : BaseFragment<FragmentTheaterFoundBinding>(FragmentTheaterFoundBinding::inflate),
-    OnItemClickListener, OnRefreshListener {
+class TheaterFoundFragment : BaseFragment<FragmentTheaterFoundBinding>(FragmentTheaterFoundBinding::inflate) {
 
     companion object {
         fun newInstance(): TheaterFoundFragment {
@@ -34,8 +24,9 @@ class TheaterFoundFragment : BaseFragment<FragmentTheaterFoundBinding>(FragmentT
         }
     }
 
-    private lateinit var mTheaterVM: TheaterVM
-    private var mTheaterFoundAdapter: TheaterFoundAdapter? = null
+    var mTabPagerAdapter: TabPagerAdapter? = null
+    private var pagerTitles: Array<String>? = null
+    private var fragmentList: ArrayList<Fragment> = ArrayList()
 
     override fun handleBackEvent(): Boolean {
         return false
@@ -52,55 +43,21 @@ class TheaterFoundFragment : BaseFragment<FragmentTheaterFoundBinding>(FragmentT
     }
 
     private fun initView() {
-        mTheaterVM = InjectorUtils.provideFragmentVM(this, TheaterVMFactory(this), TheaterVM::class.java)
-        mTheaterFoundAdapter = TheaterFoundAdapter(requireContext(),this)
-        mTheaterFoundAdapter?.setHeaderVisible(true)
-        binding.mRvHot.adapter = mTheaterFoundAdapter
+        pagerTitles = ResUtils.getStringArrayRes(R.array.theater_found_tab_titles)
+        fragmentList.clear()
 
-        binding.mSrlRefresh.setOnRefreshListener(this)
+        var tabCount = pagerTitles?.size ?: 0
+        for (i in 0 until tabCount) {
+            fragmentList.add(TheaterFoundContentFragment.newInstance())
+        }
 
-        subscribeUi()
-        subscribeEvent()
+        mTabPagerAdapter = TabPagerAdapter(childFragmentManager)
+        mTabPagerAdapter?.titles = pagerTitles
+        mTabPagerAdapter?.frags = fragmentList
+        binding.mVpDetail.adapter = mTabPagerAdapter
+        binding.mTabDetail.setupWithViewPager(binding.mVpDetail)
     }
 
     private fun initData() {
-        sendFoundRequest()
-    }
-
-    private fun subscribeUi() {
-        mTheaterVM.foundData.observe(viewLifecycleOwner, Observer {
-            binding.mSrlRefresh.isRefreshing = false
-            when(it) {
-                is HttpResult.Success -> {
-                    showFoundData(it.value)
-                }
-                is HttpResult.Error -> {
-                    ToastUtils.show(it.message)
-                }
-            }
-        })
-    }
-
-
-    private fun subscribeEvent() {
-    }
-
-    private fun sendFoundRequest() {
-        mTheaterVM.fetchFound()
-    }
-    
-    fun showFoundData(data: BaseRes<HomeItemInfo>) {
-        val bannerList = data.itemList?.filter { it.type == "squareCardCollection" }
-        mTheaterFoundAdapter?.mHomeItemInfo = bannerList?.firstOrNull()
-        val rankingList = data.itemList?.filter { it.type != "textCard" && it.type != "squareCardCollection" }
-        mTheaterFoundAdapter?.showData(rankingList)
-        mTheaterFoundAdapter?.mHeaderCount
-    }
-
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-    }
-
-    override fun onRefresh() {
-        initData()
     }
 }

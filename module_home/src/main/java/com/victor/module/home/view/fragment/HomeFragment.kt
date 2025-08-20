@@ -48,7 +48,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun initView() {
         pagerTitles = ResUtils.getStringArrayRes(R.array.home_tab_titles)
         fragmentList.clear()
-        fragmentList.add(HomeHotFragment.newInstance())
         fragmentList.add(HomeDramaFragment.newInstance())
         fragmentList.add(HomeRecommendFragment.newInstance())
 

@@ -25,7 +25,7 @@ import com.victor.lib.common.util.StatusBarUtil
 
 abstract class BaseActivity<VB : ViewBinding>( private val bindingInflater: (LayoutInflater) -> VB): AppCompatActivity() {
     protected var TAG = javaClass.simpleName
-    var statusBarTextColorBlack = true
+    var statusBarTextColorBlack = false
 
     private var _binding: VB? = null
     public val binding get() = _binding!!

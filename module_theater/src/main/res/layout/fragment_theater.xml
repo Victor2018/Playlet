@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/colorTheme"
     tools:ignore="MissingDefaultResource,ResourceName">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/colorTheme"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true"
         app:elevation="@dimen/dp_0">
@@ -21,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="exitUntilCollapsed"
-            app:contentScrim="@color/white"
+            app:contentScrim="@color/colorTheme"
             android:fitsSystemWindows="true"
             app:titleEnabled="false"
             app:title="@string/app_name">
@@ -42,13 +43,12 @@
                     <com.victor.lib.common.view.widget.ScaleTitleTabLayout
                         android:id="@+id/mTabDetail"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/dp_68"
+                        android:layout_height="@dimen/dp_80"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/mIvSearch"
                         android:paddingBottom="@dimen/dp_8"
-                        android:background="@color/white"
-                        style="@style/ScrollableTabStyle" />
+                        style="@style/NoneIndicatorTabStyle" />
 
                     <ImageView
                         android:id="@+id/mIvSearch"
@@ -59,7 +59,7 @@
                         app:layout_constraintStart_toEndOf="@+id/mTabDetail"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginStart="@dimen/dp_24"
-                        android:src="@mipmap/ic_search"/>
+                        android:src="@mipmap/ic_search_white"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

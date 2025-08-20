@@ -42,6 +42,39 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
+    override val hotRecommendData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHotRecommend() {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            hotRecommendData.value = fetchHotRecommendReq()
+        }
+    }
+
+    override val hotPlayData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHotPlay() {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            hotPlayData.value = fetchHotPlayReq()
+        }
+    }
+
+    override val hotNewData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHotNew() {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            hotNewData.value = fetchHotNewReq()
+        }
+    }
+
+    override val hotSearchData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHotSearch() {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            hotSearchData.value = fetchHotSearchReq()
+        }
+    }
+
+
     private suspend fun <T> fetchRankingReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
             .fetchRanking()) as T
@@ -50,6 +83,26 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
     private suspend fun <T> fetchFoundReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
             .fetchFound()) as T
+    }
+
+    private suspend fun <T> fetchHotRecommendReq(): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotRecommend()) as T
+    }
+
+    private suspend fun <T> fetchHotPlayReq(): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotPlay()) as T
+    }
+
+    private suspend fun <T> fetchHotNewReq(): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotNew()) as T
+    }
+
+    private suspend fun <T> fetchHotSearchReq(): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotSearch()) as T
     }
 
 }

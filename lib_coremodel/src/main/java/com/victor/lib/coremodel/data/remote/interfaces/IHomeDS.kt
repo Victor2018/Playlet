@@ -21,18 +21,6 @@ interface IHomeDS {
     val dramaListData: LiveData<HttpResult<BaseRes<FollowItem>>>
     suspend fun fetchDramaList()
 
-    val hotRecommendData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
-    suspend fun fetchHotRecommend()
-
-    val hotPlayData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
-    suspend fun fetchHotPlay()
-
-    val hotNewData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
-    suspend fun fetchHotNew()
-
-    val hotSearchData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
-    suspend fun fetchHotSearch()
-
     val homePlayingData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
     suspend fun fetchHomePlaying(id: Int)
 }

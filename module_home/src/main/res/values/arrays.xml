@@ -2,7 +2,6 @@
 <resources>
 
     <string-array name="home_tab_titles">
-		<item>热榜</item>
 		<item>剧单</item>
 		<item>推荐</item>
     </string-array>

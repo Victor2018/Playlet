@@ -33,38 +33,6 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
         }
     }
 
-    override val hotRecommendData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
-    override suspend fun fetchHotRecommend() {
-        // Force Main thread
-        withContext(Dispatchers.Main) {
-            hotRecommendData.value = fetchHotRecommendReq()
-        }
-    }
-
-    override val hotPlayData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
-    override suspend fun fetchHotPlay() {
-        // Force Main thread
-        withContext(Dispatchers.Main) {
-            hotPlayData.value = fetchHotPlayReq()
-        }
-    }
-
-    override val hotNewData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
-    override suspend fun fetchHotNew() {
-        // Force Main thread
-        withContext(Dispatchers.Main) {
-            hotNewData.value = fetchHotNewReq()
-        }
-    }
-
-    override val hotSearchData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
-    override suspend fun fetchHotSearch() {
-        // Force Main thread
-        withContext(Dispatchers.Main) {
-            hotSearchData.value = fetchHotSearchReq()
-        }
-    }
-
     override val homePlayingData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
     override suspend fun fetchHomePlaying(id: Int) {
         // Force Main thread
@@ -76,26 +44,6 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
     private suspend fun <T> fetchDramaListReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(HomeApiService::class.java)
             .fetchDramaList()) as T
-    }
-
-    private suspend fun <T> fetchHotRecommendReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
-            .fetchHotRecommend()) as T
-    }
-
-    private suspend fun <T> fetchHotPlayReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
-            .fetchHotPlay()) as T
-    }
-
-    private suspend fun <T> fetchHotNewReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
-            .fetchHotNew()) as T
-    }
-
-    private suspend fun <T> fetchHotSearchReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
-            .fetchHotSearch()) as T
     }
 
     private suspend fun <T> fetchHomePlayingReq(id: Int): T = withContext(ioDispatcher) {

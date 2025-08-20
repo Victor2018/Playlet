@@ -35,7 +35,7 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
 
     private lateinit var mHomeVM: HomeVM
 
-    private var mFollowAdapter: DramaAdapter? = null
+    private var mDramaAdapter: DramaAdapter? = null
 
     override fun handleBackEvent(): Boolean {
         return false
@@ -54,8 +54,8 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
     private fun initView() {
         mHomeVM = InjectorUtils.provideFragmentVM(this, HomeVMFactory(this), HomeVM::class.java)
 
-        mFollowAdapter = DramaAdapter(requireContext(),this)
-        binding.mRvDrama.adapter = mFollowAdapter
+        mDramaAdapter = DramaAdapter(requireContext(),this)
+        binding.mRvDrama.adapter = mDramaAdapter
         subscribeUi()
         subscribeEvent()
     }
@@ -86,7 +86,7 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
     }
 
     fun showDramaListData(data: BaseRes<FollowItem>) {
-        mFollowAdapter?.showData(data.itemList)
+        mDramaAdapter?.showData(data.itemList)
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

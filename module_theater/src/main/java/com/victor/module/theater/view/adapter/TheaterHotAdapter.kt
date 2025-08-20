@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 import com.victor.module.theater.R
-import com.victor.module.theater.view.holder.TheaterHotContentHolder
+import com.victor.module.theater.data.HotType
+import com.victor.module.theater.view.holder.HotNewContentHolder
+import com.victor.module.theater.view.holder.HotPlayContentHolder
+import com.victor.module.theater.view.holder.HotRecommendContentHolder
+import com.victor.module.theater.view.holder.HotSearchContentHolder
 
 /*
  * -----------------------------------------------------------------
@@ -22,6 +26,8 @@ import com.victor.module.theater.view.holder.TheaterHotContentHolder
 class TheaterHotAdapter(context: Context?, listener: AdapterView.OnItemClickListener?) :
     BaseRecycleAdapter<HomeItemInfo, RecyclerView.ViewHolder>(context, listener) {
 
+    var hotType = HotType.RECOMMEND
+
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
     }
@@ -30,12 +36,40 @@ class TheaterHotAdapter(context: Context?, listener: AdapterView.OnItemClickList
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TheaterHotContentHolder(inflate(R.layout.rv_theater_hot_cell, parent), listener)
+        when (viewType) {
+            HotType.RECOMMEND -> {
+                return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend_cell, parent),listener)
+            }
+            HotType.PLAY -> {
+                return HotPlayContentHolder(inflate(R.layout.rv_hot_play_cell, parent),listener)
+            }
+            HotType.NEW -> {
+                return HotNewContentHolder(inflate(R.layout.rv_hot_new_cell, parent),listener)
+            }
+            HotType.SEARCH -> {
+                return HotSearchContentHolder(inflate(R.layout.rv_hot_search_cell, parent),listener)
+            }
+        }
+        return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend_cell, parent),listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {
-        val contentViewHolder = viewHolder as TheaterHotContentHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if (viewHolder is HotRecommendContentHolder) {
+            viewHolder.bindData(data)
+        } else if (viewHolder is HotPlayContentHolder) {
+            viewHolder.bindData(data)
+        } else if (viewHolder is HotNewContentHolder) {
+            viewHolder.bindData(data)
+        } else if (viewHolder is HotSearchContentHolder) {
+            viewHolder.bindData(data)
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        var viewType = super.getItemViewType(position)
+        if (viewType == ITEM_TYPE_CONTENT) {
+            viewType = hotType
+        }
+        return viewType
     }
 }

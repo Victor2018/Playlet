@@ -26,18 +26,6 @@ interface HomeApiService {
     @GET(HomeApi.DRAMA_LIST)
     suspend fun fetchDramaList(): NetworkResponse<BaseRes<FollowItem>, HttpError>
 
-    @GET(HomeApi.HOT_RECOMMEND)
-    suspend fun fetchHotRecommend(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
-
-    @GET(HomeApi.HOT_PLAY)
-    suspend fun fetchHotPlay(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
-
-    @GET(HomeApi.HOT_NEW)
-    suspend fun fetchHotNew(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
-
-    @GET(HomeApi.HOT_SEARCH)
-    suspend fun fetchHotSearch(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
-
     @GET(HomeApi.HOME_PLAYING)
     suspend fun fetchHomePlaying(
         @Query("id") id: Int,

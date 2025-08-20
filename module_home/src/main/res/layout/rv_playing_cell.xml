@@ -5,15 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     android:orientation="vertical"
+    tools:background="@color/colorTheme"
     tools:ignore="MissingDefaultResource,ResourceName">
 
     <ImageView
         android:id="@+id/mIvPosterBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/mFlPlay"
@@ -103,7 +104,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/mIvPoster"
         app:layout_constraintStart_toEndOf="@+id/mIvPoster"
-        app:layout_constraintEnd_toEndOf="@+id/mTvDramaCount"
         android:layout_marginStart="@dimen/dp_20"
         android:gravity="center"
         android:drawableRight="@mipmap/ic_right_white"

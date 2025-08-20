@@ -23,4 +23,16 @@ interface ITheaterDS {
 
     val foundData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
     suspend fun fetchFound()
+
+    val hotRecommendData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
+    suspend fun fetchHotRecommend()
+
+    val hotPlayData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
+    suspend fun fetchHotPlay()
+
+    val hotNewData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
+    suspend fun fetchHotNew()
+
+    val hotSearchData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
+    suspend fun fetchHotSearch()
 }

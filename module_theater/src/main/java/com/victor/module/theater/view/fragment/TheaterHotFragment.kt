@@ -7,6 +7,7 @@ import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.adapter.TabPagerAdapter
 import com.victor.module.theater.R
+import com.victor.module.theater.data.HotType
 import com.victor.module.theater.databinding.FragmentTheaterHotBinding
 
 class TheaterHotFragment : BaseFragment<FragmentTheaterHotBinding>(FragmentTheaterHotBinding::inflate) {
@@ -45,10 +46,10 @@ class TheaterHotFragment : BaseFragment<FragmentTheaterHotBinding>(FragmentTheat
     private fun initView() {
         pagerTitles = ResUtils.getStringArrayRes(R.array.theater_hot_tab_titles)
         fragmentList.clear()
-        fragmentList.add(TheaterHotContentFragment.newInstance())
-        fragmentList.add(TheaterHotContentFragment.newInstance())
-        fragmentList.add(TheaterHotContentFragment.newInstance())
-        fragmentList.add(TheaterHotContentFragment.newInstance())
+        fragmentList.add(TheaterHotContentFragment.newInstance(HotType.RECOMMEND))
+        fragmentList.add(TheaterHotContentFragment.newInstance(HotType.PLAY))
+        fragmentList.add(TheaterHotContentFragment.newInstance(HotType.NEW))
+        fragmentList.add(TheaterHotContentFragment.newInstance(HotType.SEARCH))
 
         mTabPagerAdapter = TabPagerAdapter(childFragmentManager)
         mTabPagerAdapter?.titles = pagerTitles

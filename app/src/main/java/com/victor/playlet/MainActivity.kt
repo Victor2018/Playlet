@@ -3,6 +3,8 @@ package com.victor.playlet
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
@@ -78,12 +80,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.mVpHome.offscreenPageLimit = fragmentList.size
         binding.mVpHome.canScroll = true
 
-        binding.mBottomNav.itemIconTintList = null//解决图标被颜色覆盖问题
         binding.mBottomNav.setOnItemSelectedListener(this)
         binding.mBottomNav.removeLongTouchToast()
 
         binding.mVpHome.addOnPageChangeListener(this)
         binding.mTvNetworkStatus.setOnClickListener(this)
+
+        setNavStyle(true)
     }
 
     private fun initData() {
@@ -103,6 +106,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun onPageSelected(position: Int) {
         Loger.e(TAG, "onPageSelected......position = $position")
         binding.mBottomNav.selectedItemId = binding.mBottomNav.menu[position].itemId
+
+        setNavStyle(position <= 1)
+    }
+
+    private fun setNavStyle(isNight: Boolean) {
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf()
+        )
+        var colors = intArrayOf(
+            ResUtils.getColorRes(com.victor.lib.common.R.color.colorPrimaryDark),
+            ResUtils.getColorRes(com.victor.lib.common.R.color.color_808080)
+        )
+        var itemBackgroundColor = com.victor.lib.common.R.color.white
+        if (isNight) {
+            colors = intArrayOf(
+                ResUtils.getColorRes(com.victor.lib.common.R.color.color_EEEEEE),
+                ResUtils.getColorRes(com.victor.lib.common.R.color.color_777777)
+            )
+            itemBackgroundColor = com.victor.lib.common.R.color.color_333333
+        }
+        binding.mBottomNav.itemTextColor = ColorStateList(states,colors)
+        binding.mBottomNav.itemIconTintList = ColorStateList(states,colors)
+        binding.mBottomNav.itemBackgroundResource = itemBackgroundColor
     }
 
     override fun onPageScrollStateChanged(state: Int) {

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#FF5722</color>
     <color name="colorPrimaryDark">#E64A19</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorTheme">@color/black</color>
 
     <color name="half_alpha">#4c000000</color>
 
