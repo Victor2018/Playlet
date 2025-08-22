@@ -52,12 +52,12 @@ class LightAnimationView : View {
     private fun initView(attrs: AttributeSet?) {
         paint.style = Paint.Style.FILL
 
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LightAnimationView)
-        direction = typedArray.getInt(R.styleable.LightAnimationView_light_direction, DIRECTION_LEFT_TO_RIGHT)
-        lightDuration = typedArray.getInt(R.styleable.LightAnimationView_light_duration, lightDuration)
-        lightColor = typedArray.getColor(R.styleable.LightAnimationView_light_color, Color.YELLOW)
-        peakAlpha = typedArray.getInt(R.styleable.LightAnimationView_light_peak_alpha, 180)
-        lightWidth = typedArray.getDimension(R.styleable.LightAnimationView_light_width, 200f)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadingSeekBar)
+        direction = typedArray.getInt(R.styleable.LoadingSeekBar_light_direction, DIRECTION_LEFT_TO_RIGHT)
+        lightDuration = typedArray.getInt(R.styleable.LoadingSeekBar_light_duration, lightDuration)
+        lightColor = typedArray.getColor(R.styleable.LoadingSeekBar_light_color, Color.YELLOW)
+        peakAlpha = typedArray.getInt(R.styleable.LoadingSeekBar_light_peak_alpha, 180)
+        lightWidth = typedArray.getDimension(R.styleable.LoadingSeekBar_light_width, 200f)
         typedArray.recycle()
     }
 

@@ -99,7 +99,7 @@ object TimeUtils {
      * @param duration 单位秒
      * @return
      */
-    fun getHMS(duration: Long): String? {
+    fun getHMS(duration: Int): String? {
         val h = (duration / 60 / 60).toInt()
         val m = (duration / 60).toInt()
         val s = (duration % 60).toInt()
@@ -110,7 +110,7 @@ object TimeUtils {
      * 时间转换格式 00:00
      * @param duration 单位：秒
      */
-    fun getHM(duration: Long): String? {
+    fun getHM(duration: Int): String? {
         val h = (duration / 60 / 60).toInt()
         val m = (duration / 60).toInt()
         return String.format("%02d:%02d", h, m)

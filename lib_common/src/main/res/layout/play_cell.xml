@@ -22,7 +22,18 @@
         android:id="@+id/mLoadingSeekBar"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:max="100"
+        android:maxHeight="@dimen/dp_4"
+        android:minHeight="@dimen/dp_4"
+        android:progressDrawable="@drawable/loading_seek_bar_progress"
+        android:thumb="@drawable/loading_seek_thumb"
+        app:light_color="@color/white"
+        app:light_width="@dimen/dp_200"
+        app:light_direction="left_to_right"
+        app:light_duration="1500"
+        app:light_peak_alpha="255"/>
 
     <ImageView
         android:id="@+id/mIvPlay"

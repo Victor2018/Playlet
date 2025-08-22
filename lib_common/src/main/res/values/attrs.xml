@@ -510,15 +510,16 @@
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="LightAnimationView">
+    <declare-styleable name="LoadingSeekBar">
+        <!-- 流光效果属性 -->
         <attr name="light_direction" format="enum">
             <enum name="left_to_right" value="0"/>
             <enum name="right_to_left" value="1"/>
         </attr>
+        <attr name="light_duration" format="integer"/>
         <attr name="light_color" format="color"/>
-        <attr name="light_duration" format="integer" />
         <attr name="light_peak_alpha" format="integer"/>
         <attr name="light_width" format="dimension"/>
+        <attr name="show_light" format="boolean"/>
     </declare-styleable>
-
 </resources>
