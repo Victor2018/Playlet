@@ -3,7 +3,6 @@ package com.victor.lib.common.view.widget
 import android.content.Context
 import android.os.Message
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -12,11 +11,14 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.victor.lib.common.databinding.PlayCellBinding
 import com.victor.lib.common.module.Player
+import com.victor.lib.common.util.ImageUtils
+import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.MainHandler
 import com.victor.lib.common.util.NetworkUtils
 import com.victor.lib.common.util.TimeUtils
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
+import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 
 /*
  * -----------------------------------------------------------------
@@ -34,7 +36,6 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
     private var mPlayer: Player? = null
     private var isSeeking = false //是否正在拖动进度
     private var currentPosition: Int = 0
-    private var mSlideSeekPosition: Long = 0//水平拖到进度
     private var mDuration: Int = 0 //影片时长
 
     constructor(context: Context) : this(context,null)
@@ -46,7 +47,6 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
     }
 
     private fun initView() {
-        Log.d(TAG,"initView()......")
         MainHandler.get().register(this)
         binding = PlayCellBinding.inflate(LayoutInflater.from(context), this, true)
         mPlayer = Player(binding.mTvPlay,MainHandler.get())
@@ -54,6 +54,7 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
         setOnClickListener(this)
         binding.mLoadingSeekBar.setOnSeekBarChangeListener(this)
     }
+
 
     fun play(playUrl: String?) {
         mPlayer?.playUrl(playUrl)
@@ -81,13 +82,13 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        Log.d(TAG,"onAttachedToWindow()......")
+        Loger.d(TAG,"onAttachedToWindow()......")
     }
 
     override fun onDetachedFromWindow() {
         MainHandler.get().unregister(this)
         super.onDetachedFromWindow()
-        Log.d(TAG,"onDetachedFromWindow()......")
+        Loger.d(TAG,"onDetachedFromWindow()......")
         mPlayer?.close()
         mPlayer = null
     }
@@ -164,6 +165,7 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
 
     private fun updateProgress(elapseMsec: Int) {
         if (mDuration > 0 && !isSeeking) {
+            currentPosition = elapseMsec
             setPlayTime(elapseMsec)
             val progress = elapseMsec * 100 / mDuration
 

@@ -56,6 +56,9 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
 
         mDramaAdapter = DramaAdapter(requireContext(),this)
         binding.mRvDrama.adapter = mDramaAdapter
+
+        binding.mSrlRefresh.setOnRefreshListener(this)
+
         subscribeUi()
         subscribeEvent()
     }
@@ -95,6 +98,5 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
     override fun onRefresh() {
         sendDramaListRequest()
     }
-
 
 }

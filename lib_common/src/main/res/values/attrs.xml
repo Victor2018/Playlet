@@ -522,4 +522,11 @@
         <attr name="light_width" format="dimension"/>
         <attr name="show_light" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="ColorSwipeRefreshLayout">
+        <attr name="srlProgressBackgroundColorScheme" format="color"/>
+        <attr name="srlProgressViewStartOffset" format="dimension"/>
+        <attr name="srlProgressViewEndOffset" format="dimension"/>
+        <attr name="srlProgressViewScale" format="boolean"/>
+    </declare-styleable>
 </resources>

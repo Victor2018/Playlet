@@ -6,6 +6,10 @@
     android:id="@+id/mSrlRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:srlProgressBackgroundColorScheme="@color/colorPrimary"
+    app:srlProgressViewStartOffset="@dimen/dp_48"
+    app:srlProgressViewEndOffset="@dimen/dp_148"
+    app:srlProgressViewScale="true"
     tools:ignore="ResourceName">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,4 +43,5 @@
             tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.victor.lib.common.view.widget.ColorSwipeRefreshLayout>

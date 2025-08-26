@@ -14,11 +14,9 @@ import android.view.TextureView
 import android.view.View
 import com.victor.lib.common.app.App
 import com.victor.lib.common.data.SubTitleInfo
-import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.video.cache.HttpProxyCacheServer
-import com.victor.lib.video.cache.preload.PreLoadManager
 import java.util.*
 
 

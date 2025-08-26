@@ -88,6 +88,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         binding.mRvPlaying.layoutManager = layoutManager
 
         binding.mSrlRefresh.setOnRefreshListener(this)
+
         subscribeUi()
     }
 
@@ -156,7 +157,6 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
         val data = mPlayingAdapter?.getItem(position)
         val playUrl = data?.data?.playUrl
-        Log.i(TAG,"onPageSelected()......playUrl = $playUrl")
         playCell.play(playUrl)
 
         if (PreLoadManager.getInstance(requireContext()).hasEnoughCache(playUrl)) {
