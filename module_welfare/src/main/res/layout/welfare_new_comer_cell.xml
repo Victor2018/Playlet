@@ -86,7 +86,7 @@
         android:textSize="@dimen/dp_28"
         android:text="领红包"/>
 
-    <View 
+    <View
         android:id="@+id/line_new_comer"
         style="@style/base_line_horizontal"
         android:layout_width="match_parent"
@@ -214,6 +214,7 @@
         android:layout_marginTop="@dimen/dp_20"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:nestedScrollingEnabled="false"
         android:requiresFadingEdge="horizontal"
         android:fadingEdgeLength="@dimen/dp_10"/>
 

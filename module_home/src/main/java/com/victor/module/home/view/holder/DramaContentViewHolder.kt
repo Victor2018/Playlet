@@ -29,8 +29,6 @@ class DramaContentViewHolder(itemView: View, listener: AdapterView.OnItemClickLi
         mTvDescribe.text = data?.data?.header?.description ?: ""
 
 //        recyclerView.layoutManager = VegaLayoutManager(VegaLayoutManager.HORIZONTAL)
-//        recyclerView.onFlingListener = null
-//        LinearSnapHelper().attachToRecyclerView(recyclerView)
 
         var cellAdapter = DramaItemAdapter(itemView.context,mOnItemClickListener,position)
         cellAdapter.add(data?.data?.itemList)
