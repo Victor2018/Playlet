@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item>
-        <shape android:shape="oval">
-            <solid android:color="@color/color_33EEEEEE"/>
+        <shape>
             <size
                 android:width="@dimen/dp_24"
-                android:height="@dimen/dp_24"/>
+                android:height="@dimen/dp_32"/>
+            <corners android:radius="@dimen/dp_12"/>
+            <solid android:color="@color/transparent"/>
         </shape>
     </item>
     <item
-        android:bottom="@dimen/dp_4"
-        android:left="@dimen/dp_4"
-        android:right="@dimen/dp_4"
-        android:top="@dimen/dp_4">
-        <shape android:shape="oval">
-            <solid android:color="@color/white"/>
+        android:bottom="@dimen/dp_11"
+        android:left="@dimen/dp_9"
+        android:right="@dimen/dp_9"
+        android:top="@dimen/dp_11">
+        <shape>
             <size
-                android:width="@dimen/dp_16"
-                android:height="@dimen/dp_16"/>
+                android:width="@dimen/dp_6"
+                android:height="@dimen/dp_10"/>
+            <corners android:radius="@dimen/dp_3"/>
+            <solid android:color="@color/white"/>
         </shape>
     </item>
 </layer-list>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:ignore="ResourceName">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/mCtlTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:titleEnabled="false">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:contentInsetStart="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/mIvBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/dp_22"
+                        android:padding="@dimen/dp_10"
+                        android:src="@mipmap/ic_black_arrow_left"/>
+
+                    <TextView
+                        android:id="@+id/mTvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/dp_36"
+                        android:text="设置"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/dp_32"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/mTvAccountSet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_28"
+            android:textColor="@color/color_333333"
+            android:drawableRight="@mipmap/ic_right"
+            android:text="账号设置"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <View
+            android:id="@+id/line_account_set"
+            style="@style/base_line_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTvAccountSet"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginEnd="@dimen/dp_32"/>
+
+        <TextView
+            android:id="@+id/mTvYouthMode"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintTop_toBottomOf="@+id/line_account_set"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_28"
+            android:textColor="@color/color_333333"
+            android:drawableRight="@mipmap/ic_right"
+            android:text="青少年模式"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/mTvYouthModeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mTvYouthMode"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_24"
+            android:textColor="@color/color_777777"
+            android:drawableRight="@mipmap/ic_right"
+            android:drawablePadding="@dimen/dp_20"
+            android:text="未开启"/>
+
+        <TextView
+            android:id="@+id/mTvPrivacySetting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintTop_toBottomOf="@+id/mTvYouthMode"
+            android:layout_marginTop="@dimen/dp_40"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_28"
+            android:textColor="@color/color_333333"
+            android:drawableRight="@mipmap/ic_right"
+            android:text="隐私设置"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <View
+            android:id="@+id/line_privacy_set"
+            style="@style/base_line_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTvPrivacySetting"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginEnd="@dimen/dp_32"/>
+
+        <TextView
+            android:id="@+id/mTvClearCache"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintTop_toBottomOf="@+id/line_privacy_set"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_28"
+            android:textColor="@color/color_333333"
+            android:text="清除缓存"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/mTvCache"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mTvClearCache"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_24"
+            android:textColor="@color/color_777777"
+            android:drawableRight="@mipmap/ic_right"
+            android:drawablePadding="@dimen/dp_20"
+            android:text="0KB"/>
+
+        <View
+            android:id="@+id/line_cache"
+            style="@style/base_line_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mTvClearCache"
+            android:layout_marginStart="@dimen/dp_32"
+            android:layout_marginEnd="@dimen/dp_32"/>
+
+        <TextView
+            android:id="@+id/mTvAboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintTop_toBottomOf="@+id/line_cache"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_28"
+            android:textColor="@color/color_333333"
+            android:drawableRight="@mipmap/ic_right"
+            android:text="关于我们"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/mTvLogout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintTop_toBottomOf="@+id/mTvAboutUs"
+            android:layout_marginTop="@dimen/dp_40"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/dp_32"
+            android:textColor="@color/color_EB4F3A"
+            android:text="退出登录"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+

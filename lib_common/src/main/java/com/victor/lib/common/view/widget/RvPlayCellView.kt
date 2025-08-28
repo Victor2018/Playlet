@@ -178,17 +178,14 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
     }
 
     override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
-        /* var duration = mHokPlayer?.getDuration() ?: 0
-         if (fromUser && duration > 0) {
-             val msec: Long = progress * duration / 100
-             mHokPlayer?.seekTo(msec)
-         }*/
     }
 
     override fun onStartTrackingTouch(sb: SeekBar?) {
+        isSeeking = true
     }
 
     override fun onStopTrackingTouch(sb: SeekBar?) {
+        isSeeking = false
         var progress = sb?.progress ?: 0
         var duration = mPlayer?.getDuration() ?: 0
         if (duration > 0) {
