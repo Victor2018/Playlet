@@ -95,4 +95,13 @@ object NavigationUtils {
             .navigation(activity)
     }
 
+    /**
+     * 去往提现
+     */
+    fun goWithdrawAct(activity: Activity) {
+        ARouter.getInstance().build(ARouterPath.WithdrawAct)
+            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
+            .navigation(activity)
+    }
+
 }

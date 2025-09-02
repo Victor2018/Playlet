@@ -60,6 +60,8 @@ class AboutUsActivity : BaseActivity<ActivityAboutUsBinding>(ActivityAboutUsBind
     }
 
     fun initData() {
+        binding.mTvAppName.text = AppUtil.getAppName(this)
+
         var nowYear = DateUtil.getNowYear()
         binding.mTvCopyRight.text = "Copyright © 2021-$nowYear"
 
@@ -98,7 +100,7 @@ class AboutUsActivity : BaseActivity<ActivityAboutUsBinding>(ActivityAboutUsBind
 
     fun sendCheckVersionRequest () {
 
-        mLoadingDialog?.show()
+//        mLoadingDialog?.show()
 
         val pkgName = AppUtil.getPackageName(this)
         var version = AppUtil.getAppVersionName(this)

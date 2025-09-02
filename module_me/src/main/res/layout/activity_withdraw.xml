@@ -55,8 +55,18 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/dp_32"
                         android:paddingEnd="@dimen/dp_32">
+
+                        <ImageView
+                            android:id="@+id/mIvBack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="@dimen/dp_22"
+                            android:padding="@dimen/dp_10"
+                            android:src="@mipmap/ic_back_white"/>
 
                         <TextView
                             android:id="@+id/mTvTitle"
@@ -109,7 +119,7 @@
                 <TextView
                     android:id="@+id/tv_balance"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_100"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:drawableLeft="@mipmap/ic_withdraw"
@@ -122,7 +132,7 @@
                 <TextView
                     android:id="@+id/mTvWechat"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_100"
                     app:layout_constraintTop_toTopOf="@+id/tv_balance"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_balance"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +150,6 @@
                     android:layout_height="@dimen/dp_120"
                     app:layout_constraintTop_toBottomOf="@+id/tv_balance"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="@dimen/dp_30"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -149,7 +158,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/rb_withdraw_selector"
-                        android:layout_margin="@dimen/dp_4"
                         android:button="@android:color/transparent"
                         android:checked="true"
                         android:gravity="center"
@@ -163,7 +171,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/rb_withdraw_selector"
-                        android:layout_margin="@dimen/dp_4"
+                        android:layout_marginStart="@dimen/dp_20"
                         android:button="@android:color/transparent"
                         android:gravity="center"
                         android:textSize="@dimen/dp_36"
@@ -176,7 +184,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/rb_withdraw_selector"
-                        android:layout_margin="@dimen/dp_4"
+                        android:layout_marginStart="@dimen/dp_20"
                         android:button="@android:color/transparent"
                         android:textSize="@dimen/dp_36"
                         android:gravity="center"

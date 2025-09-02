@@ -97,6 +97,9 @@ object ARouterPath {
     /**我的 Activity */
     const val MeAct = "$ME/module/MeActivity"
 
+    /**提现 Activity */
+    const val WithdrawAct = "$ME/module/WithdrawActivity"
+
 
     /**学习中心 Fragment */
     const val StudyCenterFgt = "$STUDY_CENTER/module/StudyCenterFragment"

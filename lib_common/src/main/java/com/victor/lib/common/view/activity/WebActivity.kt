@@ -94,7 +94,7 @@ class WebActivity: BaseActivity<ActivityWebBinding>(ActivityWebBinding::inflate)
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         binding.mPWeb.onDestory()
+        super.onDestroy()
     }
 }

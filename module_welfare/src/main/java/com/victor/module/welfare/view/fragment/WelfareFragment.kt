@@ -2,21 +2,24 @@ package com.victor.module.welfare.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.hok.lib.common.base.ARouterPath
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.util.NavigationUtils
 import com.victor.lib.common.view.widget.LMRecyclerView
 import com.victor.module.welfare.R
 import com.victor.module.welfare.databinding.FragmentWelfareBinding
+import com.victor.module.welfare.databinding.FragmentWelfareHeaderBinding
 import com.victor.module.welfare.view.adapter.EveryDayAdapter
 import com.victor.module.welfare.view.adapter.NewComerAdapter
 
 @Route(path = ARouterPath.WelfareFgt)
 class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBinding::inflate),
-    OnItemClickListener, AppBarLayout.OnOffsetChangedListener {
+    OnItemClickListener, AppBarLayout.OnOffsetChangedListener,OnClickListener {
 
     companion object {
         fun newInstance(): WelfareFragment {
@@ -33,6 +36,7 @@ class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBind
 
     private lateinit var mEveryDayAdapter: EveryDayAdapter
     private lateinit var mNewComerAdapter: NewComerAdapter
+    private lateinit var mFragmentWelfareHeaderBinding: FragmentWelfareHeaderBinding
 
     override fun handleBackEvent(): Boolean {
         return false
@@ -55,7 +59,11 @@ class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBind
         binding.root.findViewById<LMRecyclerView>(R.id.mRvEveryDay).adapter = mEveryDayAdapter
         binding.root.findViewById<LMRecyclerView>(R.id.mRvMeetingGift).adapter = mNewComerAdapter
 
+        mFragmentWelfareHeaderBinding = binding.mFragWelfareHeader
+
         binding.appbar.addOnOffsetChangedListener(this)
+
+        mFragmentWelfareHeaderBinding.mTvWithdrawal.setOnClickListener(this)
     }
 
     private fun initData() {
@@ -74,5 +82,13 @@ class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBind
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         binding.mSrlRefresh.isEnabled = verticalOffset >= 0
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.mTvWithdrawal -> {
+                NavigationUtils.goWithdrawAct(requireActivity())
+            }
+        }
     }
 }
