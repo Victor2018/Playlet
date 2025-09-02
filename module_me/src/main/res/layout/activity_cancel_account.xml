@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:ignore="ResourceName">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/mCtlTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:titleEnabled="false">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:contentInsetStart="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/mIvBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/dp_22"
+                        android:padding="@dimen/dp_10"
+                        android:src="@mipmap/ic_black_arrow_left"/>
+
+                    <TextView
+                        android:id="@+id/mTvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/dp_36"
+                        android:text="账号注销"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_48"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32">
+
+            <TextView
+                android:id="@+id/mTvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:drawableTop="@mipmap/ic_cancel_account_tip"
+                android:drawablePadding="@dimen/dp_20"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/dp_32"
+                android:textColor="@color/color_333333"
+                android:text="您将要注销的账号为183***0858"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_48"
+                android:paddingTop="@dimen/dp_32"
+                android:paddingBottom="@dimen/dp_40"
+                android:paddingStart="@dimen/dp_24"
+                android:paddingEnd="@dimen/dp_24"
+                android:background="@drawable/shape_white_radius_24">
+
+                <TextView
+                    android:id="@+id/tv_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/dp_32"
+                    android:textColor="@color/color_F53F3F"
+                    android:text="注销账号之后无法恢复，请谨慎操作："/>
+
+                <TextView
+                    android:id="@+id/tv_tip1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tip"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/dp_28"
+                    android:textColor="@color/color_333333"
+                    android:text="1、无法再使用账号"/>
+
+                <TextView
+                    android:id="@+id/tv_content1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tip1"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_40"
+                    android:layout_marginEnd="@dimen/dp_40"
+                    android:textSize="@dimen/dp_28"
+                    android:textColor="@color/color_333333"
+                    android:text="如果您确认注销,后续您将无法继续使用此账号在获课APP、H5等各终端继续观看视频、直播等内容。您之前在平台发布的内容都将做匿名处理。"/>
+
+                <TextView
+                    android:id="@+id/tv_tip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_content1"
+                    android:layout_marginTop="@dimen/dp_60"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/dp_28"
+                    android:textColor="@color/color_333333"
+                    android:text="2、以下信息将被删除"/>
+
+                <TextView
+                    android:id="@+id/tv_content2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tip2"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_40"
+                    android:layout_marginEnd="@dimen/dp_40"
+                    android:textSize="@dimen/dp_28"
+                    android:textColor="@color/color_333333"
+                    android:text="账号信息、第三方授权、认证身份、消息记录、会员及权益信息,已购买课程、账户余额、订单记录、收藏等信息。"/>
+
+                <TextView
+                    android:id="@+id/tv_tip3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_content2"
+                    android:layout_marginTop="@dimen/dp_60"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/dp_28"
+                    android:textColor="@color/color_333333"
+                    android:text="3、点击“确认注销”将视为您授权并认可系统清空以上信息。"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/mTvThinkAgain"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_88"
+                android:background="@drawable/ripple_eb4f3a_radius_16"
+                android:layout_marginTop="@dimen/dp_64"
+                android:clickable="true"
+                android:gravity="center"
+                android:textSize="@dimen/dp_32"
+                android:textColor="@color/white"
+                android:text="我再想想"/>
+
+            <TextView
+                android:id="@+id/mTvCancelAccount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_88"
+                android:background="@drawable/ripple_eaeaea_radius_16"
+                android:layout_marginTop="@dimen/dp_40"
+                android:clickable="true"
+                android:gravity="center"
+                android:textSize="@dimen/dp_32"
+                android:textColor="@color/color_777777"
+                android:text="确认注销"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+

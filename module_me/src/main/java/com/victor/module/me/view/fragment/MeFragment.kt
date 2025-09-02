@@ -2,21 +2,24 @@ package com.victor.module.me.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.BaseActivity.Companion.intentStart
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.adapter.TabPagerAdapter
 import com.victor.module.me.R
 import com.victor.module.me.databinding.FragmentMeBinding
+import com.victor.module.me.view.activity.SettingsActivity
 
 @Route(path = ARouterPath.MeFgt)
 class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
-    AppBarLayout.OnOffsetChangedListener,OnItemClickListener {
+    AppBarLayout.OnOffsetChangedListener,OnItemClickListener,OnClickListener {
 
     companion object {
         fun newInstance(): MeFragment {
@@ -64,6 +67,7 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
         binding.mTabDetail.setupWithViewPager(binding.mVpDetail)
 
         binding.appbar.addOnOffsetChangedListener(this)
+        binding.mIvSetting.setOnClickListener(this)
     }
 
     private fun initData() {
@@ -85,5 +89,13 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.mIvSetting -> {
+                context?.intentStart(SettingsActivity::class.java)
+            }
+        }
     }
 }

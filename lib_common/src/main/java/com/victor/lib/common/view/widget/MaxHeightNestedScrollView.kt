@@ -1,9 +1,9 @@
 package com.victor.lib.common.view.widget
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import androidx.core.widget.NestedScrollView
-import androidx.core.content.withStyledAttributes
 import com.victor.lib.common.R
 
 /*
@@ -30,11 +30,10 @@ class MaxHeightNestedScrollView: NestedScrollView {
 
     // Modified changes
     private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
-        context.withStyledAttributes(
-            attrs, R.styleable.MaxHeightNestedScrollView, defStyleAttr, 0
-        ) {
-            maxHeight = getDimensionPixelSize(R.styleable.MaxHeightNestedScrollView_maxHeight, 0)
-        }
+        val a: TypedArray = context.obtainStyledAttributes(
+                attrs, R.styleable.MaxHeightNestedScrollView, defStyleAttr, 0)
+        maxHeight = a.getDimensionPixelSize(R.styleable.MaxHeightNestedScrollView_maxHeight, 0)
+        a.recycle()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

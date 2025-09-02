@@ -1,5 +1,6 @@
 package com.victor.lib.common.base
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -23,12 +24,19 @@ import com.victor.lib.common.util.StatusBarUtil
  * -----------------------------------------------------------------
  */
 
-abstract class BaseActivity<VB : ViewBinding>( private val bindingInflater: (LayoutInflater) -> VB): AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding>(private val bindingInflater: (LayoutInflater) -> VB): AppCompatActivity() {
     protected var TAG = javaClass.simpleName
-    var statusBarTextColorBlack = false
+    var statusBarTextColorBlack = true
 
     private var _binding: VB? = null
     public val binding get() = _binding!!
+
+    companion object {
+        fun Context.intentStart(clazz: Class<*>) {
+            val intent = Intent(this, clazz)
+            startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

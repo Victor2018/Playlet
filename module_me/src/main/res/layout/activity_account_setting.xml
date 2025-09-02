@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:ignore="ResourceName">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/mCtlTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:titleEnabled="false">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:contentInsetStart="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/mIvBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/dp_22"
+                        android:padding="@dimen/dp_10"
+                        android:src="@mipmap/ic_black_arrow_left"/>
+
+                    <TextView
+                        android:id="@+id/mTvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/dp_36"
+                        android:text="账号设置"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/dp_32"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_28"
+            android:textColor="@color/color_333333"
+            android:text="修改登录手机号"/>
+
+        <TextView
+            android:id="@+id/mTvPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_phone"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:gravity="center|right"
+            android:textSize="@dimen/dp_28"
+            android:textColor="@color/color_777777"
+            android:drawableRight="@mipmap/ic_right"
+            android:drawablePadding="@dimen/dp_20"
+            tools:text="13512312121"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/mTvCancelAccount"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_104"
+            app:layout_constraintTop_toBottomOf="@+id/mTvPhone"
+            android:layout_marginTop="@dimen/dp_32"
+            android:paddingStart="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_32"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/ic_right"
+            android:textSize="@dimen/dp_28"
+            android:textColor="@color/color_333333"
+            android:text="注销账号"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+

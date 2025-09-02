@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:ignore="ResourceName">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/mCtlTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:titleEnabled="false">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="@string/app_name"
+                app:contentInsetStart="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/mIvBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/dp_22"
+                        android:padding="@dimen/dp_10"
+                        android:src="@mipmap/ic_black_arrow_left"/>
+
+                    <TextView
+                        android:id="@+id/mTvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textStyle="bold"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/dp_36"
+                        android:text="关于我们"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/mTvAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/dp_88"
+            android:drawableTop="@mipmap/ic_about_logo"
+            android:drawablePadding="@dimen/dp_40"
+            android:gravity="center"
+            android:textSize="@dimen/dp_36"
+            android:textColor="@color/color_333333"
+            android:text="获课"/>
+
+        <TextView
+            android:id="@+id/mTvAppVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/mTvAppName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/dp_8"
+            android:gravity="center"
+            android:textSize="@dimen/dp_36"
+            android:textColor="@color/color_333333"
+            tools:text="Version 1.0.01"/>
+
+        <TextView
+            android:id="@+id/mTvUserServicesAgreement"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_90"
+            app:layout_constraintTop_toBottomOf="@+id/mTvAppVersion"
+            android:layout_marginTop="@dimen/dp_76"
+            android:paddingStart="@dimen/dp_52"
+            android:paddingEnd="@dimen/dp_44"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_36"
+            android:textColor="@color/color_333333"
+            android:drawableRight="@mipmap/ic_black_arrow_right"
+            android:text="用户服务协议"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/mTvAboutHok"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_90"
+            app:layout_constraintTop_toBottomOf="@+id/mTvUserServicesAgreement"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_52"
+            android:paddingEnd="@dimen/dp_44"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_36"
+            android:textColor="@color/color_333333"
+            android:drawableRight="@mipmap/ic_black_arrow_right"
+            android:text="关于获课"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/mTvPrivacyAgreement"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_90"
+            app:layout_constraintTop_toBottomOf="@+id/mTvAboutHok"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_52"
+            android:paddingEnd="@dimen/dp_44"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_36"
+            android:textColor="@color/color_333333"
+            android:drawableRight="@mipmap/ic_black_arrow_right"
+            android:text="隐私协议"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/mTvUpgrade"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_90"
+            app:layout_constraintTop_toBottomOf="@+id/mTvPrivacyAgreement"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_52"
+            android:paddingEnd="@dimen/dp_44"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dp_36"
+            android:textColor="@color/color_333333"
+            android:drawableRight="@mipmap/ic_black_arrow_right"
+            android:text="版本更新"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+
+        <View
+            android:id="@+id/mViewUpdateTip"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mTvUpgrade"
+            android:layout_marginStart="@dimen/dp_200"
+            android:layout_marginTop="@dimen/dp_18"
+            android:background="@drawable/round_eb4f3a_radius_4"/>
+
+        <TextView
+            android:id="@+id/mTvCopyRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/tv_company"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/dp_20"
+            android:text="Copyright © 2021-2022"/>
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/tv_icp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/dp_12"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/dp_20"
+            android:text="深圳市xxx科技有限公司 版权所有"/>
+
+        <TextView
+            android:id="@+id/tv_icp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/dp_20"
+            android:text="ICP备案号：粤ICP备2021049xxx号-6A"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+

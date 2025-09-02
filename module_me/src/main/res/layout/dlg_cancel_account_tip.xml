@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_radius_16"
+    android:paddingTop="@dimen/dp_32"
+    android:paddingBottom="@dimen/dp_32"
+    android:paddingStart="@dimen/dp_20"
+    android:paddingEnd="@dimen/dp_20"
+    tools:ignore="ResourceName">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:drawableLeft="@mipmap/ic_modify_phone_exist"
+        android:drawablePadding="@dimen/dp_16"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_32"
+        android:text="注销账号"/>
+
+    <TextView
+        android:id="@+id/tv_cancel_account_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dp_40"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/dp_28"
+        android:text="注销账号后将不可再观看已购买课程，请谨慎操作！确定注销账号吗？"/>
+
+    <TextView
+        android:id="@+id/mTvConfirm"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_80"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cancel_account_tip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mTvCancel"
+        android:layout_marginTop="@dimen/dp_40"
+        android:background="@drawable/ripple_eaeaea_radius_16"
+        android:clickable="true"
+        android:gravity="center"
+        android:textColor="@color/color_777777"
+        android:textSize="@dimen/dp_32"
+        android:text="确定"/>
+
+    <TextView
+        android:id="@+id/mTvCancel"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_80"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cancel_account_tip"
+        app:layout_constraintStart_toEndOf="@+id/mTvConfirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_22"
+        android:background="@drawable/ripple_eb4f3a_radius_16"
+        android:clickable="true"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_32"
+        android:text="取消"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

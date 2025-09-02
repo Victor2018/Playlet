@@ -24,6 +24,7 @@ import com.victor.lib.common.base.BaseActivity
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.NetworkUtils
 import com.victor.lib.common.util.ResUtils
+import com.victor.lib.common.util.StatusBarUtil
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.adapter.ViewPagerAdapter
@@ -86,7 +87,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.mVpHome.addOnPageChangeListener(this)
         binding.mTvNetworkStatus.setOnClickListener(this)
 
-        setNavStyle(true)
+        setNavStyle(0)
     }
 
     private fun initData() {
@@ -107,10 +108,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         Loger.e(TAG, "onPageSelected......position = $position")
         binding.mBottomNav.selectedItemId = binding.mBottomNav.menu[position].itemId
 
-        setNavStyle(position <= 1)
+        setNavStyle(position)
     }
 
-    private fun setNavStyle(isNight: Boolean) {
+    private fun setNavStyle(position: Int) {
+        statusBarTextColorBlack = position > 2
+        StatusBarUtil.translucentStatusBar(this, true,statusBarTextColorBlack,false)
+
         val states = arrayOf(
             intArrayOf(android.R.attr.state_checked),
             intArrayOf()
@@ -120,6 +124,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             ResUtils.getColorRes(com.victor.lib.common.R.color.color_808080)
         )
         var itemBackgroundColor = com.victor.lib.common.R.color.white
+
+        val isNight = position <= 1
         if (isNight) {
             colors = intArrayOf(
                 ResUtils.getColorRes(com.victor.lib.common.R.color.color_EEEEEE),
@@ -127,6 +133,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             )
             itemBackgroundColor = com.victor.lib.common.R.color.color_333333
         }
+
         binding.mBottomNav.itemTextColor = ColorStateList(states,colors)
         binding.mBottomNav.itemIconTintList = ColorStateList(states,colors)
         binding.mBottomNav.itemBackgroundResource = itemBackgroundColor
