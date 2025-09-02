@@ -411,6 +411,7 @@ class Player : TextureView.SurfaceTextureListener,
     }
 
     fun setLoop (looping: Boolean) {
+        Log.e(TAG, "setLoop-looping =$looping")
         mMediaPlayer?.isLooping = looping
     }
 

@@ -15,7 +15,9 @@ import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.adapter.TabPagerAdapter
 import com.victor.module.me.R
 import com.victor.module.me.databinding.FragmentMeBinding
+import com.victor.module.me.databinding.FragmentMeHeaderBinding
 import com.victor.module.me.view.activity.SettingsActivity
+import com.victor.module.me.view.activity.WithdrawActivity
 
 @Route(path = ARouterPath.MeFgt)
 class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
@@ -38,6 +40,8 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
     private var pagerTitles: Array<String>? = null
     private var fragmentList: ArrayList<Fragment> = ArrayList()
 
+    private lateinit var headerBinding: FragmentMeHeaderBinding
+
     override fun handleBackEvent(): Boolean {
         return false
     }
@@ -53,6 +57,7 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
     }
 
     private fun initView() {
+        headerBinding = binding.mClFragMeHeader
         pagerTitles = ResUtils.getStringArrayRes(R.array.me_tab_titles)
         fragmentList.clear()
         fragmentList.add(HistoryFragment.newInstance())
@@ -68,6 +73,7 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
 
         binding.appbar.addOnOffsetChangedListener(this)
         binding.mIvSetting.setOnClickListener(this)
+        headerBinding.mTvWithdrawal.setOnClickListener(this)
     }
 
     private fun initData() {
@@ -95,6 +101,9 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
         when (v?.id) {
             R.id.mIvSetting -> {
                 context?.intentStart(SettingsActivity::class.java)
+            }
+            R.id.mTvWithdrawal -> {
+                context?.intentStart(WithdrawActivity::class.java)
             }
         }
     }

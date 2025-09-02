@@ -6,11 +6,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.animation.Animation
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.victor.lib.common.databinding.PlayCellBinding
 import com.victor.lib.common.module.Player
+import com.victor.lib.common.util.AnimUtil
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.MainHandler
@@ -35,8 +37,10 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
     private lateinit var binding: PlayCellBinding
     private var mPlayer: Player? = null
     private var isSeeking = false //是否正在拖动进度
+    private var isPause = false //是否正在拖动进度
     private var currentPosition: Int = 0
     private var mDuration: Int = 0 //影片时长
+    private var mScaleEnterInAnim: Animation? = null
 
     constructor(context: Context) : this(context,null)
 
@@ -53,6 +57,8 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
 
         setOnClickListener(this)
         binding.mLoadingSeekBar.setOnSeekBarChangeListener(this)
+
+        mScaleEnterInAnim = AnimUtil.getScaleEnterAnim()
     }
 
 
@@ -61,14 +67,19 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
     }
 
     fun pause() {
+        isPause = true
         if (mPlayer?.isPlaying() == false) return
         mPlayer?.pause()
+
         binding.mIvPlay.show()
+        binding.mIvPlay.startAnimation(mScaleEnterInAnim)
     }
 
     fun resume() {
+        isPause = false
         if (mPlayer?.isPlaying() == true) return
         mPlayer?.resume()
+        binding.mIvPlay.clearAnimation()
         binding.mIvPlay.hide()
     }
 
@@ -102,6 +113,9 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
             Player.TRACK_READY -> {
             }
             Player.PLAYER_PREPARED -> {
+                if (isPause) {
+                    pause()
+                }
                 stopLoadingAnimation()
                 mDuration = mPlayer?.getDuration() ?: 0
                 //当前播放进度剩余时间必须大于10s 才seek
@@ -136,6 +150,7 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
             }
             Player.PLAYER_COMPLETE -> {
                 //这里放在外层处理有可能还有其他试看视频
+                mPlayer?.replay()
             }
         }
     }

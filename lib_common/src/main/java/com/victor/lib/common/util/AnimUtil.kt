@@ -49,6 +49,12 @@ object AnimUtil {
         val animation = AnimationUtils.loadAnimation(App.get(), R.anim.anim_like_scale)
         return animation
     }
+
+    fun getScaleEnterAnim(): Animation {
+        val animation = AnimationUtils.loadAnimation(App.get(), R.anim.anim_scale_enter)
+        animation.fillAfter = true
+        return animation
+    }
     fun xShake(): Animation {
         val animation = AnimationUtils.loadAnimation(App.get(), R.anim.anim_x_shake)
         return animation
