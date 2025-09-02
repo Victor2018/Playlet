@@ -11,6 +11,7 @@ class OpenSourceConventionPlugin : Plugin<Project> {
         with(target) {
             dependencies {
                 "api"(libs.findBundle("victor").get())
+                "api"(libs.findBundle("ktx").get())
                 "api"(libs.findLibrary("multidex.core").get())
                 "api"(libs.findLibrary("androidx.swiperefreshlayout").get())
                 "api"(libs.findBundle("coroutines").get())

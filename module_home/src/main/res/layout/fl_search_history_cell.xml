@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mTvKey"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp_8"
+    android:paddingBottom="@dimen/dp_8"
+    android:paddingStart="@dimen/dp_30"
+    android:paddingEnd="@dimen/dp_30"
+    android:gravity="center"
+    android:textSize="@dimen/dp_24"
+    android:textColor="@color/color_777777"
+    android:background="@drawable/shape_eaeaea_radius_26"
+    tools:text="产品经理"
+    tools:ignore="ResourceName"/>

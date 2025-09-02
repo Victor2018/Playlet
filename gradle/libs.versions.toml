@@ -2,7 +2,6 @@
 #base
 agp = '8.9.0'
 kotlin = '2.1.10'
-coreKtx = '1.10.1'
 junit = '4.13.2'
 junitVersion = '1.1.5'
 espressoCore = '3.5.1'
@@ -22,6 +21,9 @@ lifecycle = '2.4.1'
 workVersion = '2.7.1'
 paging = '3.0.0-alpha02'
 swiperefreshlayout = '1.1.0'
+core_ktx = "1.10.1"
+activity_ktx = '1.4.0'
+fragment_ktx = '1.4.1'
 
 #victor
 easypermissions = 'v1.1.0'
@@ -52,7 +54,7 @@ wechat_sdk = '6.7.9'
 
 [libraries]
 #base
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core_ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -61,6 +63,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity_ktx" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment_ktx" }
 
 #android
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -118,6 +122,7 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devto
 
 [bundles]
 victor = ["victor-easypermissions","victor-livedatabus", "victor-match", "victor-crash-spider", "victor-khttp","victor-video-cache","marquee-view"]
+ktx = ["androidx-core-ktx","androidx-activity-ktx","androidx-fragment-ktx"]
 coroutines = ["coroutines-core","coroutines-android"]
 lifecycle = ["lifecycle-runtime","lifecycle-java8", "lifecycle-compiler","lifecycle-viewmodel_ktx","lifecycle-livedata_ktx"]
 retrofit = ["retrofit-core","retrofit-retrofit-converter-gson"]

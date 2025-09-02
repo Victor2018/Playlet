@@ -2,6 +2,8 @@ package com.victor.module.home.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.OnClickListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.hok.lib.common.base.ARouterPath
@@ -10,9 +12,10 @@ import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.adapter.TabPagerAdapter
 import com.victor.module.home.R
 import com.victor.module.home.databinding.FragmentHomeBinding
+import com.victor.module.home.view.activity.SearchActivity
 
 @Route(path = ARouterPath.HomeFgt)
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),OnClickListener {
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -57,8 +60,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         binding.mVpDetail.adapter = mTabPagerAdapter
         binding.mTabDetail.setupWithViewPager(binding.mVpDetail)
         binding.mVpDetail.currentItem = 2
+
+        binding.mIvSearch.setOnClickListener(this)
     }
 
     private fun initData() {
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.mIvSearch -> {
+                SearchActivity.intentStart(activity as AppCompatActivity,"后海")
+            }
+        }
     }
 }
