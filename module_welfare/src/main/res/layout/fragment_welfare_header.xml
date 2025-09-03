@@ -77,6 +77,6 @@
         android:textStyle="bold"
         android:textSize="@dimen/dp_20"
         android:textColor="@color/color_333333"
-        android:text="提现"/>
+        android:text="去提现"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

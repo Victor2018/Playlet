@@ -9,6 +9,7 @@ import org.victor.http.lib.data.HttpError
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 
 /*
@@ -26,10 +27,16 @@ interface HomeApiService {
     @GET(HomeApi.DRAMA_LIST)
     suspend fun fetchDramaList(): NetworkResponse<BaseRes<FollowItem>, HttpError>
 
+    @GET
+    suspend fun fetchDramaListNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<FollowItem>, HttpError>
+
     @GET(HomeApi.HOME_PLAYING)
     suspend fun fetchHomePlaying(
         @Query("id") id: Int,
         @Query("deviceModel") deviceModel: String?,
         @Query("udid") udid: String?
     ): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+
+    @GET
+    suspend fun fetchHomePlayingNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 }

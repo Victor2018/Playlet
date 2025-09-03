@@ -24,11 +24,27 @@ class HomeVM(private val dataSource: IHomeDS): ViewModel() {
         }
     }
 
+    val dramaListNextData = dataSource.dramaListNextData
+    fun fetchDramaListNext(nextPageUrl: String?) {
+        // Launch a coroutine that reads from a remote data source and updates cache
+        viewModelScope.launch {
+            dataSource.fetchDramaListNext(nextPageUrl)
+        }
+    }
+
     val homePlayingData = dataSource.homePlayingData
     fun fetchHomePlaying(id: Int) {
         // Launch a coroutine that reads from a remote data source and updates cache
         viewModelScope.launch {
             dataSource.fetchHomePlaying(id)
+        }
+    }
+
+    val homePlayingNextData = dataSource.homePlayingNextData
+    fun fetchHomePlayingNext(nextPageUrl: String?) {
+        // Launch a coroutine that reads from a remote data source and updates cache
+        viewModelScope.launch {
+            dataSource.fetchHomePlayingNext(nextPageUrl)
         }
     }
 }

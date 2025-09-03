@@ -1,5 +1,6 @@
 package com.victor.module.home.view.activity
 
+import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -27,8 +28,13 @@ import com.victor.lib.coremodel.data.local.entity.SearchKeywordEntity
 import com.victor.lib.coremodel.data.local.vm.SearchKeywordVM
 import com.victor.lib.coremodel.util.InjectorUtils
 import androidx.activity.viewModels
+import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
+import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
+import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.module.home.R
 import com.victor.module.home.databinding.ActivitySearchBinding
+import com.victor.module.home.view.adapter.SearchRankAdapter
+import org.victor.http.lib.data.HttpResult
 
 @Route(path = ARouterPath.SearchAct)
 class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding::inflate),
@@ -48,11 +54,13 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
         InjectorUtils.provideSearchKeywordVMFactory(this, userId)
     }
 
-//    private val searchVM: SearchVM by viewModels {
-//        InjectorUtils.provideSearchVMFactory(this)
-//    }
+    private val mHomeVM: HomeVM by viewModels {
+        InjectorUtils.provideHomeVMFactory(this)
+    }
 
     var searchKey: String? = null
+
+    var mHotSearchAdapter: SearchRankAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +71,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
     fun initialize() {
         subscribeUi()
 
-//        mSearchKeyAdapter = SearchKeyAdapter(this, this)
-//        binding.mRvSearchKey.adapter = mSearchKeyAdapter
+        mHotSearchAdapter = SearchRankAdapter(this, this)
+        binding.mRvSearchHot.adapter = mHotSearchAdapter
 
         binding.mEtSearch.setOnEditorActionListener(this)
         binding.mEtSearch.addTextChangedListener(this)
@@ -78,7 +86,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
         searchKey = intent?.getStringExtra(Constant.INTENT_DATA_KEY)
 
         binding.mEtSearch.hint = searchKey
-        sendSearchTrendRequest("")
+
+        sendDramaListRequest()
     }
 
     fun subscribeUi() {
@@ -92,20 +101,24 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
             }
         })
 
-        /*searchVM.searchTrendData.observe(this, Observer {
+        mHomeVM.dramaListData.observe(this, Observer {
             when (it) {
                 is HttpResult.Success -> {
-                    showSearchTrendData(it.value)
+                    showDramaListData(it.value)
                 }
                 is HttpResult.Error -> {
                     ToastUtils.show(it.message)
                 }
             }
-        })*/
+        })
     }
 
-    fun sendSearchTrendRequest(name: String?) {
-//        searchVM.fetchSearchTrend(tenantId,name)
+    fun sendDramaListRequest() {
+        mHomeVM.fetchDramaList()
+    }
+
+    fun showDramaListData(data: BaseRes<FollowItem>) {
+        mHotSearchAdapter?.showData(data.itemList)
     }
 
     fun searchAction(keyword: String?) {
@@ -124,7 +137,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
 
 //        SearchResultActivity.intentStart(this, query,tenantId)
 
-        binding.mRvSearchKey.hide()
+//        binding.mRvSearchKey.hide()
 //        clearPasswordViewFocus()
     }
 
@@ -187,6 +200,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
     }
 
     override fun OnLabelClick(text: String?, position: Int) {
+        binding.mEtSearch.setText(text)
+        binding.mEtSearch.setSelection(text?.length ?: 0)
         searchAction(text)
     }
 
@@ -203,7 +218,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
         } else {
             binding.mIvCancel.show()
         }
-        sendSearchTrendRequest(query)
+//        sendSearchTrendRequest(query)
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
@@ -251,8 +266,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
         clearPasswordViewFocus()
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
+    override fun onNewIntent(intent: Intent, caller: ComponentCaller) {
+        super.onNewIntent(intent, caller)
         initData(intent)
     }
 }

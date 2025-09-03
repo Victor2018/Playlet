@@ -77,11 +77,10 @@ object NavigationUtils {
     /**
      * 去往搜索页面
      */
-    fun goSearchActivity(activity: Activity, key: String?,tenantId: Long?) {
+    fun goSearchActivity(activity: Activity, key: String?) {
         ARouter.getInstance().build(ARouterPath.SearchAct)
             .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
             .withString(Constant.INTENT_DATA_KEY, key)
-            .withLong(Constant.TENANT_ID, tenantId ?: 0)
             .navigation(activity)
     }
 

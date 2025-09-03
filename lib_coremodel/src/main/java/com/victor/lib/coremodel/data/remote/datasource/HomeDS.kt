@@ -32,6 +32,13 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
             dramaListData.value = fetchDramaListReq()
         }
     }
+    override val dramaListNextData = MutableLiveData<HttpResult<BaseRes<FollowItem>>>()
+    override suspend fun fetchDramaListNext(nextPageUrl: String?) {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            dramaListNextData.value = fetchDramaListNextReq(nextPageUrl)
+        }
+    }
 
     override val homePlayingData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
     override suspend fun fetchHomePlaying(id: Int) {
@@ -41,13 +48,31 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
         }
     }
 
+    override val homePlayingNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHomePlayingNext(nextPageUrl: String?) {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            homePlayingNextData.value = fetchHomePlayingNextReq(nextPageUrl)
+        }
+    }
+
     private suspend fun <T> fetchDramaListReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(HomeApiService::class.java)
             .fetchDramaList()) as T
     }
 
+    private suspend fun <T> fetchDramaListNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
+            .fetchDramaListNext(nextPageUrl)) as T
+    }
+
     private suspend fun <T> fetchHomePlayingReq(id: Int): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(HomeApiService::class.java)
             .fetchHomePlaying(id,"Android","d2807c895f0348a180148c9dfa6f2feeac0781b5")) as T
+    }
+
+    private suspend fun <T> fetchHomePlayingNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
+            .fetchHomePlayingNext(nextPageUrl)) as T
     }
 }

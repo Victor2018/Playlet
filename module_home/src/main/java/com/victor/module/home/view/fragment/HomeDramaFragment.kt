@@ -1,6 +1,8 @@
 package com.victor.module.home.view.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
@@ -8,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.ToastUtils
+import com.victor.lib.common.view.widget.LMRecyclerView
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import com.victor.lib.coremodel.data.remote.vm.HomeVM
@@ -18,7 +21,7 @@ import com.victor.module.home.view.adapter.DramaAdapter
 import org.victor.http.lib.data.HttpResult
 
 class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDramaBinding::inflate),
-    OnItemClickListener, OnRefreshListener {
+    OnItemClickListener, OnRefreshListener,LMRecyclerView.OnLoadMoreListener {
 
     companion object {
         fun newInstance(): HomeDramaFragment {
@@ -36,6 +39,8 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
     private lateinit var mHomeVM: HomeVM
 
     private var mDramaAdapter: DramaAdapter? = null
+    private var currentPage = 1
+    private var nextPageUrl = ""
 
     override fun handleBackEvent(): Boolean {
         return false
@@ -57,6 +62,7 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
         mDramaAdapter = DramaAdapter(requireContext(),this)
         binding.mRvDrama.adapter = mDramaAdapter
 
+        binding.mRvDrama.setLoadMoreListener(this)
         binding.mSrlRefresh.setOnRefreshListener(this)
 
         subscribeUi()
@@ -79,23 +85,50 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
                 }
             }
         })
+
+        mHomeVM.dramaListNextData.observe(viewLifecycleOwner, Observer {
+            binding.mSrlRefresh.isRefreshing = false
+            when(it) {
+                is HttpResult.Success -> {
+                    showDramaListData(it.value)
+                }
+                is HttpResult.Error -> {
+                    ToastUtils.show(it.message)
+                }
+            }
+        })
     }
 
     private fun subscribeEvent() {
     }
 
     fun sendDramaListRequest() {
-        mHomeVM.fetchDramaList()
+        if (currentPage == 1) {
+            mHomeVM.fetchDramaList()
+        } else {
+            mHomeVM.fetchDramaListNext(nextPageUrl)
+        }
     }
 
     fun showDramaListData(data: BaseRes<FollowItem>) {
-        mDramaAdapter?.showData(data.itemList)
+        val hasNextPage = !TextUtils.equals(data.nextPageUrl ?: "",nextPageUrl)
+        mDramaAdapter?.showData(data.itemList,binding.mTvNoData,binding.mRvDrama, currentPage,
+            false,hasNextPage)
+        if (hasNextPage) {
+            nextPageUrl = data.nextPageUrl ?: ""
+        }
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
     }
 
     override fun onRefresh() {
+        currentPage = 1
+        sendDramaListRequest()
+    }
+
+    override fun OnLoadMore() {
+        currentPage++
         sendDramaListRequest()
     }
 

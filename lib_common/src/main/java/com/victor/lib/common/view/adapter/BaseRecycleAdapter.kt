@@ -285,6 +285,7 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         add(list)
         notifyDataSetChanged()
     }
+
     fun showData(list: List<T>?,mEmptyView: List<View>?, rv: LMRecyclerView?,hideRv: Boolean) {
         if (list == null || list?.size == 0) {
             mEmptyView?.forEach { it?.show() }
@@ -759,9 +760,10 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         setFooterVisible(true)
         add(data)
 
+        rv?.setHasMore(false)
         var size = data?.size ?: 0
         if (size < WebConfig.PAGE_SIZE) {
-            rv?.setHasMore(false)
+
             setLoadState(LOADING_END)
         } else {
             rv?.setHasMore(true)
@@ -769,7 +771,7 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         }
         notifyDataSetChanged()
     }
-    fun showData (data: List<T>?, mEmptyView: View?, rv: LMRecyclerView?, currentPage: Int,hideRv: Boolean) {
+    fun showData (data: List<T>?, mEmptyView: View?, rv: LMRecyclerView?, currentPage: Int,hideRv: Boolean,hasNextPage: Boolean) {
         if (data == null) {
             mEmptyView?.show()
             if (!isHeaderVisible && hideRv) {
@@ -802,13 +804,11 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         setFooterVisible(true)
         add(data)
 
-        var size = data?.size ?: 0
-        if (size < WebConfig.PAGE_SIZE) {
-            rv?.setHasMore(false)
-            setLoadState(LOADING_END)
-        } else {
-            rv?.setHasMore(true)
+        rv?.setHasMore(hasNextPage)
+        if (hasNextPage) {
             setLoadState(LOADING)
+        } else {
+            setLoadState(LOADING_END)
         }
         notifyDataSetChanged()
     }

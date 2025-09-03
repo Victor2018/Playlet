@@ -11,6 +11,7 @@ import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.common.view.widget.ExpandableTextView
 import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 import com.victor.module.home.R
+import kotlin.random.Random
 
 /*
  * -----------------------------------------------------------------
@@ -34,6 +35,7 @@ class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClick
         val mTvFavCount = itemView.findViewById<TextView>(R.id.mTvFavCount)
         val mTvCollectCount = itemView.findViewById<TextView>(R.id.mTvCollectCount)
         val mTvShareCount = itemView.findViewById<TextView>(R.id.mTvShareCount)
+        val mTvDramaCount = itemView.findViewById<TextView>(R.id.mTvDramaCount)
 
         val url = data?.data?.cover?.feed ?: ""
         ImageUtils.instance.imageGauss(itemView.context,mIvPosterBg, url,18)
@@ -46,6 +48,9 @@ class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClick
         mTvFavCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount)
         mTvCollectCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.replyCount)
         mTvShareCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount)
+
+        val dramaCount = Random.nextInt(20, 101)
+        mTvDramaCount.text = "免费看全集·全${dramaCount}集"
 
         mTvDescribe.setOnClickListener(this)
     }

@@ -2,17 +2,20 @@ package com.victor.module.theater.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.OnClickListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.hok.lib.common.base.ARouterPath
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.util.NavigationUtils
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.adapter.TabPagerAdapter
 import com.victor.module.theater.R
 import com.victor.module.theater.databinding.FragmentTheaterBinding
 
 @Route(path = ARouterPath.TheaterFgt)
-class TheaterFragment : BaseFragment<FragmentTheaterBinding>(FragmentTheaterBinding::inflate) {
+class TheaterFragment : BaseFragment<FragmentTheaterBinding>(FragmentTheaterBinding::inflate),OnClickListener {
 
     companion object {
         fun newInstance(): TheaterFragment {
@@ -56,8 +59,18 @@ class TheaterFragment : BaseFragment<FragmentTheaterBinding>(FragmentTheaterBind
         mTabPagerAdapter?.frags = fragmentList
         binding.mVpDetail.adapter = mTabPagerAdapter
         binding.mTabDetail.setupWithViewPager(binding.mVpDetail)
+
+        binding.mIvSearch.setOnClickListener(this)
     }
 
     private fun initData() {
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.mIvSearch -> {
+                NavigationUtils.goSearchActivity(activity as AppCompatActivity,"归队")
+            }
+        }
     }
 }

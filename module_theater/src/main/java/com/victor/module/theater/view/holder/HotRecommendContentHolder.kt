@@ -6,6 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.ResUtils
+import com.victor.lib.common.util.ViewUtils.hide
+import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 import com.victor.module.theater.R
@@ -46,6 +48,11 @@ class HotRecommendContentHolder(itemView: View, listener: AdapterView.OnItemClic
     }
 
     private fun setHotPositionIconBg(position: Int,mTvPosition: TextView) {
+        if (position < 50) {
+            mTvPosition.show()
+        } else {
+            mTvPosition.hide()
+        }
         mTvPosition.text = "${position + 1}"
         when (position) {
             0 -> {

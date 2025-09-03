@@ -34,11 +34,27 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
+    override val rankingNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchRankingNext(nextPageUrl: String?) {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            rankingNextData.value = fetchRankingNextReq(nextPageUrl)
+        }
+    }
+
     override val foundData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
     override suspend fun fetchFound() {
         // Force Main thread
         withContext(Dispatchers.Main) {
             foundData.value = fetchFoundReq()
+        }
+    }
+
+    override val foundNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchFoundNext(nextPageUrl: String?) {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            foundNextData.value = fetchFoundNextReq(nextPageUrl)
         }
     }
 
@@ -50,11 +66,27 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
+    override val hotRecommendNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHotRecommendNext(nextPageUrl: String?) {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            hotRecommendNextData.value = fetchHotRecommendNextReq(nextPageUrl)
+        }
+    }
+
     override val hotPlayData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
     override suspend fun fetchHotPlay() {
         // Force Main thread
         withContext(Dispatchers.Main) {
             hotPlayData.value = fetchHotPlayReq()
+        }
+    }
+
+    override val hotPlayNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHotPlayNext(nextPageUrl: String?) {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            hotPlayNextData.value = fetchHotPlayNextReq(nextPageUrl)
         }
     }
 
@@ -66,6 +98,14 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
+    override val hotNewNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHotNewNext(nextPageUrl: String?) {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            hotNewNextData.value = fetchHotNewNextReq(nextPageUrl)
+        }
+    }
+
     override val hotSearchData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
     override suspend fun fetchHotSearch() {
         // Force Main thread
@@ -74,10 +114,22 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
+    override val hotSearchNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override suspend fun fetchHotSearchNext(nextPageUrl: String?) {
+        // Force Main thread
+        withContext(Dispatchers.Main) {
+            hotSearchNextData.value = fetchHotSearchNextReq(nextPageUrl)
+        }
+    }
 
     private suspend fun <T> fetchRankingReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
             .fetchRanking()) as T
+    }
+
+    private suspend fun <T> fetchRankingNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchRankingNext(nextPageUrl)) as T
     }
 
     private suspend fun <T> fetchFoundReq(): T = withContext(ioDispatcher) {
@@ -85,9 +137,19 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
             .fetchFound()) as T
     }
 
+    private suspend fun <T> fetchFoundNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchFoundNext(nextPageUrl)) as T
+    }
+
     private suspend fun <T> fetchHotRecommendReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
             .fetchHotRecommend()) as T
+    }
+
+    private suspend fun <T> fetchHotRecommendNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotRecommendNext(nextPageUrl)) as T
     }
 
     private suspend fun <T> fetchHotPlayReq(): T = withContext(ioDispatcher) {
@@ -95,14 +157,29 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
             .fetchHotPlay()) as T
     }
 
+    private suspend fun <T> fetchHotPlayNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotPlayNext(nextPageUrl)) as T
+    }
+
     private suspend fun <T> fetchHotNewReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
             .fetchHotNew()) as T
     }
 
+    private suspend fun <T> fetchHotNewNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotNewNext(nextPageUrl)) as T
+    }
+
     private suspend fun <T> fetchHotSearchReq(): T = withContext(ioDispatcher) {
         handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
             .fetchHotSearch()) as T
+    }
+
+    private suspend fun <T> fetchHotSearchNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
+        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotSearchNext(nextPageUrl)) as T
     }
 
 }

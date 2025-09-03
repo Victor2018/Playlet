@@ -35,8 +35,9 @@ class PlayingAdapter(context: Context?, listener: AdapterView.OnItemClickListene
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {
-        val contentViewHolder = viewHolder as PlayingContentViewHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if (viewHolder is PlayingContentViewHolder) {
+            viewHolder.mOnItemClickListener = listener
+            viewHolder.bindData(data)
+        }
     }
 }

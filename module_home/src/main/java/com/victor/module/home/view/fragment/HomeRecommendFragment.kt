@@ -1,6 +1,7 @@
 package com.victor.module.home.view.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -27,11 +28,12 @@ import org.victor.http.lib.data.HttpResult
 import androidx.core.view.isNotEmpty
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
+import com.victor.lib.common.view.widget.LMRecyclerView
 import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 
 class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(FragmentHomeRecommendBinding::inflate),
-    OnItemClickListener, OnRefreshListener, OnViewPagerListener {
+    OnItemClickListener, OnRefreshListener, OnViewPagerListener,LMRecyclerView.OnLoadMoreListener {
 
     companion object {
         fun newInstance(): HomeRecommendFragment {
@@ -50,6 +52,11 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     private var mPlayingAdapter: PlayingAdapter? = null
     private var currentPosition = -1
 
+    val ids = listOf(2, 4, 6, 8, 10, 12, 14,18,20,22,24,26,28,30,32,34,36,38)
+    var requestId = ids[0]
+
+    private var currentPage = 1
+
     val mVideoPreLoadFuture by lazy {
         VideoPreLoadFuture(requireContext(), Constant.PRELOAD_BUS_ID)
     }
@@ -60,7 +67,6 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
     override fun freshFragData() {
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -87,6 +93,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         layoutManager.setOnViewPagerListener(this)
         binding.mRvPlaying.layoutManager = layoutManager
 
+        binding.mRvPlaying.setLoadMoreListener(this)
         binding.mSrlRefresh.setOnRefreshListener(this)
 
         subscribeUi()
@@ -108,16 +115,27 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                 }
             }
         })
+
+        mHomeVM.homePlayingNextData.observe(viewLifecycleOwner, Observer {
+            binding.mSrlRefresh.isRefreshing = false
+            when(it) {
+                is HttpResult.Success -> {
+                    showHomePlayingData(it.value)
+                }
+                is HttpResult.Error -> {
+                    ToastUtils.show(it.message)
+                }
+            }
+        })
     }
 
     fun sendHomePlayingRequest() {
-        val ids = listOf(2, 4, 6, 8, 10, 12, 14,18,20,22,24,26,28,30,32,34,36,38)
-        val id = ids.random()
-        mHomeVM.fetchHomePlaying(id)
+        mHomeVM.fetchHomePlaying(requestId)
     }
 
     fun showHomePlayingData(data: BaseRes<HomeItemInfo>) {
-        mPlayingAdapter?.showData(data.itemList)
+        mPlayingAdapter?.showData(data.itemList,binding.mTvNoData,binding.mRvPlaying, currentPage,
+            false,true)
 
         var urls = data.itemList?.map { it.data?.playUrl }
         if (urls == null) {
@@ -130,6 +148,13 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     override fun onRefresh() {
+        requestId = ids.random()
+        sendHomePlayingRequest()
+    }
+
+    override fun OnLoadMore() {
+        currentPage++
+        requestId = ids.random()
         sendHomePlayingRequest()
     }
 
@@ -137,9 +162,11 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         Log.i(TAG,"onPageRelease()......isNext = $isNext")
         Log.i(TAG,"onPageRelease()......position = $position")
 
-        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position) as PlayingContentViewHolder
-        val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
-        mFlPlay.removeAllViews()
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
+        if (viewHolder is PlayingContentViewHolder) {
+            val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
+            mFlPlay.removeAllViews()
+        }
     }
 
     override fun onPageSelected(position: Int, isBottom: Boolean) {
@@ -148,23 +175,25 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         Log.i(TAG,"onPageSelected()......isBottom = $isBottom")
         Log.i(TAG,"onPageSelected()......position = $position")
 
-        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position) as PlayingContentViewHolder
-        val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
-        val playCell = RvPlayCellView(requireContext())
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
+        if (viewHolder is PlayingContentViewHolder) {
+            val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
+            val playCell = RvPlayCellView(requireContext())
 
-        mFlPlay.removeAllViews()
-        mFlPlay.addView(playCell)
+            mFlPlay.removeAllViews()
+            mFlPlay.addView(playCell)
 
-        val data = mPlayingAdapter?.getItem(position)
-        val playUrl = data?.data?.playUrl
-        playCell.play(playUrl)
+            val data = mPlayingAdapter?.getItem(position)
+            val playUrl = data?.data?.playUrl
+            playCell.play(playUrl)
 
-        if (PreLoadManager.getInstance(requireContext()).hasEnoughCache(playUrl)) {
-            Loger.d(TAG, "onPageSelected-playUrl()...has cached");
+            if (PreLoadManager.getInstance(requireContext()).hasEnoughCache(playUrl)) {
+                Loger.d(TAG, "onPageSelected-playUrl()...has cached");
+            }
+
+            // 参数preloadBusId和VideoPreLoadFuture初始化的VideoPreLoadFuture保持一致，url为当前短视频播放地址
+            mVideoPreLoadFuture.currentPlayUrl(playUrl)
         }
-
-        // 参数preloadBusId和VideoPreLoadFuture初始化的VideoPreLoadFuture保持一致，url为当前短视频播放地址
-        mVideoPreLoadFuture.currentPlayUrl(playUrl)
     }
 
     private fun getCurrentPlayView(): RvPlayCellView? {

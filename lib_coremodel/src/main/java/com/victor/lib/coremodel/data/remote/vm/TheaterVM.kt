@@ -24,11 +24,27 @@ class TheaterVM(private val dataSource: ITheaterDS): ViewModel() {
         }
     }
 
+    val rankingNextData = dataSource.rankingNextData
+    fun fetchRankingNext(nextPageUrl: String?) {
+        // Launch a coroutine that reads from a remote data source and updates cache
+        viewModelScope.launch {
+            dataSource.fetchRankingNext(nextPageUrl)
+        }
+    }
+
     val foundData = dataSource.foundData
     fun fetchFound() {
         // Launch a coroutine that reads from a remote data source and updates cache
         viewModelScope.launch {
             dataSource.fetchFound()
+        }
+    }
+
+    val foundNextData = dataSource.foundNextData
+    fun fetchFoundNext(nextPageUrl: String?) {
+        // Launch a coroutine that reads from a remote data source and updates cache
+        viewModelScope.launch {
+            dataSource.fetchFoundNext(nextPageUrl)
         }
     }
 
@@ -40,11 +56,27 @@ class TheaterVM(private val dataSource: ITheaterDS): ViewModel() {
         }
     }
 
+    val hotRecommendNextData = dataSource.hotRecommendNextData
+    fun fetchHotRecommendNext(nextPageUrl: String?) {
+        // Launch a coroutine that reads from a remote data source and updates cache
+        viewModelScope.launch {
+            dataSource.fetchHotRecommendNext(nextPageUrl)
+        }
+    }
+
     val hotPlayData = dataSource.hotPlayData
     fun fetchHotPlay() {
         // Launch a coroutine that reads from a remote data source and updates cache
         viewModelScope.launch {
             dataSource.fetchHotPlay()
+        }
+    }
+
+    val hotPlayNextData = dataSource.hotPlayNextData
+    fun fetchHotPlayNext(nextPageUrl: String?) {
+        // Launch a coroutine that reads from a remote data source and updates cache
+        viewModelScope.launch {
+            dataSource.fetchHotPlayNext(nextPageUrl)
         }
     }
 
@@ -56,11 +88,27 @@ class TheaterVM(private val dataSource: ITheaterDS): ViewModel() {
         }
     }
 
+    val hotNewNextData = dataSource.hotNewNextData
+    fun fetchHotNewNext(nextPageUrl: String?) {
+        // Launch a coroutine that reads from a remote data source and updates cache
+        viewModelScope.launch {
+            dataSource.fetchHotNewNext(nextPageUrl)
+        }
+    }
+
     val hotSearchData = dataSource.hotSearchData
     fun fetchHotSearch() {
         // Launch a coroutine that reads from a remote data source and updates cache
         viewModelScope.launch {
             dataSource.fetchHotSearch()
+        }
+    }
+
+    val hotSearchNextData = dataSource.hotSearchNextData
+    fun fetchHotSearchNext(nextPageUrl: String?) {
+        // Launch a coroutine that reads from a remote data source and updates cache
+        viewModelScope.launch {
+            dataSource.fetchHotSearchNext(nextPageUrl)
         }
     }
 }

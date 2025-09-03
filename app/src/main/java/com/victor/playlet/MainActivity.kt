@@ -28,6 +28,7 @@ import com.victor.lib.common.util.StatusBarUtil
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.adapter.ViewPagerAdapter
+import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.playlet.databinding.ActivityMainBinding
 
@@ -37,8 +38,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener {
 
 
-    private val homeVM by viewModels<com.victor.lib.coremodel.data.remote.vm.HomeVM> {
-        InjectorUtils.provideHomeVM(this)
+    private val homeVM by viewModels<HomeVM> {
+        InjectorUtils.provideHomeVMFactory(this)
     }
 
     var mViewPagerAdapter: ViewPagerAdapter? = null

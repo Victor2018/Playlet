@@ -7,6 +7,7 @@ import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import org.victor.http.lib.adapter.NetworkResponse
 import org.victor.http.lib.data.HttpError
 import retrofit2.http.GET
+import retrofit2.http.Url
 
 
 /*
@@ -24,18 +25,36 @@ interface TheaterApiService {
     @GET(TheaterApi.RANKING)
     suspend fun fetchRanking(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 
+    @GET
+    suspend fun fetchRankingNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+
     @GET(TheaterApi.FOUND)
     suspend fun fetchFound(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+
+    @GET
+    suspend fun fetchFoundNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 
     @GET(TheaterApi.HOT_RECOMMEND)
     suspend fun fetchHotRecommend(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 
+    @GET
+    suspend fun fetchHotRecommendNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+
     @GET(TheaterApi.HOT_PLAY)
     suspend fun fetchHotPlay(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+
+    @GET
+    suspend fun fetchHotPlayNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 
     @GET(TheaterApi.HOT_NEW)
     suspend fun fetchHotNew(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 
+    @GET
+    suspend fun fetchHotNewNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+
     @GET(TheaterApi.HOT_SEARCH)
     suspend fun fetchHotSearch(): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+
+    @GET
+    suspend fun fetchHotSearchNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
 }

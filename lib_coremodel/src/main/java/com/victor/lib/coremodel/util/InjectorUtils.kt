@@ -39,11 +39,11 @@ object InjectorUtils {
         return SearchKeywordVMFactory(getSearchKeywordRepository(activity),activity,userId)
     }
 
-    fun provideHomeVM(owner: SavedStateRegistryOwner): HomeVMFactory {
+    fun provideHomeVMFactory(owner: SavedStateRegistryOwner): HomeVMFactory {
         return HomeVMFactory(owner)
     }
 
-    fun provideTheaterVM(owner: SavedStateRegistryOwner): TheaterVMFactory {
+    fun provideTheaterVMFactory(owner: SavedStateRegistryOwner): TheaterVMFactory {
         return TheaterVMFactory(owner)
     }
 

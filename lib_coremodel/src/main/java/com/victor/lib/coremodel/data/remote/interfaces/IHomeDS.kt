@@ -21,6 +21,12 @@ interface IHomeDS {
     val dramaListData: LiveData<HttpResult<BaseRes<FollowItem>>>
     suspend fun fetchDramaList()
 
+    val dramaListNextData: LiveData<HttpResult<BaseRes<FollowItem>>>
+    suspend fun fetchDramaListNext(nextPageUrl: String?)
+
     val homePlayingData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
     suspend fun fetchHomePlaying(id: Int)
+
+    val homePlayingNextData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
+    suspend fun fetchHomePlayingNext(nextPageUrl: String?)
 }
