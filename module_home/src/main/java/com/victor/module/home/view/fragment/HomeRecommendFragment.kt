@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -35,7 +36,9 @@ import com.victor.lib.common.interfaces.IDramaVM
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.DramaShowUtil
 import com.victor.lib.common.util.Loger
+import com.victor.lib.common.util.TextViewBoundsUtil
 import com.victor.lib.common.view.widget.LMRecyclerView
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.coremodel.data.local.vm.SearchKeywordVM
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaType
@@ -63,7 +66,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     private var currentPosition = -1
 
     val ids = listOf(2, 4, 6, 8, 10, 12, 14,18,20,22,24,26,28,30,32,34,36,38)
-    var requestId = ids[0]
+    var requestId = 0
 
     private var currentPage = 1
 
@@ -98,6 +101,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         mHomeVM = InjectorUtils.provideFragmentVM(this, HomeVMFactory(this), HomeVM::class.java)
 
         mPlayingAdapter = PlayingAdapter(requireContext(),this)
+        mPlayingAdapter?.mDramaVM = getDramaVM()
         binding.mRvPlaying.adapter = mPlayingAdapter
         val layoutManager = ViewPagerLayoutManager(requireContext(), LinearLayoutManager.VERTICAL)
         layoutManager.setOnViewPagerListener(this)
@@ -110,6 +114,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     private fun initData() {
+        requestId = ids.random()
         sendHomePlayingRequest()
     }
 
@@ -165,6 +170,10 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                 val entity = DramaShowUtil.trans2DramaEntity(data?.data, DramaType.LIKE)
                 getDramaVM()?.insert(entity)
             }
+            R.id.mTvShareCount -> {
+                val entity = DramaShowUtil.trans2DramaEntity(data?.data, DramaType.PURCHASED)
+                getDramaVM()?.insert(entity)
+            }
         }
     }
 
@@ -198,13 +207,15 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
         if (viewHolder is PlayingContentViewHolder) {
+            val data = mPlayingAdapter?.getItem(position)
+
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
+
             val playCell = RvPlayCellView(requireContext())
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
 
-            val data = mPlayingAdapter?.getItem(position)
             val playUrl = data?.data?.playUrl
             playCell.play(playUrl)
 
@@ -232,6 +243,8 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
             }
         return null
     }
+
+
 
     private fun getDramaVM(): DramaVM? {
         if (activity is IDramaVM) {

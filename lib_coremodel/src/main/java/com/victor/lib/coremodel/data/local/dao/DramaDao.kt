@@ -32,9 +32,13 @@ interface DramaDao {
     @Query("DELETE FROM tb_drama where user_id = :userId")
     suspend fun clearAll(userId: String)
 
-    @Query("SELECT * FROM tb_drama where user_id = :userId AND type = :type ORDER BY create_date DESC LIMIT 6")
+    @Query("SELECT * FROM tb_drama where user_id = :userId AND id = :id AND type = :type ORDER BY create_date DESC LIMIT 1")
+    suspend fun getById(userId: String,id: Int,type: Int): DramaEntity?
+
+    @Query("SELECT * FROM tb_drama where user_id = :userId AND type = :type ORDER BY create_date DESC")
     fun getByType(userId: String,type: Int): LiveData<List<DramaEntity>>
 
     @Query("SELECT * FROM tb_drama where user_id = :userId")
     fun getAll(userId: String): LiveData<List<DramaEntity>>
+
 }

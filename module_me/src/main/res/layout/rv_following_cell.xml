@@ -7,6 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/dp_20"
     android:layout_marginEnd="@dimen/dp_20"
+    android:paddingBottom="@dimen/dp_10"
+    android:background="@drawable/shape_f6f6f6_radius_12"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     tools:ignore="ResourceName">
@@ -19,8 +21,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:src="@color/color_CCCCCC"
         android:scaleType="centerCrop"
-        app:shape_mode="round_rect"
-        app:round_radius="@dimen/dp_8"/>
+        app:shape_mode="round_rect_top"
+        app:round_radius="@dimen/dp_12"/>
 
     <TextView
         android:id="@+id/mTvContentName"
@@ -29,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mIvPoster"
         app:layout_constraintStart_toStartOf="@+id/mIvPoster"
         app:layout_constraintEnd_toEndOf="@+id/mIvPoster"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:padding="@dimen/dp_5"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:ellipsize="end"
@@ -44,12 +46,8 @@
         app:layout_constraintTop_toBottomOf="@+id/mTvContentName"
         app:layout_constraintStart_toStartOf="@+id/mTvContentName"
         app:layout_constraintEnd_toEndOf="@+id/mTvContentName"
-        android:layout_marginTop="@dimen/dp_8"
-        android:paddingTop="@dimen/dp_2"
-        android:paddingBottom="@dimen/dp_2"
-        android:paddingStart="@dimen/dp_8"
-        android:paddingEnd="@dimen/dp_8"
         android:background="@drawable/shape_fafafa_radius_8"
+        android:paddingStart="@dimen/dp_5"
         android:gravity="center_vertical"
         android:textColor="@color/color_777777"
         android:textSize="@dimen/dp_24"

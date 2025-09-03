@@ -9,6 +9,9 @@ import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.TextViewBoundsUtil
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.common.view.widget.ExpandableTextView
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaType
 import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 import com.victor.module.home.R
 import kotlin.random.Random
@@ -25,6 +28,8 @@ import kotlin.random.Random
  */
 class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
     ContentViewHolder<HomeItemInfo>(itemView,listener) {
+
+    var mDramaVM: DramaVM? = null
 
     override fun bindData(data: HomeItemInfo?) {
         val mIvPosterBg = itemView.findViewById<ImageView>(R.id.mIvPosterBg)
@@ -52,9 +57,26 @@ class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClick
         val dramaCount = Random.nextInt(20, 101)
         mTvDramaCount.text = "免费看全集·全${dramaCount}集"
 
+        isDramaFollowing(data?.id ?: 0){
+            if (it == null) {
+                TextViewBoundsUtil.setTvDrawableTop(itemView.context,mTvFavCount,com.victor.lib.common.R.mipmap.ic_fav_normal)
+            } else {
+                TextViewBoundsUtil.setTvDrawableTop(itemView.context,mTvFavCount,com.victor.lib.common.R.mipmap.ic_fav_focus)
+            }
+        }
+
+        isDramaLiked(data?.id ?: 0){
+            if (it == null) {
+                TextViewBoundsUtil.setTvDrawableTop(itemView.context,mTvCollectCount,com.victor.lib.common.R.mipmap.ic_collect_normal)
+            } else {
+                TextViewBoundsUtil.setTvDrawableTop(itemView.context,mTvCollectCount,com.victor.lib.common.R.mipmap.ic_collect_focus)
+            }
+        }
+
         mTvDescribe.setOnClickListener(this)
         mTvFavCount.setOnClickListener(this)
         mTvCollectCount.setOnClickListener(this)
+        mTvShareCount.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -67,5 +89,13 @@ class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClick
                 super.onClick(view)
             }
         }
+    }
+
+    private fun isDramaFollowing(id: Int?,callback: (DramaEntity?) -> Unit) {
+        mDramaVM?.getById(id ?: 0, DramaType.FOLLOWING.value,callback)
+    }
+
+    private fun isDramaLiked(id: Int?,callback: (DramaEntity?) -> Unit) {
+        mDramaVM?.getById(id ?: 0, DramaType.LIKE.value,callback)
     }
 }

@@ -54,6 +54,9 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
 
     private fun subscribeUi() {
         getDramaVM()?.historyDramaData?.observe(this, Observer {
+            if (it.size > 12) {
+                getDramaVM()?.delete(it[it.size - 1])
+            }
             showDramaData(it)
         })
     }

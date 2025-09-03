@@ -5,39 +5,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="@dimen/dp_32"
-    android:paddingEnd="@dimen/dp_32"
     tools:ignore="ResourceName">
 
-    <TextView
+    <com.victor.lib.common.view.widget.LMRecyclerView
+        android:id="@+id/mRvDrama"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="@dimen/dp_66"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        android:textColor="@color/colorAccent"
-        android:text="已购"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingStart="@dimen/dp_32"
+        android:paddingEnd="@dimen/dp_12"
+        android:clipToPadding="false"
+        app:spanCount="3"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
     <TextView
+        android:id="@+id/mTvNoData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="@dimen/dp_28"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:drawableRight="@mipmap/ic_me_content_edit"
-        android:drawablePadding="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_200"
+        android:drawableTop="@mipmap/img_no_data"
+        android:drawablePadding="@dimen/dp_40"
         android:gravity="center"
+        android:textSize="@dimen/dp_28"
         android:textColor="@color/color_999999"
-        android:text="编辑"/>
+        android:text="暂无相关内容~"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

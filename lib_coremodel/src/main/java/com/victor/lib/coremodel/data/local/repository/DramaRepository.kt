@@ -37,6 +37,8 @@ class DramaRepository constructor(private val db: AppDatabase) {
 
     fun getAll(userId: String) = dramaDao.getAll(userId)
 
+    suspend fun getById(userId: String, id: Int,type: Int) = dramaDao.getById(userId, id,type)
+
     companion object {
 
         // For Singleton instantiation
