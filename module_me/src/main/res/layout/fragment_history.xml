@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingStart="@dimen/dp_32"
-        android:paddingEnd="@dimen/dp_32"
+        android:paddingEnd="@dimen/dp_12"
         android:clipToPadding="false"
         app:spanCount="3"
         android:orientation="vertical"

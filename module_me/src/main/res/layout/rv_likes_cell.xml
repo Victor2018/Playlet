@@ -3,15 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/dp_180"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_20"
+    android:layout_marginEnd="@dimen/dp_20"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     tools:ignore="ResourceName">
 
     <com.victor.lib.common.view.widget.ShapedImageView
         android:id="@+id/mIvPoster"
-        android:layout_width="@dimen/dp_180"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/dp_220"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +38,7 @@
         android:text="实习生是老板千金"/>
 
     <TextView
-        android:id="@+id/mTvType"
+        android:id="@+id/mTvDramaCount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/mTvContentName"

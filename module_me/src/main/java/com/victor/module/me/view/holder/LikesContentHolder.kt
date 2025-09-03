@@ -8,6 +8,7 @@ import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.module.me.R
+import kotlin.random.Random
 
 /*
  * -----------------------------------------------------------------
@@ -28,6 +29,11 @@ class LikesContentHolder(itemView: View, listener: AdapterView.OnItemClickListen
         ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
             com.victor.lib.common.R.mipmap.img_placeholder_vertical)
         itemView.findViewById<TextView>(R.id.mTvContentName).text = data?.title ?: ""
+
+        val start = Random.nextInt(1, 20)
+        val dramaCount = Random.nextInt(20, 101)
+        itemView.findViewById<TextView>(R.id.mTvDramaCount).text = "${start}/${dramaCount}集"
+
     }
 
     override fun onLongClick(v: View): Boolean {
