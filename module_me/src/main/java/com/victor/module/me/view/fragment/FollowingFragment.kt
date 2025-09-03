@@ -2,10 +2,19 @@ package com.victor.module.me.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import androidx.lifecycle.Observer
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.interfaces.IDramaVM
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.module.me.databinding.FragmentFollowingBinding
+import com.victor.module.me.view.adapter.FollowingAdapter
+import com.victor.module.me.view.adapter.HistoryAdapter
 
-class FollowingFragment : BaseFragment<FragmentFollowingBinding>(FragmentFollowingBinding::inflate) {
+class FollowingFragment : BaseFragment<FragmentFollowingBinding>(FragmentFollowingBinding::inflate),
+    OnItemClickListener {
 
     companion object {
         fun newInstance(): FollowingFragment {
@@ -20,6 +29,8 @@ class FollowingFragment : BaseFragment<FragmentFollowingBinding>(FragmentFollowi
         }
     }
 
+    private var mFollowingAdapter: FollowingAdapter? = null
+
     override fun handleBackEvent(): Boolean {
         return false
     }
@@ -27,9 +38,36 @@ class FollowingFragment : BaseFragment<FragmentFollowingBinding>(FragmentFollowi
     override fun freshFragData() {
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
 
+    private fun initView() {
+        mFollowingAdapter = FollowingAdapter(context,this)
+        binding.mRvDrama.adapter = mFollowingAdapter
+
+        subscribeUi()
+    }
+
+    private fun subscribeUi() {
+        getDramaVM()?.followingDramaData?.observe(this, Observer {
+            showDramaData(it)
+        })
+    }
+
+    private fun showDramaData(datas: List<DramaEntity>) {
+        mFollowingAdapter?.showData(datas,binding.mTvNoData,binding.mRvDrama)
+    }
+
+    override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
+    }
+
+    private fun getDramaVM(): DramaVM? {
+        if (activity is IDramaVM) {
+            val parentAct = activity as IDramaVM
+            return parentAct.getDramaVMDb()
+        }
+        return null
     }
 }

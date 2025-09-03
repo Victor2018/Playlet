@@ -50,7 +50,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
     }
 
     private val searchKeywordVM: SearchKeywordVM by viewModels {
-        var userId = App.get().getUserInfo()?.uid ?: ""
+        val userId = App.get().getUserInfo()?.uid ?: ""
         InjectorUtils.provideSearchKeywordVMFactory(this, userId)
     }
 

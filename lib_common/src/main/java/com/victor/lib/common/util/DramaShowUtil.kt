@@ -1,5 +1,10 @@
 package com.victor.lib.common.util
 
+import com.victor.lib.common.app.App
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaType
+import com.victor.lib.coremodel.data.remote.entity.bean.HomeData
+import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 import kotlin.random.Random
 
 /*
@@ -34,5 +39,13 @@ object DramaShowUtil {
         }
 
         return "10亿"
+    }
+
+    fun trans2DramaEntity(data: HomeData?,type: DramaType): DramaEntity {
+        val userId = App.get().getUserInfo()?.uid ?: ""
+        val item = DramaEntity(data?.id ?: 0,type.value,data?.title ?: "",data?.category ?: "",
+            data?.description ?: "",data?.playUrl ?: "",data?.cover?.feed ?: "",
+            data?.duration ?: 0,userId)
+        return item
     }
 }

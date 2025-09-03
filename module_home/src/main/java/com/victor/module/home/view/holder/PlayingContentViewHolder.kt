@@ -53,6 +53,8 @@ class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClick
         mTvDramaCount.text = "免费看全集·全${dramaCount}集"
 
         mTvDescribe.setOnClickListener(this)
+        mTvFavCount.setOnClickListener(this)
+        mTvCollectCount.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {

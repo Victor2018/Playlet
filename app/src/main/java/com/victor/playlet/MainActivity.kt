@@ -12,15 +12,19 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
+import com.victor.lib.common.interfaces.IDramaVM
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.NetworkUtils
 import com.victor.lib.common.util.ResUtils
@@ -28,6 +32,7 @@ import com.victor.lib.common.util.StatusBarUtil
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.adapter.ViewPagerAdapter
+import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.playlet.databinding.ActivityMainBinding
@@ -35,8 +40,12 @@ import com.victor.playlet.databinding.ActivityMainBinding
 
 @Route(path = ARouterPath.MainAct)
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
-    OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener {
+    OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener, IDramaVM {
 
+    private val dramaVM: DramaVM by viewModels {
+        val userId = App.get().getUserInfo()?.uid ?: ""
+        InjectorUtils.provideDramaVMFactory(this, userId)
+    }
 
     private val homeVM by viewModels<HomeVM> {
         InjectorUtils.provideHomeVMFactory(this)
@@ -213,5 +222,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
         }
     }
+
+    override fun getDramaVMDb() = dramaVM
 
 }

@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
 import com.victor.lib.coremodel.data.local.AppDatabase
+import com.victor.lib.coremodel.data.local.repository.DramaRepository
 import com.victor.lib.coremodel.data.local.repository.SearchKeywordRepository
+import com.victor.lib.coremodel.data.local.vm.factory.DramaVMFactory
 import com.victor.lib.coremodel.data.local.vm.factory.SearchKeywordVMFactory
 import com.victor.lib.coremodel.data.remote.vm.factory.HomeVMFactory
 import com.victor.lib.coremodel.data.remote.vm.factory.TheaterVMFactory
@@ -37,6 +39,14 @@ object InjectorUtils {
     }
     fun provideSearchKeywordVMFactory(activity: AppCompatActivity, userId: String): SearchKeywordVMFactory {
         return SearchKeywordVMFactory(getSearchKeywordRepository(activity),activity,userId)
+    }
+
+    fun getDramaRepository(context: Context): DramaRepository {
+        return DramaRepository.getInstance(
+            AppDatabase.getInstance(context.applicationContext))
+    }
+    fun provideDramaVMFactory(activity: AppCompatActivity, userId: String): DramaVMFactory {
+        return DramaVMFactory(getDramaRepository(activity),activity,userId)
     }
 
     fun provideHomeVMFactory(owner: SavedStateRegistryOwner): HomeVMFactory {

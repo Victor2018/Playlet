@@ -2,10 +2,18 @@ package com.victor.module.me.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import androidx.lifecycle.Observer
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.interfaces.IDramaVM
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.module.me.databinding.FragmentLikesBinding
+import com.victor.module.me.view.adapter.LikesAdapter
 
-class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::inflate) {
+class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::inflate),
+    OnItemClickListener {
 
     companion object {
         fun newInstance(): LikesFragment {
@@ -20,6 +28,8 @@ class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::i
         }
     }
 
+    private var mLikesAdapter: LikesAdapter? = null
+
     override fun handleBackEvent(): Boolean {
         return false
     }
@@ -27,9 +37,36 @@ class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::i
     override fun freshFragData() {
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
 
+    private fun initView() {
+        mLikesAdapter = LikesAdapter(context,this)
+        binding.mRvDrama.adapter = mLikesAdapter
+
+        subscribeUi()
+    }
+
+    private fun subscribeUi() {
+        getDramaVM()?.likesDramaData?.observe(this, Observer {
+            showDramaData(it)
+        })
+    }
+
+    private fun showDramaData(datas: List<DramaEntity>) {
+        mLikesAdapter?.showData(datas,binding.mTvNoData,binding.mRvDrama)
+    }
+
+    override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
+    }
+
+    private fun getDramaVM(): DramaVM? {
+        if (activity is IDramaVM) {
+            val parentAct = activity as IDramaVM
+            return parentAct.getDramaVMDb()
+        }
+        return null
     }
 }

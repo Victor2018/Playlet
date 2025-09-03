@@ -12,7 +12,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.victor.lib.coremodel.data.local.DbConfig.DATABASE_NAME
 import com.victor.lib.coremodel.data.local.DbConfig.DB_VERSION
 import com.victor.lib.coremodel.data.local.converters.DateConverters
+import com.victor.lib.coremodel.data.local.dao.DramaDao
 import com.victor.lib.coremodel.data.local.dao.SearchKeywordDao
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.entity.SearchKeywordEntity
 //import com.hok.lib.coremodel.workers.SeedDatabaseWorker
 
@@ -29,12 +31,13 @@ import com.victor.lib.coremodel.data.local.entity.SearchKeywordEntity
 
 
 @Database(entities = arrayOf(
-        SearchKeywordEntity::class),
+        SearchKeywordEntity::class,DramaEntity::class),
         version = DB_VERSION, exportSchema = false)
 @TypeConverters(DateConverters::class)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun searchKeywordDao(): SearchKeywordDao
+    abstract fun dramaDao(): DramaDao
 
     companion object {
         // For Singleton instantiation

@@ -2,10 +2,21 @@ package com.victor.module.me.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.interfaces.IDramaVM
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.module.me.databinding.FragmentHistoryBinding
+import com.victor.module.me.view.adapter.HistoryAdapter
 
-class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate) {
+class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate),OnItemClickListener {
 
     companion object {
         fun newInstance(): HistoryFragment {
@@ -20,6 +31,8 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
         }
     }
 
+    private var mHistoryAdapter: HistoryAdapter? = null
+
     override fun handleBackEvent(): Boolean {
         return false
     }
@@ -27,9 +40,36 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
     override fun freshFragData() {
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
 
+    private fun initView() {
+        mHistoryAdapter = HistoryAdapter(context,this)
+        binding.mRvDrama.adapter = mHistoryAdapter
+
+        subscribeUi()
+    }
+
+    private fun subscribeUi() {
+        getDramaVM()?.historyDramaData?.observe(this, Observer {
+            showDramaData(it)
+        })
+    }
+
+    private fun showDramaData(datas: List<DramaEntity>) {
+        mHistoryAdapter?.showData(datas,binding.mTvNoData,binding.mRvDrama)
+    }
+
+    override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
+    }
+
+    private fun getDramaVM(): DramaVM? {
+        if (activity is IDramaVM) {
+            val parentAct = activity as IDramaVM
+            return parentAct.getDramaVMDb()
+        }
+        return null
     }
 }

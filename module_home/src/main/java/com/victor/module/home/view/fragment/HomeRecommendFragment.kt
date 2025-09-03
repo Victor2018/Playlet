@@ -1,12 +1,15 @@
 package com.victor.module.home.view.fragment
 
 import android.os.Bundle
+import android.text.InputFilter
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.FrameLayout
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -26,9 +29,16 @@ import com.victor.module.home.view.adapter.PlayingAdapter
 import com.victor.module.home.view.holder.PlayingContentViewHolder
 import org.victor.http.lib.data.HttpResult
 import androidx.core.view.isNotEmpty
+import androidx.fragment.app.viewModels
+import com.victor.lib.common.app.App
+import com.victor.lib.common.interfaces.IDramaVM
 import com.victor.lib.common.util.Constant
+import com.victor.lib.common.util.DramaShowUtil
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.view.widget.LMRecyclerView
+import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.data.local.vm.SearchKeywordVM
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaType
 import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 
@@ -145,6 +155,17 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val data = mPlayingAdapter?.getItem(position)
+        when (view?.id) {
+            R.id.mTvFavCount -> {
+                val entity = DramaShowUtil.trans2DramaEntity(data?.data, DramaType.FOLLOWING)
+                getDramaVM()?.insert(entity)
+            }
+            R.id.mTvCollectCount -> {
+                val entity = DramaShowUtil.trans2DramaEntity(data?.data, DramaType.LIKE)
+                getDramaVM()?.insert(entity)
+            }
+        }
     }
 
     override fun onRefresh() {
@@ -193,6 +214,9 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
             // 参数preloadBusId和VideoPreLoadFuture初始化的VideoPreLoadFuture保持一致，url为当前短视频播放地址
             mVideoPreLoadFuture.currentPlayUrl(playUrl)
+
+            val entity = DramaShowUtil.trans2DramaEntity(data?.data, DramaType.HISTORY)
+            getDramaVM()?.insert(entity)
         }
     }
 
@@ -206,6 +230,14 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                     return childView
                 }
             }
+        return null
+    }
+
+    private fun getDramaVM(): DramaVM? {
+        if (activity is IDramaVM) {
+            val parentAct = activity as IDramaVM
+            return parentAct.getDramaVMDb()
+        }
         return null
     }
 
