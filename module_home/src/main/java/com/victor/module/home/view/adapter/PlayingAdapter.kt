@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
-import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 import com.victor.module.home.R
 import com.victor.module.home.view.holder.PlayingContentViewHolder
@@ -23,8 +22,6 @@ import com.victor.module.home.view.holder.PlayingContentViewHolder
 class PlayingAdapter(context: Context?, listener: AdapterView.OnItemClickListener?) :
         BaseRecycleAdapter<HomeItemInfo, RecyclerView.ViewHolder>(context, listener) {
 
-    var mDramaVM: DramaVM? = null
-
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
     }
@@ -39,7 +36,6 @@ class PlayingAdapter(context: Context?, listener: AdapterView.OnItemClickListene
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {
         if (viewHolder is PlayingContentViewHolder) {
             viewHolder.mOnItemClickListener = listener
-            viewHolder.mDramaVM = mDramaVM
             viewHolder.bindData(data)
         }
     }

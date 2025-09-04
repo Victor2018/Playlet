@@ -12,9 +12,15 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.victor.lib.coremodel.data.local.DbConfig.DATABASE_NAME
 import com.victor.lib.coremodel.data.local.DbConfig.DB_VERSION
 import com.victor.lib.coremodel.data.local.converters.DateConverters
-import com.victor.lib.coremodel.data.local.dao.DramaDao
+import com.victor.lib.coremodel.data.local.dao.FollowingDramaDao
+import com.victor.lib.coremodel.data.local.dao.HistoryDramaDao
+import com.victor.lib.coremodel.data.local.dao.LikedDramaDao
+import com.victor.lib.coremodel.data.local.dao.PurchasedDramaDao
 import com.victor.lib.coremodel.data.local.dao.SearchKeywordDao
-import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.entity.FollowingDramaEntity
+import com.victor.lib.coremodel.data.local.entity.HistoryDramaEntity
+import com.victor.lib.coremodel.data.local.entity.LikedDramaEntity
+import com.victor.lib.coremodel.data.local.entity.PurchasedDramaEntity
 import com.victor.lib.coremodel.data.local.entity.SearchKeywordEntity
 //import com.hok.lib.coremodel.workers.SeedDatabaseWorker
 
@@ -31,13 +37,19 @@ import com.victor.lib.coremodel.data.local.entity.SearchKeywordEntity
 
 
 @Database(entities = arrayOf(
-        SearchKeywordEntity::class,DramaEntity::class),
+        SearchKeywordEntity::class,HistoryDramaEntity::class,
+        FollowingDramaEntity::class,LikedDramaEntity::class,
+        PurchasedDramaEntity::class
+        ),
         version = DB_VERSION, exportSchema = false)
 @TypeConverters(DateConverters::class)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun searchKeywordDao(): SearchKeywordDao
-    abstract fun dramaDao(): DramaDao
+    abstract fun historyDramaDao(): HistoryDramaDao
+    abstract fun followingDramaDao(): FollowingDramaDao
+    abstract fun likedDramaDao(): LikedDramaDao
+    abstract fun purchasedDramaDao(): PurchasedDramaDao
 
     companion object {
         // For Singleton instantiation

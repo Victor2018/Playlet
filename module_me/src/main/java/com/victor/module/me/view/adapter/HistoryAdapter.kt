@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
-import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.entity.HistoryDramaEntity
 import com.victor.module.me.R
 import com.victor.module.me.view.holder.HistoryContentHolder
 
@@ -20,20 +20,20 @@ import com.victor.module.me.view.holder.HistoryContentHolder
  * -----------------------------------------------------------------
  */
 class HistoryAdapter(context: Context?, listener: AdapterView.OnItemClickListener?) :
-    BaseRecycleAdapter<DramaEntity, RecyclerView.ViewHolder>(context, listener) {
+    BaseRecycleAdapter<HistoryDramaEntity, RecyclerView.ViewHolder>(context, listener) {
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
     }
 
-    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaEntity?, position: Int) {
+    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: HistoryDramaEntity?, position: Int) {
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HistoryContentHolder(inflate(R.layout.rv_history_cell, parent), listener)
     }
 
-    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaEntity?, position: Int) {
+    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HistoryDramaEntity?, position: Int) {
         val contentViewHolder = viewHolder as HistoryContentHolder
         contentViewHolder.mOnItemClickListener = listener
         contentViewHolder.bindData(data)

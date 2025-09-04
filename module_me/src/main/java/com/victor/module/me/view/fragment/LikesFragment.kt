@@ -7,8 +7,8 @@ import android.widget.AdapterView.OnItemClickListener
 import androidx.lifecycle.Observer
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.interfaces.IDramaVM
-import com.victor.lib.coremodel.data.local.entity.DramaEntity
-import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.data.local.entity.LikedDramaEntity
+import com.victor.lib.coremodel.data.local.vm.LikedDramaVM
 import com.victor.module.me.databinding.FragmentLikesBinding
 import com.victor.module.me.view.adapter.LikesAdapter
 
@@ -50,22 +50,22 @@ class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::i
     }
 
     private fun subscribeUi() {
-        getDramaVM()?.likesDramaData?.observe(this, Observer {
+        getLikedDramaVM()?.dramaData?.observe(this, Observer {
             showDramaData(it)
         })
     }
 
-    private fun showDramaData(datas: List<DramaEntity>) {
+    private fun showDramaData(datas: List<LikedDramaEntity>) {
         mLikesAdapter?.showData(datas,binding.mTvNoData,binding.mRvDrama)
     }
 
     override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
     }
 
-    private fun getDramaVM(): DramaVM? {
+    private fun getLikedDramaVM(): LikedDramaVM? {
         if (activity is IDramaVM) {
             val parentAct = activity as IDramaVM
-            return parentAct.getDramaVMDb()
+            return parentAct.getLikedDramaVM()
         }
         return null
     }

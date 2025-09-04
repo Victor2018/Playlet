@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
@@ -12,10 +11,8 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -32,7 +29,10 @@ import com.victor.lib.common.util.StatusBarUtil
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.adapter.ViewPagerAdapter
-import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.data.local.vm.FollowingDramaVM
+import com.victor.lib.coremodel.data.local.vm.HistoryDramaVM
+import com.victor.lib.coremodel.data.local.vm.LikedDramaVM
+import com.victor.lib.coremodel.data.local.vm.PurchasedDramaVM
 import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.playlet.databinding.ActivityMainBinding
@@ -42,9 +42,24 @@ import com.victor.playlet.databinding.ActivityMainBinding
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
     OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener, IDramaVM {
 
-    private val dramaVM: DramaVM by viewModels {
+    private val mHistoryDramaVM: HistoryDramaVM by viewModels {
         val userId = App.get().getUserInfo()?.uid ?: ""
-        InjectorUtils.provideDramaVMFactory(this, userId)
+        InjectorUtils.provideHistoryDramaVMFactory(this, userId)
+    }
+
+    private val mFollowingDramaVM: FollowingDramaVM by viewModels {
+        val userId = App.get().getUserInfo()?.uid ?: ""
+        InjectorUtils.provideFollowingDramaVMFactory(this, userId)
+    }
+
+    private val mLikedDramaVM: LikedDramaVM by viewModels {
+        val userId = App.get().getUserInfo()?.uid ?: ""
+        InjectorUtils.provideLikedDramaVMFactory(this, userId)
+    }
+
+    private val mPurchasedDramaVM: PurchasedDramaVM by viewModels {
+        val userId = App.get().getUserInfo()?.uid ?: ""
+        InjectorUtils.providePurchasedDramaVMFactory(this, userId)
     }
 
     private val homeVM by viewModels<HomeVM> {
@@ -223,6 +238,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    override fun getDramaVMDb() = dramaVM
+    override fun getHistoryDramaVM() = mHistoryDramaVM
+    override fun getFollowingDramaVM() = mFollowingDramaVM
+    override fun getLikedDramaVM() = mLikedDramaVM
+    override fun getPurchasedDramaVM() = mPurchasedDramaVM
 
 }

@@ -7,8 +7,10 @@ import android.widget.AdapterView.OnItemClickListener
 import androidx.lifecycle.Observer
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.interfaces.IDramaVM
-import com.victor.lib.coremodel.data.local.entity.DramaEntity
-import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.data.local.entity.HistoryDramaEntity
+import com.victor.lib.coremodel.data.local.entity.PurchasedDramaEntity
+import com.victor.lib.coremodel.data.local.vm.HistoryDramaVM
+import com.victor.lib.coremodel.data.local.vm.PurchasedDramaVM
 import com.victor.module.me.databinding.FragmentPurchasedBinding
 import com.victor.module.me.view.adapter.PurchasedAdapter
 
@@ -50,22 +52,22 @@ class PurchasedFragment : BaseFragment<FragmentPurchasedBinding>(FragmentPurchas
     }
 
     private fun subscribeUi() {
-        getDramaVM()?.purchasedDramaData?.observe(this, Observer {
+        getPurchasedDramaVM()?.dramaData?.observe(this, Observer {
             showDramaData(it)
         })
     }
 
-    private fun showDramaData(datas: List<DramaEntity>) {
+    private fun showDramaData(datas: List<PurchasedDramaEntity>) {
         mPurchasedAdapter?.showData(datas,binding.mTvNoData,binding.mRvDrama)
     }
 
     override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
     }
 
-    private fun getDramaVM(): DramaVM? {
+    private fun getPurchasedDramaVM(): PurchasedDramaVM? {
         if (activity is IDramaVM) {
             val parentAct = activity as IDramaVM
-            return parentAct.getDramaVMDb()
+            return parentAct.getPurchasedDramaVM()
         }
         return null
     }

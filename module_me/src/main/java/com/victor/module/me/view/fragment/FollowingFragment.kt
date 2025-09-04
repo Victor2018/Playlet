@@ -7,11 +7,12 @@ import android.widget.AdapterView.OnItemClickListener
 import androidx.lifecycle.Observer
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.interfaces.IDramaVM
-import com.victor.lib.coremodel.data.local.entity.DramaEntity
-import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.data.local.entity.FollowingDramaEntity
+import com.victor.lib.coremodel.data.local.entity.HistoryDramaEntity
+import com.victor.lib.coremodel.data.local.vm.FollowingDramaVM
+import com.victor.lib.coremodel.data.local.vm.HistoryDramaVM
 import com.victor.module.me.databinding.FragmentFollowingBinding
 import com.victor.module.me.view.adapter.FollowingAdapter
-import com.victor.module.me.view.adapter.HistoryAdapter
 
 class FollowingFragment : BaseFragment<FragmentFollowingBinding>(FragmentFollowingBinding::inflate),
     OnItemClickListener {
@@ -51,22 +52,22 @@ class FollowingFragment : BaseFragment<FragmentFollowingBinding>(FragmentFollowi
     }
 
     private fun subscribeUi() {
-        getDramaVM()?.followingDramaData?.observe(this, Observer {
+        getFollowingDramaVM()?.dramaData?.observe(this, Observer {
             showDramaData(it)
         })
     }
 
-    private fun showDramaData(datas: List<DramaEntity>) {
+    private fun showDramaData(datas: List<FollowingDramaEntity>) {
         mFollowingAdapter?.showData(datas,binding.mTvNoData,binding.mRvDrama)
     }
 
     override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
     }
 
-    private fun getDramaVM(): DramaVM? {
+    private fun getFollowingDramaVM(): FollowingDramaVM? {
         if (activity is IDramaVM) {
             val parentAct = activity as IDramaVM
-            return parentAct.getDramaVMDb()
+            return parentAct.getFollowingDramaVM()
         }
         return null
     }

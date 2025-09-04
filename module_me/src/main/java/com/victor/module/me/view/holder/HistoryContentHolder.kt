@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
-import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.entity.HistoryDramaEntity
 import com.victor.module.me.R
 import kotlin.random.Random
 
@@ -21,9 +21,9 @@ import kotlin.random.Random
  * -----------------------------------------------------------------
  */
 class HistoryContentHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<DramaEntity>(itemView,listener) {
+    ContentViewHolder<HistoryDramaEntity>(itemView,listener) {
 
-    override fun bindData(data: DramaEntity?) {
+    override fun bindData(data: HistoryDramaEntity?) {
         val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
         val url = data?.cover ?: ""
         ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
