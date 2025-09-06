@@ -2,12 +2,11 @@ package com.victor.lib.coremodel.data.remote.service
 
 import com.victor.lib.coremodel.data.remote.api.HomeApi
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import org.victor.http.lib.adapter.NetworkResponse
 import org.victor.http.lib.data.HttpError
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Url
 
@@ -35,8 +34,8 @@ interface HomeApiService {
         @Query("id") id: Int,
         @Query("deviceModel") deviceModel: String?,
         @Query("udid") udid: String?
-    ): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+    ): NetworkResponse<BaseRes<DramaItemInfo>, HttpError>
 
     @GET
-    suspend fun fetchHomePlayingNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<HomeItemInfo>, HttpError>
+    suspend fun fetchHomePlayingNext(@Url nextPageUrl: String?): NetworkResponse<BaseRes<DramaItemInfo>, HttpError>
 }

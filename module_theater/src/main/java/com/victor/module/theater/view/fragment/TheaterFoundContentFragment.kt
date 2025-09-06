@@ -11,7 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.ToastUtils
 import com.victor.lib.common.view.widget.LMRecyclerView
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import com.victor.lib.coremodel.data.remote.vm.TheaterVM
 import com.victor.lib.coremodel.data.remote.vm.factory.TheaterVMFactory
@@ -108,7 +108,7 @@ class TheaterFoundContentFragment : BaseFragment<FragmentTheaterHotContentBindin
         }
     }
 
-    fun showRankingData(data: BaseRes<HomeItemInfo>) {
+    fun showRankingData(data: BaseRes<DramaItemInfo>) {
         Log.e(TAG,"showRankingData-nextPageUrl =${data.nextPageUrl}")
         val rankingList = data.itemList?.filter { it.type != "textCard" }
 

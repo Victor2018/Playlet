@@ -29,10 +29,7 @@ import com.victor.lib.common.util.StatusBarUtil
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.adapter.ViewPagerAdapter
-import com.victor.lib.coremodel.data.local.vm.FollowingDramaVM
-import com.victor.lib.coremodel.data.local.vm.HistoryDramaVM
-import com.victor.lib.coremodel.data.local.vm.LikedDramaVM
-import com.victor.lib.coremodel.data.local.vm.PurchasedDramaVM
+import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.playlet.databinding.ActivityMainBinding
@@ -42,24 +39,9 @@ import com.victor.playlet.databinding.ActivityMainBinding
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
     OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener, IDramaVM {
 
-    private val mHistoryDramaVM: HistoryDramaVM by viewModels {
+    private val mDramaVM: DramaVM by viewModels {
         val userId = App.get().getUserInfo()?.uid ?: ""
-        InjectorUtils.provideHistoryDramaVMFactory(this, userId)
-    }
-
-    private val mFollowingDramaVM: FollowingDramaVM by viewModels {
-        val userId = App.get().getUserInfo()?.uid ?: ""
-        InjectorUtils.provideFollowingDramaVMFactory(this, userId)
-    }
-
-    private val mLikedDramaVM: LikedDramaVM by viewModels {
-        val userId = App.get().getUserInfo()?.uid ?: ""
-        InjectorUtils.provideLikedDramaVMFactory(this, userId)
-    }
-
-    private val mPurchasedDramaVM: PurchasedDramaVM by viewModels {
-        val userId = App.get().getUserInfo()?.uid ?: ""
-        InjectorUtils.providePurchasedDramaVMFactory(this, userId)
+        InjectorUtils.provideDramaVMFactory(this, userId)
     }
 
     private val homeVM by viewModels<HomeVM> {
@@ -238,9 +220,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    override fun getHistoryDramaVM() = mHistoryDramaVM
-    override fun getFollowingDramaVM() = mFollowingDramaVM
-    override fun getLikedDramaVM() = mLikedDramaVM
-    override fun getPurchasedDramaVM() = mPurchasedDramaVM
+    override fun getDramaVM() = mDramaVM
 
 }

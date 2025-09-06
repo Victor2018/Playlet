@@ -9,7 +9,7 @@ import com.victor.lib.common.util.DramaShowUtil
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.module.home.R
 
 /*
@@ -24,13 +24,13 @@ import com.victor.module.home.R
  */
 class SearchRankItemContentViewHolder(itemView: View,
                                       listener: AdapterView.OnItemClickListener?,
-                                      var parentPosition: Int) : ContentViewHolder<HomeItemInfo>(itemView,listener) {
+                                      var parentPosition: Int) : ContentViewHolder<DramaItemInfo>(itemView,listener) {
 
     override fun onClick(view: View) {
         mOnItemClickListener!!.onItemClick(null, view, bindingAdapterPosition, parentPosition.toLong())
     }
 
-    override fun bindData(data: HomeItemInfo?) {
+    override fun bindData(data: DramaItemInfo?) {
         setHotPositionIconBg(bindingAdapterPosition,itemView.findViewById(R.id.mTvPosition))
 
         val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)

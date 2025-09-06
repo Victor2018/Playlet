@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
-import com.victor.lib.coremodel.data.local.entity.FollowingDramaEntity
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.module.me.R
 import com.victor.module.me.view.holder.FollowingContentHolder
 
@@ -20,20 +20,20 @@ import com.victor.module.me.view.holder.FollowingContentHolder
  * -----------------------------------------------------------------
  */
 class FollowingAdapter(context: Context?, listener: AdapterView.OnItemClickListener?) :
-    BaseRecycleAdapter<FollowingDramaEntity, RecyclerView.ViewHolder>(context, listener) {
+    BaseRecycleAdapter<DramaEntity, RecyclerView.ViewHolder>(context, listener) {
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
     }
 
-    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: FollowingDramaEntity?, position: Int) {
+    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaEntity?, position: Int) {
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return FollowingContentHolder(inflate(R.layout.rv_following_cell, parent), listener)
     }
 
-    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: FollowingDramaEntity?, position: Int) {
+    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaEntity?, position: Int) {
         val contentViewHolder = viewHolder as FollowingContentHolder
         contentViewHolder.mOnItemClickListener = listener
         contentViewHolder.bindData(data)

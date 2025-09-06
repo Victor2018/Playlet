@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import com.tencent.bugly.crashreport.CrashReport
 import com.victor.crash.library.SpiderCrashHandler
@@ -13,7 +14,9 @@ import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.FileUtil
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.SharedPreferencesUtils
+import com.victor.lib.common.view.widget.RvPlayCellView
 import com.victor.lib.coremodel.action.LoginActions
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.bean.LoginData
 import com.victor.lib.coremodel.data.remote.entity.bean.UserInfo
 import com.victor.lib.coremodel.util.AppUtil
@@ -45,8 +48,10 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
     var mCurrentActivity: WeakReference<Activity>? = null
     var allActivitys = ArrayList<Activity>()
 
-    var mLoginData: LoginData? = null
-    var mUserInfo: UserInfo? = null
+    private var mLoginData: LoginData? = null
+    private var mUserInfo: UserInfo? = null
+    var mPlayInfos: List<DramaItemInfo>? = null
+    lateinit var mRvPlayCellView: RvPlayCellView
 
     val mHttpProxyCacheServer by lazy {
         HttpProxyCacheServer.Builder(this)
@@ -80,6 +85,7 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         }
         UMengEventModule.preInitSdk(this)
 
+        mRvPlayCellView = RvPlayCellView(this)
     }
 
     fun setLoginData(loginData: LoginData?) {
@@ -101,15 +107,15 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         return null
     }
 
-    fun setUserInfo(userInfo: com.victor.lib.coremodel.data.remote.entity.bean.UserInfo?) {
+    fun setUserInfo(userInfo: UserInfo?) {
         mUserInfo = userInfo
         SharedPreferencesUtils.userInfo = JsonUtils.toJSONString(mUserInfo)
     }
 
-    fun getUserInfo(): com.victor.lib.coremodel.data.remote.entity.bean.UserInfo? {
+    fun getUserInfo(): UserInfo? {
         val userRes = SharedPreferencesUtils.userInfo
         if (!TextUtils.isEmpty(userRes)) {
-            mUserInfo = JsonUtils.parseObject(userRes, com.victor.lib.coremodel.data.remote.entity.bean.UserInfo::class.java)
+            mUserInfo = JsonUtils.parseObject(userRes, UserInfo::class.java)
             return mUserInfo
         }
         return null
@@ -268,6 +274,13 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
     fun finishAllActivity() {
         allActivitys.forEach {
             it.finish()
+        }
+    }
+
+    fun removePlayViewFormParent() {
+        val parent = mRvPlayCellView.getParent()
+        if (parent != null && parent is ViewGroup) {
+            parent.removeView(mRvPlayCellView)
         }
     }
 

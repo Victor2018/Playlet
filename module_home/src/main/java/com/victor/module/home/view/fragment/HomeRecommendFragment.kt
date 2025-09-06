@@ -7,15 +7,15 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.ToastUtils
-import com.victor.lib.common.view.widget.RvPlayCellView
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager.OnViewPagerListener
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.data.remote.vm.factory.HomeVMFactory
@@ -25,21 +25,18 @@ import com.victor.module.home.databinding.FragmentHomeRecommendBinding
 import com.victor.module.home.view.adapter.PlayingAdapter
 import com.victor.module.home.view.holder.PlayingContentViewHolder
 import org.victor.http.lib.data.HttpResult
-import androidx.core.view.isNotEmpty
+import com.victor.lib.common.app.App
 import com.victor.lib.common.interfaces.IDramaVM
 import com.victor.lib.common.util.Constant
-import com.victor.lib.common.util.DramaShowUtil
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.TextViewBoundsUtil
 import com.victor.lib.common.view.widget.LMRecyclerView
-import com.victor.lib.coremodel.data.local.entity.FollowingDramaEntity
-import com.victor.lib.coremodel.data.local.entity.LikedDramaEntity
-import com.victor.lib.coremodel.data.local.vm.FollowingDramaVM
-import com.victor.lib.coremodel.data.local.vm.HistoryDramaVM
-import com.victor.lib.coremodel.data.local.vm.LikedDramaVM
-import com.victor.lib.coremodel.data.local.vm.PurchasedDramaVM
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
+import com.victor.module.home.view.activity.PlayActivity
+import org.victor.http.lib.util.JsonUtils
 
 class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(FragmentHomeRecommendBinding::inflate),
     OnItemClickListener, OnRefreshListener, OnViewPagerListener,LMRecyclerView.OnLoadMoreListener {
@@ -85,12 +82,12 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
     override fun onPause() {
         super.onPause()
-        getCurrentPlayView()?.pause()
+        pausePlay()
     }
 
     override fun onResume() {
         super.onResume()
-        getCurrentPlayView()?.resume()
+        resumePlay()
     }
 
     private fun initView() {
@@ -144,7 +141,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         mHomeVM.fetchHomePlaying(requestId)
     }
 
-    fun showHomePlayingData(data: BaseRes<HomeItemInfo>) {
+    fun showHomePlayingData(data: BaseRes<DramaItemInfo>) {
         mPlayingAdapter?.showData(data.itemList,binding.mTvNoData,binding.mRvPlaying, currentPage,
             false,true)
 
@@ -159,30 +156,41 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         val data = mPlayingAdapter?.getItem(position)
         when (view?.id) {
             R.id.mTvFavCount -> {
-                val entity = DramaShowUtil.trans2FollowingDramaEntity(data?.data)
-                isDramaFollowing(data?.data?.id ?: 0){
-                    setFollowingStyle(position,it == null)
-                    if (it == null) {
-                        getFollowingDramaVM()?.insert(entity)
-                    } else {
-                        getFollowingDramaVM()?.delete(entity)
-                    }
+                getDramaById(data?.data?.id ?: 0){
+                    val isFollowing = it?.isFollowing ?: false
+                    setFollowingStyle(position,!isFollowing)
+                    val userId = App.get().getUserInfo()?.uid ?: ""
+                    val entity = DramaEntity(data?.data?.id ?: 0,userId,
+                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        !isFollowing, it?.isLiked ?: false,it?.isPurchased ?: false)
+                    getDramaVM()?.insert(entity)
                 }
             }
             R.id.mTvCollectCount -> {
-                val entity = DramaShowUtil.trans2LikedDramaEntity(data?.data)
-                isDramaLiked(data?.data?.id ?: 0){
-                    setLikedStyle(position,it == null)
-                    if (it == null) {
-                        getLikedDramaVM()?.insert(entity)
-                    } else {
-                        getLikedDramaVM()?.delete(entity)
-                    }
+                getDramaById(data?.data?.id ?: 0){
+                    val isLiked = it?.isLiked ?: false
+                    setLikedStyle(position,!isLiked)
+                    val userId = App.get().getUserInfo()?.uid ?: ""
+                    val entity = DramaEntity(data?.data?.id ?: 0,userId,
+                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        it?.isFollowing ?: false, !isLiked,it?.isPurchased ?: false)
+                    getDramaVM()?.insert(entity)
                 }
             }
             R.id.mTvShareCount -> {
-                val entity = DramaShowUtil.trans2PurchasedDramaEntity(data?.data)
-                getPurchasedDramaVM()?.insert(entity)
+                getDramaById(data?.data?.id ?: 0){
+                    val isPurchased = it?.isPurchased ?: false
+                    val userId = App.get().getUserInfo()?.uid ?: ""
+                    val entity = DramaEntity(data?.data?.id ?: 0,userId,
+                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        it?.isFollowing ?: false,it?.isLiked ?: false,!isPurchased)
+                    getDramaVM()?.insert(entity)
+                }
+            }
+            R.id.mTvDramaCount -> {
+                App.get().mPlayInfos = mPlayingAdapter?.getDatas()
+                App.get().removePlayViewFormParent()
+                PlayActivity.intentStart(activity as AppCompatActivity,position)
             }
         }
     }
@@ -202,11 +210,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         Log.i(TAG,"onPageRelease()......isNext = $isNext")
         Log.i(TAG,"onPageRelease()......position = $position")
 
-        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
-        if (viewHolder is PlayingContentViewHolder) {
-            val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
-            mFlPlay.removeAllViews()
-        }
+        App.get().removePlayViewFormParent()
     }
 
     override fun onPageSelected(position: Int, isBottom: Boolean) {
@@ -221,15 +225,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
-            isDramaFollowing(data?.data?.id ?: 0){
-                setFollowingStyle(position,it != null)
-            }
-
-            isDramaLiked(data?.data?.id ?: 0){
-                setLikedStyle(position,it != null)
-            }
-
-            val playCell = RvPlayCellView(requireContext())
+            val playCell = App.get().mRvPlayCellView
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
@@ -244,8 +240,16 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
             // 参数preloadBusId和VideoPreLoadFuture初始化的VideoPreLoadFuture保持一致，url为当前短视频播放地址
             mVideoPreLoadFuture.currentPlayUrl(playUrl)
 
-            val entity = DramaShowUtil.trans2HistoryDramaEntity(data?.data)
-            getHistoryDramaVM()?.insert(entity)
+            getDramaById(data?.data?.id ?: 0){
+                setFollowingStyle(position,it?.isFollowing ?: false)
+                setLikedStyle(position,it?.isLiked ?: false)
+
+                val userId = App.get().getUserInfo()?.uid ?: ""
+                val entity = DramaEntity(data?.data?.id ?: 0,userId,
+                    JsonUtils.toJSONString(data),true, it?.isFollowing ?: false,
+                    it?.isLiked ?: false,it?.isPurchased ?: false)
+                getDramaVM()?.insert(entity)
+            }
         }
     }
 
@@ -273,55 +277,27 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         }
     }
 
-    private fun getCurrentPlayView(): RvPlayCellView? {
-        if (currentPosition == -1) return null
+    private fun resumePlay() {
+        if (currentPosition == -1) return
+        App.get().removePlayViewFormParent()
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
-            val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
-            if (mFlPlay?.isNotEmpty() == true) {
-                val childView = mFlPlay.getChildAt(0)
-                if (childView is RvPlayCellView) {
-                    return childView
-                }
-            }
-        return null
+        val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
+        mFlPlay?.addView(App.get().mRvPlayCellView)
     }
 
-    private fun isDramaLiked(id: Int?,callback: (LikedDramaEntity?) -> Unit) {
-        getLikedDramaVM()?.getById(id ?: 0,callback)
+    private fun pausePlay() {
+        if (currentPosition == -1) return
+        App.get().removePlayViewFormParent()
     }
 
-    private fun isDramaFollowing(id: Int?,callback: (FollowingDramaEntity?) -> Unit) {
-        getFollowingDramaVM()?.getById(id ?: 0,callback)
+    private fun getDramaById(id: Int?,callback: (DramaEntity?) -> Unit) {
+        getDramaVM()?.getById(id ?: 0,callback)
     }
 
-    private fun getHistoryDramaVM(): HistoryDramaVM? {
+    private fun getDramaVM(): DramaVM? {
         if (activity is IDramaVM) {
             val parentAct = activity as IDramaVM
-            return parentAct.getHistoryDramaVM()
-        }
-        return null
-    }
-
-    private fun getFollowingDramaVM(): FollowingDramaVM? {
-        if (activity is IDramaVM) {
-            val parentAct = activity as IDramaVM
-            return parentAct.getFollowingDramaVM()
-        }
-        return null
-    }
-
-    private fun getLikedDramaVM(): LikedDramaVM? {
-        if (activity is IDramaVM) {
-            val parentAct = activity as IDramaVM
-            return parentAct.getLikedDramaVM()
-        }
-        return null
-    }
-
-    private fun getPurchasedDramaVM(): PurchasedDramaVM? {
-        if (activity is IDramaVM) {
-            val parentAct = activity as IDramaVM
-            return parentAct.getPurchasedDramaVM()
+            return parentAct.getDramaVM()
         }
         return null
     }

@@ -234,6 +234,8 @@ class Player : TextureView.SurfaceTextureListener,
         mNotifyHandler?.removeMessages(PLAYER_PREPARED)
         mNotifyHandler?.sendEmptyMessage(PLAYER_PREPARED)
         mp?.start()
+
+        mNotifyHandler?.sendEmptyMessage(PLAYER_PLAYING)
 //        }
     }
 

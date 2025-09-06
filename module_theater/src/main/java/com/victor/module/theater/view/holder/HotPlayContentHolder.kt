@@ -10,7 +10,7 @@ import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.holder.ContentViewHolder
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.module.theater.R
 
 /*
@@ -25,9 +25,9 @@ import com.victor.module.theater.R
  */
 
 class HotPlayContentHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<HomeItemInfo?>(itemView,listener) {
+    ContentViewHolder<DramaItemInfo?>(itemView,listener) {
 
-    override fun bindData (data: HomeItemInfo?) {
+    override fun bindData (data: DramaItemInfo?) {
         setHotPositionIconBg(bindingAdapterPosition,itemView.findViewById(R.id.mTvPosition))
 
         val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)

@@ -21,9 +21,7 @@
     <ImageView
         android:id="@+id/mIvSplashAd"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/view_bottom"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
     <TextView
@@ -42,22 +40,26 @@
         android:textSize="@dimen/dp_24"
         android:text="3\t跳过"/>
 
-    <View
-        android:id="@+id/view_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_290"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/white"/>
-
     <ImageView
         android:id="@+id/mIvSplashLogo"
         android:layout_width="@dimen/dp_120"
         android:layout_height="@dimen/dp_120"
-        app:layout_constraintTop_toTopOf="@+id/view_bottom"
-        app:layout_constraintBottom_toBottomOf="@+id/view_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/dp_100"
         android:layout_marginStart="@dimen/dp_142"
         android:src="@mipmap/ic_slogan"/>
+
+    <com.victor.lib.common.view.widget.VerticalTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/mTvSkip"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dp_100"
+        android:layout_marginEnd="@dimen/dp_60"
+        android:textSize="@dimen/dp_100"
+        android:textColor="@color/color_332592FF"
+        android:text="沉浸剧岛"/>
 
     <TextView
         android:id="@+id/mTvAppName"
@@ -67,10 +69,11 @@
         app:layout_constraintStart_toEndOf="@+id/mIvSplashLogo"
         android:layout_marginTop="@dimen/dp_6"
         android:layout_marginStart="@dimen/dp_24"
+        android:fontFamily="@font/zuo_an_lian_ren"
         android:textStyle="bold"
-        android:textSize="@dimen/dp_40"
-        android:textColor="@color/color_333333"
-        android:text="沉浸剧岛"/>
+        android:textSize="@dimen/dp_56"
+        android:textColor="@color/color_CCCCCC"
+        android:text="@string/app_name"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,8 +81,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/mIvSplashLogo"
         app:layout_constraintStart_toStartOf="@+id/mTvAppName"
         android:layout_marginBottom="@dimen/dp_6"
-        android:textSize="@dimen/dp_32"
-        android:textColor="@color/color_777777"
+        android:fontFamily="@font/zuo_an_lian_ren"
+        android:textSize="@dimen/dp_36"
+        android:textColor="@color/color_CCCCCC"
         android:text="@string/slogan"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

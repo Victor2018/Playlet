@@ -2,7 +2,7 @@ package com.victor.lib.coremodel.data.remote.interfaces
 
 import androidx.lifecycle.LiveData
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import org.victor.http.lib.data.HttpResult
 
@@ -24,9 +24,9 @@ interface IHomeDS {
     val dramaListNextData: LiveData<HttpResult<BaseRes<FollowItem>>>
     suspend fun fetchDramaListNext(nextPageUrl: String?)
 
-    val homePlayingData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
+    val homePlayingData: LiveData<HttpResult<BaseRes<DramaItemInfo>>>
     suspend fun fetchHomePlaying(id: Int)
 
-    val homePlayingNextData: LiveData<HttpResult<BaseRes<HomeItemInfo>>>
+    val homePlayingNextData: LiveData<HttpResult<BaseRes<DramaItemInfo>>>
     suspend fun fetchHomePlayingNext(nextPageUrl: String?)
 }

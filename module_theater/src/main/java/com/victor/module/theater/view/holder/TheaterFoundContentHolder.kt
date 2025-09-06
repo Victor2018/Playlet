@@ -8,8 +8,7 @@ import android.widget.TextView
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
-import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.module.theater.R
 
 /*
@@ -23,9 +22,9 @@ import com.victor.module.theater.R
  * -----------------------------------------------------------------
  */
 class TheaterFoundContentHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<HomeItemInfo>(itemView,listener) {
+    ContentViewHolder<DramaItemInfo>(itemView,listener) {
 
-    override fun bindData(data: HomeItemInfo?) {
+    override fun bindData(data: DramaItemInfo?) {
         setHotPositionIconBg(bindingAdapterPosition,itemView.findViewById(R.id.mTvPosition))
 
         val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)

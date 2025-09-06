@@ -1,11 +1,9 @@
 package com.victor.lib.coremodel.data.remote.datasource
 
 import androidx.lifecycle.MutableLiveData
-import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import com.victor.lib.coremodel.data.remote.interfaces.ITheaterDS
-import com.victor.lib.coremodel.data.remote.service.HomeApiService
 import com.victor.lib.coremodel.data.remote.service.TheaterApiService
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +24,7 @@ import org.victor.http.lib.datasource.AbsDS
  */
 class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheaterDS {
 
-    override val rankingData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val rankingData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchRanking() {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -34,7 +32,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val rankingNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val rankingNextData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchRankingNext(nextPageUrl: String?) {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -42,7 +40,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val foundData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val foundData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchFound() {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -50,7 +48,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val foundNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val foundNextData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchFoundNext(nextPageUrl: String?) {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -58,7 +56,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val hotRecommendData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val hotRecommendData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHotRecommend() {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -66,7 +64,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val hotRecommendNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val hotRecommendNextData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHotRecommendNext(nextPageUrl: String?) {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -74,7 +72,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val hotPlayData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val hotPlayData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHotPlay() {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -82,7 +80,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val hotPlayNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val hotPlayNextData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHotPlayNext(nextPageUrl: String?) {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -90,7 +88,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val hotNewData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val hotNewData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHotNew() {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -98,7 +96,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val hotNewNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val hotNewNextData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHotNewNext(nextPageUrl: String?) {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -106,7 +104,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val hotSearchData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val hotSearchData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHotSearch() {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -114,7 +112,7 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    override val hotSearchNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val hotSearchNextData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHotSearchNext(nextPageUrl: String?) {
         // Force Main thread
         withContext(Dispatchers.Main) {

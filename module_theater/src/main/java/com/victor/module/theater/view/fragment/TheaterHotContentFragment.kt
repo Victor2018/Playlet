@@ -11,7 +11,7 @@ import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.ToastUtils
 import com.victor.lib.common.view.widget.LMRecyclerView
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import com.victor.lib.coremodel.data.remote.vm.TheaterVM
 import com.victor.lib.coremodel.data.remote.vm.factory.TheaterVMFactory
@@ -211,7 +211,7 @@ class TheaterHotContentFragment : BaseFragment<FragmentTheaterHotContentBinding>
         }
     }
 
-    fun showHotData(data: BaseRes<HomeItemInfo>) {
+    fun showHotData(data: BaseRes<DramaItemInfo>) {
         val hasNextPage = !TextUtils.equals(data.nextPageUrl ?: "",nextPageUrl)
         if (hotType == HotType.NEW) {
             //过滤新剧榜的textCard

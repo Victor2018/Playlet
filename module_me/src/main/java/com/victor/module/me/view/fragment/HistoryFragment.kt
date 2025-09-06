@@ -7,8 +7,8 @@ import android.widget.AdapterView.OnItemClickListener
 import androidx.lifecycle.Observer
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.interfaces.IDramaVM
-import com.victor.lib.coremodel.data.local.entity.HistoryDramaEntity
-import com.victor.lib.coremodel.data.local.vm.HistoryDramaVM
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.module.me.databinding.FragmentHistoryBinding
 import com.victor.module.me.view.adapter.HistoryAdapter
 
@@ -49,25 +49,27 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
     }
 
     private fun subscribeUi() {
-        getHistoryDramaVM()?.dramaData?.observe(this, Observer {
+        getDramaVM()?.historyDramaData?.observe(this, Observer {
             if (it.size > 12) {
-                getHistoryDramaVM()?.delete(it[it.size - 1])
+                val item = it[it.size - 1]
+                item.isHistory = false
+                getDramaVM()?.insert(item)
             }
             showDramaData(it)
         })
     }
 
-    private fun showDramaData(datas: List<HistoryDramaEntity>) {
+    private fun showDramaData(datas: List<DramaEntity>) {
         mHistoryAdapter?.showData(datas,binding.mTvNoData,binding.mRvDrama)
     }
 
     override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
     }
 
-    private fun getHistoryDramaVM(): HistoryDramaVM? {
+    private fun getDramaVM(): DramaVM? {
         if (activity is IDramaVM) {
             val parentAct = activity as IDramaVM
-            return parentAct.getHistoryDramaVM()
+            return parentAct.getDramaVM()
         }
         return null
     }

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.module.theater.R
 import com.victor.module.theater.view.holder.TheaterFoundContentHolder
 import com.victor.module.theater.view.holder.TheaterFoundHeaderHolder
@@ -21,15 +21,15 @@ import com.victor.module.theater.view.holder.TheaterFoundHeaderHolder
  * -----------------------------------------------------------------
  */
 class TheaterFoundAdapter(context: Context?, listener: AdapterView.OnItemClickListener?) :
-    BaseRecycleAdapter<HomeItemInfo, RecyclerView.ViewHolder>(context, listener) {
+    BaseRecycleAdapter<DramaItemInfo, RecyclerView.ViewHolder>(context, listener) {
 
-    var mHomeItemInfo: HomeItemInfo? = null
+    var mHomeItemInfo: DramaItemInfo? = null
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return TheaterFoundHeaderHolder(inflate(R.layout.rv_theater_found_header_cell, parent), listener)
     }
 
-    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {
+    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
         val headerViewHolder = viewHolder as TheaterFoundHeaderHolder
         headerViewHolder.bindData(mHomeItemInfo)
     }
@@ -38,7 +38,7 @@ class TheaterFoundAdapter(context: Context?, listener: AdapterView.OnItemClickLi
         return TheaterFoundContentHolder(inflate(R.layout.rv_theater_found_cell, parent), listener)
     }
 
-    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: HomeItemInfo?, position: Int) {
+    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
         val contentViewHolder = viewHolder as TheaterFoundContentHolder
         contentViewHolder.mOnItemClickListener = listener
         contentViewHolder.bindData(data)

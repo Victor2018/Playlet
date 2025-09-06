@@ -10,17 +10,16 @@ import android.view.animation.Animation
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.victor.lib.common.app.App
 import com.victor.lib.common.databinding.PlayCellBinding
 import com.victor.lib.common.module.Player
 import com.victor.lib.common.util.AnimUtil
-import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.MainHandler
 import com.victor.lib.common.util.NetworkUtils
 import com.victor.lib.common.util.TimeUtils
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
 
 /*
  * -----------------------------------------------------------------
@@ -70,17 +69,12 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
         isPause = true
         if (mPlayer?.isPlaying() == false) return
         mPlayer?.pause()
-
-        binding.mIvPlay.show()
-        binding.mIvPlay.startAnimation(mScaleEnterInAnim)
     }
 
     fun resume() {
         isPause = false
         if (mPlayer?.isPlaying() == true) return
         mPlayer?.resume()
-        binding.mIvPlay.clearAnimation()
-        binding.mIvPlay.hide()
     }
 
     private fun startLoadingAnimation() {
@@ -94,14 +88,16 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         Loger.d(TAG,"onAttachedToWindow()......")
+        resume()
     }
 
     override fun onDetachedFromWindow() {
         MainHandler.get().unregister(this)
         super.onDetachedFromWindow()
         Loger.d(TAG,"onDetachedFromWindow()......")
-        mPlayer?.close()
-        mPlayer = null
+//        mPlayer?.close()
+//        mPlayer = null
+        pause()
     }
 
     override fun handleMainMessage(message: Message?) {
@@ -111,6 +107,16 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
 //                mIvPoster.hide()
             }
             Player.TRACK_READY -> {
+            }
+            Player.PLAYER_PLAYING -> {
+                Loger.d(TAG,"handleMainMessage-PLAYER_PLAYING")
+                binding.mIvPlay.clearAnimation()
+                binding.mIvPlay.hide()
+            }
+            Player.PLAYER_PAUSE -> {
+                Loger.d(TAG,"handleMainMessage-PLAYER_PAUSE")
+                binding.mIvPlay.show()
+                binding.mIvPlay.startAnimation(mScaleEnterInAnim)
             }
             Player.PLAYER_PREPARED -> {
                 if (isPause) {

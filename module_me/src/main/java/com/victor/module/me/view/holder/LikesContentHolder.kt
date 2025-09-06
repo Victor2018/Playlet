@@ -6,8 +6,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
-import com.victor.lib.coremodel.data.local.entity.LikedDramaEntity
+import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.module.me.R
+import org.victor.http.lib.util.JsonUtils
 import kotlin.random.Random
 
 /*
@@ -21,14 +23,15 @@ import kotlin.random.Random
  * -----------------------------------------------------------------
  */
 class LikesContentHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<LikedDramaEntity>(itemView,listener) {
+    ContentViewHolder<DramaEntity>(itemView,listener) {
 
-    override fun bindData(data: LikedDramaEntity?) {
+    override fun bindData(data: DramaEntity?) {
         val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
-        val url = data?.cover ?: ""
+        val dramaItemInfo = JsonUtils.parseObject(data?.dramaItemJson, DramaItemInfo::class.java)
+        val url = dramaItemInfo?.data?.cover?.feed ?: ""
         ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
             com.victor.lib.common.R.mipmap.img_placeholder_vertical)
-        itemView.findViewById<TextView>(R.id.mTvContentName).text = data?.title ?: ""
+        itemView.findViewById<TextView>(R.id.mTvContentName).text = dramaItemInfo?.data?.title ?: ""
 
         val start = Random.nextInt(1, 20)
         val dramaCount = Random.nextInt(20, 101)

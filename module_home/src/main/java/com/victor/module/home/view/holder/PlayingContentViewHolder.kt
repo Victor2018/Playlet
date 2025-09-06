@@ -8,7 +8,7 @@ import com.victor.lib.common.util.DramaShowUtil
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.common.view.widget.ExpandableTextView
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.module.home.R
 import kotlin.random.Random
 
@@ -23,9 +23,9 @@ import kotlin.random.Random
  * -----------------------------------------------------------------
  */
 class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<HomeItemInfo>(itemView,listener) {
+    ContentViewHolder<DramaItemInfo>(itemView,listener) {
 
-    override fun bindData(data: HomeItemInfo?) {
+    override fun bindData(data: DramaItemInfo?) {
         val mIvPosterBg = itemView.findViewById<ImageView>(R.id.mIvPosterBg)
         val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
         val mTvTitle = itemView.findViewById<TextView>(R.id.mTvTitle)
@@ -55,6 +55,7 @@ class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClick
         mTvFavCount.setOnClickListener(this)
         mTvCollectCount.setOnClickListener(this)
         mTvShareCount.setOnClickListener(this)
+        mTvDramaCount.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {

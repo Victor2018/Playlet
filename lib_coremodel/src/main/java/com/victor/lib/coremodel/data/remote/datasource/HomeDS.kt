@@ -2,7 +2,7 @@ package com.victor.lib.coremodel.data.remote.datasource
 
 import androidx.lifecycle.MutableLiveData
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import com.victor.lib.coremodel.data.remote.interfaces.IHomeDS
 import com.victor.lib.coremodel.data.remote.service.HomeApiService
@@ -40,7 +40,7 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
         }
     }
 
-    override val homePlayingData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val homePlayingData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHomePlaying(id: Int) {
         // Force Main thread
         withContext(Dispatchers.Main) {
@@ -48,7 +48,7 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
         }
     }
 
-    override val homePlayingNextData = MutableLiveData<HttpResult<BaseRes<HomeItemInfo>>>()
+    override val homePlayingNextData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchHomePlayingNext(nextPageUrl: String?) {
         // Force Main thread
         withContext(Dispatchers.Main) {

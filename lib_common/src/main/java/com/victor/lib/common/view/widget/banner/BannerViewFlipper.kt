@@ -19,7 +19,7 @@ import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.ViewUtils
 import com.victor.lib.common.view.widget.kenburnsview.KenBurnsView
-import com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 
 /*
  * -----------------------------------------------------------------
@@ -67,7 +67,7 @@ class BannerViewFlipper: ViewFlipper {
     var outAnimResId: Int = R.anim.anim_top_out
 
     var position = 0
-    var messages: List<HomeItemInfo> = ArrayList()
+    var messages: List<DramaItemInfo> = ArrayList()
     var onItemClickListener: AdapterView.OnItemClickListener? = null
 
     constructor(context: Context) : this(context, null)
@@ -142,7 +142,7 @@ class BannerViewFlipper: ViewFlipper {
      *
      * @param messages 字符串列表
      */
-    fun startWithList(messages: List<HomeItemInfo>?) {
+    fun startWithList(messages: List<DramaItemInfo>?) {
         startWithList(messages, inAnimResId, outAnimResId)
     }
 
@@ -154,7 +154,7 @@ class BannerViewFlipper: ViewFlipper {
      * @param outAnimResID 离开动画的resID
      */
     fun startWithList(
-        messages: List<HomeItemInfo>?,
+        messages: List<DramaItemInfo>?,
         @AnimRes inAnimResId: Int,
         @AnimRes outAnimResID: Int
     ) {
@@ -210,7 +210,7 @@ class BannerViewFlipper: ViewFlipper {
         }
     }
 
-    private fun getBannerView(marqueeItem: HomeItemInfo): View {
+    private fun getBannerView(marqueeItem: DramaItemInfo): View {
         val rootView = ViewUtils.getViewByLayout(context,R.layout.banner_item)
         val mIvPoster = rootView.findViewById<KenBurnsView>(R.id.mIvPoster)
         val mTvTitle = rootView.findViewById<TextView>(R.id.mTvTitle)

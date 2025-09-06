@@ -1,0 +1,20 @@
+package com.victor.lib.coremodel.data.remote.entity.bean
+
+import java.io.Serializable
+
+/*
+ * -----------------------------------------------------------------
+ * Copyright (C) 2018-2028, by Victor, All rights reserved.
+ * -----------------------------------------------------------------
+ * File: HomeItemInfo.kt
+ * Author: Victor
+ * Date: 2018/8/30 14:24
+ * Description: 
+ * -----------------------------------------------------------------
+ */
+class DramaItemInfo: Serializable {
+    var type: String? = null
+    var id: Int = 0
+    var adIndex: Int = 0
+    var data: DramaData? = null
+}

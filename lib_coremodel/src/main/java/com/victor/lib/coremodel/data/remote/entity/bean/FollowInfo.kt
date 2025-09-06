@@ -15,6 +15,6 @@ class FollowInfo {
     var dataType: String? = null
     var adTrack: String? = null
     var footer: String? = null
-    var header: com.victor.lib.coremodel.data.remote.entity.bean.FollowHeader? = null
-    var itemList: List<com.victor.lib.coremodel.data.remote.entity.bean.HomeItemInfo>? = null
+    var header: FollowHeader? = null
+    var itemList: List<DramaItemInfo>? = null
 }
