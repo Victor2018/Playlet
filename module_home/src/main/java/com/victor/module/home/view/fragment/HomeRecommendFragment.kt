@@ -191,8 +191,11 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
             }
             R.id.mTvDramaCount -> {
                 App.get().mPlayInfos = mPlayingAdapter?.getDatas()
+                val playPosition = getCurrentPlayView()?.getCurrentPositon() ?: 0
+
                 App.get().removePlayViewFormParent()
-                PlayActivity.intentStart(activity as AppCompatActivity,position)
+
+                PlayActivity.intentStart(activity as AppCompatActivity,position,playPosition)
             }
         }
     }

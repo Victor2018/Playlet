@@ -25,7 +25,7 @@ object Constant {
     const val ID_KEY                            = "ID_KEY"
     const val POSITION_KEY                      = "POSITION_KEY"
     const val ORDER_NO_KEY                      = "ORDER_NO_KEY"
-    const val ORDER_DETAIL_KEY                  = "ORDER_DETAIL_KEY"
+    const val PLAY_POSITION_KEY                 = "PLAY_POSITION_KEY"
     const val ERROR_MSG_KEY                     = "ERROR_MSG_KEY"
     const val IM_MESSAGE_KEY                    = "IM_MESSAGE_KEY"
     const val VIDEO_POSTER_KEY                  = "VIDEO_POSTER_KEY"

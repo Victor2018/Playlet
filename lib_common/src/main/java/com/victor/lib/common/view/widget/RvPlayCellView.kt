@@ -77,6 +77,14 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
         mPlayer?.resume()
     }
 
+    fun setCurrentPositon(playPositon: Int) {
+        currentPosition = playPositon
+    }
+
+    fun getCurrentPositon(): Int {
+        return mPlayer?.getCurrentPosition() ?: 0
+    }
+
     private fun startLoadingAnimation() {
         binding.mLoadingSeekBar.showLight(true)
     }
@@ -88,16 +96,14 @@ class RvPlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickList
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         Loger.d(TAG,"onAttachedToWindow()......")
-        resume()
     }
 
     override fun onDetachedFromWindow() {
         MainHandler.get().unregister(this)
         super.onDetachedFromWindow()
         Loger.d(TAG,"onDetachedFromWindow()......")
-//        mPlayer?.close()
-//        mPlayer = null
-        pause()
+        mPlayer?.close()
+        mPlayer = null
     }
 
     override fun handleMainMessage(message: Message?) {

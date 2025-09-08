@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.FrameLayout
@@ -31,13 +32,14 @@ import com.victor.module.home.view.holder.PlayingContentViewHolder
 import org.victor.http.lib.util.JsonUtils
 
 class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::inflate),
-    OnItemClickListener, OnViewPagerListener {
+    OnItemClickListener, OnViewPagerListener,OnClickListener {
 
 
     companion object {
-        fun intentStart (activity: AppCompatActivity,position: Int) {
+        fun intentStart (activity: AppCompatActivity,position: Int,playPosition: Int) {
             val intent = Intent(activity, PlayActivity::class.java)
             intent.putExtra(Constant.POSITION_KEY,position)
+            intent.putExtra(Constant.PLAY_POSITION_KEY,playPosition)
             activity.startActivity(intent)
         }
     }
@@ -48,6 +50,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 
     private var mPlayingAdapter: PlayingAdapter? = null
     private var currentPosition = -1
+    private var playPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         statusBarTextColorBlack = false
@@ -63,10 +66,14 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         val layoutManager = ViewPagerLayoutManager(this, LinearLayoutManager.VERTICAL)
         layoutManager.setOnViewPagerListener(this)
         binding.mRvPlaying.layoutManager = layoutManager
+
+        binding.mIvBack.setOnClickListener(this)
     }
 
     private fun initData(intent: Intent?) {
         currentPosition = intent?.getIntExtra(Constant.POSITION_KEY,0) ?: 0
+        playPosition = intent?.getIntExtra(Constant.PLAY_POSITION_KEY,0) ?: 0
+
         mPlayingAdapter?.showData(App.get().mPlayInfos)
 
         binding.mRvPlaying.scrollToPosition(currentPosition)
@@ -131,6 +138,9 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun play(position: Int) {
+        if (currentPosition != position) {
+            playPosition = 0
+        }
         currentPosition = position
         Log.i(TAG,"onPageSelected()......position = $position")
 
@@ -141,6 +151,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
             val playCell = RvPlayCellView(this)
+            playCell.setCurrentPositon(playPosition)
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
@@ -247,5 +258,13 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     override fun onNewIntent(intent: Intent, caller: ComponentCaller) {
         super.onNewIntent(intent, caller)
         initData(intent)
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.mIvBack -> {
+                finish()
+            }
+        }
     }
 }
