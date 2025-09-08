@@ -10,6 +10,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
@@ -17,6 +18,7 @@ import com.victor.lib.common.base.BaseFragment.Companion.TAG
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.TextViewBoundsUtil
+import com.victor.lib.common.view.widget.RvPlayCellView
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager.OnViewPagerListener
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
@@ -66,7 +68,12 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     private fun initData(intent: Intent?) {
         currentPosition = intent?.getIntExtra(Constant.POSITION_KEY,0) ?: 0
         mPlayingAdapter?.showData(App.get().mPlayInfos)
+
         binding.mRvPlaying.scrollToPosition(currentPosition)
+        if (binding.mRvPlaying.layoutManager is ViewPagerLayoutManager) {
+            val vlm = binding.mRvPlaying.layoutManager as ViewPagerLayoutManager
+            vlm.mLastSelectPosition = currentPosition
+        }
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -111,12 +118,20 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         Log.i(TAG,"onPageRelease()......position = $position")
 
         App.get().removePlayViewFormParent()
+
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
+        if (viewHolder is PlayingContentViewHolder) {
+            val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
+            mFlPlay.removeAllViews()
+        }
     }
 
     override fun onPageSelected(position: Int, isBottom: Boolean) {
+       play(position)
+    }
+
+    private fun play(position: Int) {
         currentPosition = position
-        //isBottom == true 可以加载下一页数据
-        Log.i(TAG,"onPageSelected()......isBottom = $isBottom")
         Log.i(TAG,"onPageSelected()......position = $position")
 
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
@@ -125,7 +140,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
-            val playCell = App.get().mRvPlayCellView
+            val playCell = RvPlayCellView(this)
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
@@ -183,6 +198,46 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                 )
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        pausePlay()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        resumePlay()
+    }
+
+    private fun resumePlay() {
+        /*if (currentPosition == -1) return
+        App.get().removePlayViewFormParent()
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
+        val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
+        mFlPlay?.addView(App.get().mRvPlayCellView)*/
+
+        getCurrentPlayView()?.resume()
+    }
+
+    private fun pausePlay() {
+//        if (currentPosition == -1) return
+//        App.get().removePlayViewFormParent()
+
+        getCurrentPlayView()?.pause()
+    }
+
+    private fun getCurrentPlayView(): RvPlayCellView? {
+        if (currentPosition == -1) return null
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
+        val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
+        if (mFlPlay?.isNotEmpty() == true) {
+            val childView = mFlPlay.getChildAt(0)
+            if (childView is RvPlayCellView) {
+                return childView
+            }
+        }
+        return null
     }
 
     private fun getDramaById(id: Int?,callback: (DramaEntity?) -> Unit) {

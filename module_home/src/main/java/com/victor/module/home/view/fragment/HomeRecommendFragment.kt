@@ -8,6 +8,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isNotEmpty
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -31,6 +32,7 @@ import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.TextViewBoundsUtil
 import com.victor.lib.common.view.widget.LMRecyclerView
+import com.victor.lib.common.view.widget.RvPlayCellView
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.video.cache.preload.PreLoadManager
@@ -211,6 +213,12 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         Log.i(TAG,"onPageRelease()......position = $position")
 
         App.get().removePlayViewFormParent()
+
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
+        if (viewHolder is PlayingContentViewHolder) {
+            val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
+            mFlPlay.removeAllViews()
+        }
     }
 
     override fun onPageSelected(position: Int, isBottom: Boolean) {
@@ -225,7 +233,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
-            val playCell = App.get().mRvPlayCellView
+            val playCell = RvPlayCellView(requireContext())
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
@@ -278,16 +286,33 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     private fun resumePlay() {
-        if (currentPosition == -1) return
+        /*if (currentPosition == -1) return
         App.get().removePlayViewFormParent()
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
         val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
-        mFlPlay?.addView(App.get().mRvPlayCellView)
+        mFlPlay?.addView(App.get().mRvPlayCellView)*/
+
+        getCurrentPlayView()?.resume()
     }
 
     private fun pausePlay() {
-        if (currentPosition == -1) return
-        App.get().removePlayViewFormParent()
+//        if (currentPosition == -1) return
+//        App.get().removePlayViewFormParent()
+
+        getCurrentPlayView()?.pause()
+    }
+
+    private fun getCurrentPlayView(): RvPlayCellView? {
+        if (currentPosition == -1) return null
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
+        val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
+        if (mFlPlay?.isNotEmpty() == true) {
+            val childView = mFlPlay.getChildAt(0)
+            if (childView is RvPlayCellView) {
+                return childView
+            }
+        }
+        return null
     }
 
     private fun getDramaById(id: Int?,callback: (DramaEntity?) -> Unit) {

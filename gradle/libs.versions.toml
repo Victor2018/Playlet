@@ -24,6 +24,7 @@ swiperefreshlayout = '1.1.0'
 core_ktx = "1.10.1"
 activity_ktx = '1.4.0'
 fragment_ktx = '1.4.1'
+exoplayer = '2.19.1'
 
 #victor
 easypermissions = 'v1.1.0'
@@ -70,9 +71,11 @@ androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", ve
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workVersion" }
+work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workVersion" }
 paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", version.ref = "exoplayer" }
+exoplayer-ui = { group = "com.google.android.exoplayer", name = "exoplayer-ui", version.ref = "exoplayer" }
 
 #victor
 victor-easypermissions = { group = "com.github.Victor2018", name = "easypermissions", version.ref = "easypermissions" }
@@ -122,7 +125,8 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devto
 
 [bundles]
 victor = ["victor-easypermissions","victor-livedatabus", "victor-match", "victor-crash-spider", "victor-khttp","victor-video-cache","marquee-view"]
-ktx = ["androidx-core-ktx","androidx-activity-ktx","androidx-fragment-ktx"]
+ktx = ["androidx-core-ktx","androidx-activity-ktx","androidx-fragment-ktx","work-runtime-ktx"]
+exoplayer = ["exoplayer","exoplayer-ui"]
 coroutines = ["coroutines-core","coroutines-android"]
 lifecycle = ["lifecycle-runtime","lifecycle-java8", "lifecycle-compiler","lifecycle-viewmodel_ktx","lifecycle-livedata_ktx"]
 retrofit = ["retrofit-core","retrofit-retrofit-converter-gson"]

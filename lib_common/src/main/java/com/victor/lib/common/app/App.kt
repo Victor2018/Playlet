@@ -2,10 +2,26 @@ package com.victor.lib.common.app
 
 import android.app.Activity
 import android.app.Application
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.database.ExoDatabaseProvider
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+import com.google.android.exoplayer2.upstream.HttpDataSource
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+import com.google.android.exoplayer2.upstream.cache.LeastRecentlyUsedCacheEvictor
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.tencent.bugly.crashreport.CrashReport
 import com.victor.crash.library.SpiderCrashHandler
 import com.victor.lib.common.base.BaseApplication
@@ -22,6 +38,7 @@ import com.victor.lib.coremodel.data.remote.entity.bean.UserInfo
 import com.victor.lib.coremodel.util.AppUtil
 import com.victor.lib.coremodel.util.HttpUtil
 import com.victor.lib.coremodel.util.WebConfig
+import com.victor.lib.common.workers.VideoPreloadWorker
 import com.victor.lib.video.cache.HttpProxyCacheServer
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.library.bus.LiveDataBus
@@ -51,7 +68,7 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
     private var mLoginData: LoginData? = null
     private var mUserInfo: UserInfo? = null
     var mPlayInfos: List<DramaItemInfo>? = null
-    lateinit var mRvPlayCellView: RvPlayCellView
+//    lateinit var mRvPlayCellView: RvPlayCellView
 
     val mHttpProxyCacheServer by lazy {
         HttpProxyCacheServer.Builder(this)
@@ -64,7 +81,17 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
     companion object {
         private lateinit var instance: App
         fun get() = instance
+        lateinit var cache: SimpleCache
     }
+
+    private val cacheSize: Long = 90 * 1024 * 1024
+    private lateinit var cacheEvictor: LeastRecentlyUsedCacheEvictor
+    private lateinit var exoplayerDatabaseProvider: ExoDatabaseProvider
+
+    private lateinit var mHttpDataSourceFactory: HttpDataSource.Factory
+    private lateinit var mDefaultDataSourceFactory: DefaultDataSourceFactory
+    private lateinit var mCacheDataSourceFactory: DataSource.Factory
+    private lateinit var exoPlayer: SimpleExoPlayer
 
     override fun onCreate() {
         super.onCreate()
@@ -85,7 +112,9 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         }
         UMengEventModule.preInitSdk(this)
 
-        mRvPlayCellView = RvPlayCellView(this)
+        cacheEvictor = LeastRecentlyUsedCacheEvictor(cacheSize)
+        exoplayerDatabaseProvider = ExoDatabaseProvider(this)
+        cache = SimpleCache(cacheDir, cacheEvictor, exoplayerDatabaseProvider)
     }
 
     fun setLoginData(loginData: LoginData?) {
@@ -278,10 +307,48 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
     }
 
     fun removePlayViewFormParent() {
-        val parent = mRvPlayCellView.getParent()
+        /*val parent = mRvPlayCellView.getParent()
         if (parent != null && parent is ViewGroup) {
             parent.removeView(mRvPlayCellView)
-        }
+        }*/
+    }
+
+    private fun schedulePreloadWork(videoUrl: String) {
+        val workManager = WorkManager.getInstance(applicationContext)
+        val videoPreloadWorker = VideoPreloadWorker.buildWorkRequest(videoUrl)
+        workManager.enqueueUniqueWork(
+            "VideoPreloadWorker",
+            ExistingWorkPolicy.KEEP,
+            videoPreloadWorker
+        )
+    }
+
+    fun play(videoUrl: String,playerView: PlayerView?) {
+        mHttpDataSourceFactory = DefaultHttpDataSource.Factory()
+            .setAllowCrossProtocolRedirects(true)
+
+        this.mDefaultDataSourceFactory = DefaultDataSourceFactory(
+            applicationContext, mHttpDataSourceFactory
+        )
+
+        mCacheDataSourceFactory = CacheDataSource.Factory()
+            .setCache(cache)
+            .setUpstreamDataSourceFactory(mHttpDataSourceFactory)
+            .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
+
+        exoPlayer = SimpleExoPlayer.Builder(applicationContext)
+            .setMediaSourceFactory(DefaultMediaSourceFactory(mCacheDataSourceFactory)).build()
+
+        val videoUri = Uri.parse(videoUrl)
+        val mediaItem = MediaItem.fromUri(videoUri)
+        val mediaSource =
+            ProgressiveMediaSource.Factory(mCacheDataSourceFactory).createMediaSource(mediaItem)
+
+        playerView?.player = exoPlayer
+        exoPlayer.playWhenReady = true
+        exoPlayer.seekTo(0, 0)
+        exoPlayer.setMediaSource(mediaSource, true)
+        exoPlayer.prepare()
     }
 
     override fun onTerminate() {

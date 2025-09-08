@@ -28,7 +28,7 @@ class ViewPagerLayoutManager: LinearLayoutManager {
     private var mOnViewPagerListener: OnViewPagerListener? = null
     private var mRecyclerView: RecyclerView? = null
     private var mDrift = 0 //位移，用来判断移动方向
-    private var mLastSelectPosition = 0 //上一次选中位置
+    var mLastSelectPosition = 0 //上一次选中位置
 
     constructor(context: Context?, orientation: Int): this(context, orientation, false)
 
@@ -131,8 +131,7 @@ class ViewPagerLayoutManager: LinearLayoutManager {
         object : OnChildAttachStateChangeListener {
             override fun onChildViewAttachedToWindow(view: View) {
                 if (childCount == 1) {
-                    mOnViewPagerListener?.onPageSelected(0, false)
-                    mLastSelectPosition = 0
+                    mOnViewPagerListener?.onPageSelected(mLastSelectPosition, false)
                 }
             }
 
