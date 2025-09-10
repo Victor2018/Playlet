@@ -1,120 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.victor.lib.common.view.widget.InsetsCoordinatorLayout
+<com.victor.lib.common.view.widget.ColorSwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mSrlRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/colorTheme"
-    tools:ignore="MissingDefaultResource,ResourceName">
+    app:srlProgressBackgroundColorScheme="@color/colorPrimary"
+    app:srlProgressViewStartOffset="@dimen/dp_48"
+    app:srlProgressViewEndOffset="@dimen/dp_148"
+    tools:ignore="ResourceName">
 
-    <LinearLayout
+    <com.victor.lib.common.view.widget.InsetsCoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true"
+        android:background="@color/colorTheme"
+        tools:ignore="MissingDefaultResource,ResourceName">
 
-        <com.victor.lib.common.view.widget.LMRecyclerView
-            android:id="@+id/mRvPlaying"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:clipToPadding="false"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_100"
-            android:drawableLeft="@mipmap/img_play_slogan"
-            android:drawablePadding="@dimen/dp_10"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/color_CCCCCC"
-            android:textSize="@dimen/dp_36"
-            android:fontFamily="@font/zuo_an_lian_ren"
-            android:text="@string/slogan_1"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
 
-
-    <com.victor.lib.common.view.widget.InsetsAppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_66000000_00000000"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:elevation="@dimen/dp_0">
-
-        <com.victor.lib.common.view.widget.InsetsToolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.victor.lib.common.view.widget.LMRecyclerView
+                android:id="@+id/mRvPlaying"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/dp_22">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"/>
 
-                <ImageView
-                    android:id="@+id/mIvBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="@dimen/dp_22"
-                    android:padding="@dimen/dp_10"
-                    android:src="@mipmap/ic_back_white"/>
+            <com.victor.lib.common.view.widget.DrawableCenterTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_120"
+                android:background="@color/color_333333"
+                android:drawableLeft="@mipmap/img_play_slogan"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/color_CCCCCC"
+                android:textSize="@dimen/dp_36"
+                android:fontFamily="@font/zuo_an_lian_ren"
+                android:text="@string/slogan_1"/>
+        </LinearLayout>
 
-                <com.victor.lib.common.view.widget.MovingTextView
-                    android:id="@+id/mTvTitle"
-                    android:layout_width="0dp"
+
+        <com.victor.lib.common.view.widget.InsetsAppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_66000000_00000000"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="@dimen/dp_0">
+
+            <com.victor.lib.common.view.widget.InsetsToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/mIvBack"
-                    app:layout_constraintEnd_toStartOf="@+id/mIvPlayFullScreen"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/color_CCCCCC"
-                    android:textSize="@dimen/dp_36"
-                    android:ellipsize="marquee"
-                    android:maxEms="12"
-                    android:singleLine="true"
-                    android:text="第6集" />
+                    android:paddingEnd="@dimen/dp_22">
 
-                <ImageView
-                    android:id="@+id/mIvPlayFullScreen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/mIvPlaySpeed"
-                    android:padding="@dimen/dp_10"
-                    android:src="@mipmap/ic_play_full_screen"/>
+                    <ImageView
+                        android:id="@+id/mIvBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/dp_22"
+                        android:padding="@dimen/dp_10"
+                        android:src="@mipmap/ic_back_white"/>
 
-                <ImageView
-                    android:id="@+id/mIvPlaySpeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/mIvSettingMore"
-                    android:padding="@dimen/dp_10"
-                    android:src="@mipmap/ic_play_speed"/>
+                    <com.victor.lib.common.view.widget.MovingTextView
+                        android:id="@+id/mTvTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/mIvBack"
+                        app:layout_constraintEnd_toStartOf="@+id/mIvPlayFullScreen"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/dp_36"
+                        android:ellipsize="marquee"
+                        android:maxEms="12"
+                        android:singleLine="true"
+                        android:text="第6集" />
 
-                <ImageView
-                    android:id="@+id/mIvSettingMore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="@dimen/dp_10"
-                    android:src="@mipmap/ic_play_setting_more"/>
+                    <ImageView
+                        android:id="@+id/mIvPlayFullScreen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/mIvPlaySpeed"
+                        android:padding="@dimen/dp_10"
+                        android:src="@mipmap/ic_play_full_screen"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/mIvPlaySpeed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/mIvSettingMore"
+                        android:padding="@dimen/dp_10"
+                        android:src="@mipmap/ic_play_speed"/>
 
-        </com.victor.lib.common.view.widget.InsetsToolbar>
+                    <ImageView
+                        android:id="@+id/mIvSettingMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:padding="@dimen/dp_10"
+                        android:src="@mipmap/ic_play_setting_more"/>
 
-    </com.victor.lib.common.view.widget.InsetsAppBarLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.victor.lib.common.view.widget.InsetsCoordinatorLayout>
+            </com.victor.lib.common.view.widget.InsetsToolbar>
+
+        </com.victor.lib.common.view.widget.InsetsAppBarLayout>
+
+    </com.victor.lib.common.view.widget.InsetsCoordinatorLayout>
+
+</com.victor.lib.common.view.widget.ColorSwipeRefreshLayout>
+
 
 

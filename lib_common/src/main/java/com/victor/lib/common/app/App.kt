@@ -5,7 +5,6 @@ import android.app.Application
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
@@ -26,11 +25,9 @@ import com.tencent.bugly.crashreport.CrashReport
 import com.victor.crash.library.SpiderCrashHandler
 import com.victor.lib.common.base.BaseApplication
 import com.victor.lib.common.module.UMengEventModule
-import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.FileUtil
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.SharedPreferencesUtils
-import com.victor.lib.common.view.widget.RvPlayCellView
 import com.victor.lib.coremodel.action.LoginActions
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.bean.LoginData
@@ -40,11 +37,9 @@ import com.victor.lib.coremodel.util.HttpUtil
 import com.victor.lib.coremodel.util.WebConfig
 import com.victor.lib.common.workers.VideoPreloadWorker
 import com.victor.lib.video.cache.HttpProxyCacheServer
-import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.library.bus.LiveDataBus
 import org.victor.http.lib.ApiClient
 import org.victor.http.lib.util.JsonUtils
-import java.io.File
 import java.lang.ref.WeakReference
 
 /*

@@ -5,9 +5,7 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 import android.os.Build
-import android.view.WindowInsets
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.victor.lib.common.interfaces.WindowInsetsHandlingBehavior

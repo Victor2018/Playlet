@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:background="@color/colorTheme"
+    tools:ignore="MissingDefaultResource,ResourceName">
+
+    <ImageView
+        android:id="@+id/mIvPosterBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/mFlPlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:foregroundGravity="center"/>
+
+    <TextView
+        android:id="@+id/mTvFavCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/mTvCollectCount"
+        app:layout_constraintEnd_toEndOf="@+id/mTvShareCount"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:gravity="center"
+        android:drawableTop="@mipmap/ic_fav_normal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_32"
+        tools:text="99"/>
+
+    <TextView
+        android:id="@+id/mTvCollectCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/mTvShareCount"
+        app:layout_constraintEnd_toEndOf="@+id/mTvShareCount"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:gravity="center"
+        android:drawableTop="@mipmap/ic_collect_normal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_32"
+        tools:text="88"/>
+
+    <TextView
+        android:id="@+id/mTvShareCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/mTvDramaEpisodes"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:gravity="center"
+        android:drawableTop="@mipmap/ic_share"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_32"
+        tools:text="66"/>
+
+
+    <TextView
+        android:id="@+id/mTvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/mTvDescribe"
+        app:layout_constraintStart_toStartOf="@+id/mTvDescribe"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="center"
+        android:drawableRight="@mipmap/ic_right_white"
+        android:drawablePadding="@dimen/dp_10"
+        android:maxLines="1"
+        android:maxEms="12"
+        android:ellipsize="end"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp_32"
+        android:textStyle="bold"
+        tools:text="神医无双"/>
+
+
+    <com.victor.lib.common.view.widget.ExpandableTextView
+        android:id="@+id/mTvDescribe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:maxWidth="@dimen/dp_560"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_20"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="@dimen/dp_28"
+        android:textColor="@color/white"
+        tools:text="第2集·共66集|小伙学医归来，给富豪看病，竟然用针灸治好了富豪多年的顽疾令众名名医脸上无光，富豪女儿表示，愿意答应小伙一切要求，小伙看着眼前的美女笑了笑。"/>
+
+    <TextView
+        android:id="@+id/mTvDramaEpisodes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/mTvDescribe"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:paddingStart="@dimen/dp_30"
+        android:paddingEnd="@dimen/dp_30"
+        android:background="@drawable/shape_33eeeeee_radius_12"
+        android:textSize="@dimen/dp_28"
+        android:textColor="@color/white"
+        android:text="选集"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

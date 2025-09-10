@@ -3,6 +3,7 @@ package com.victor.module.home.view.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.FrameLayout
@@ -27,12 +28,14 @@ import com.victor.module.home.view.adapter.PlayingAdapter
 import com.victor.module.home.view.holder.PlayingContentViewHolder
 import org.victor.http.lib.data.HttpResult
 import com.victor.lib.common.app.App
-import com.victor.lib.common.interfaces.IDramaVM
+import com.victor.lib.common.interfaces.IHomeMain
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.TextViewBoundsUtil
+import com.victor.lib.common.util.ViewUtils.hide
+import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.widget.LMRecyclerView
-import com.victor.lib.common.view.widget.RvPlayCellView
+import com.victor.lib.common.view.widget.PlayCellView
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.video.cache.preload.PreLoadManager
@@ -41,7 +44,7 @@ import com.victor.module.home.view.activity.PlayActivity
 import org.victor.http.lib.util.JsonUtils
 
 class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(FragmentHomeRecommendBinding::inflate),
-    OnItemClickListener, OnRefreshListener, OnViewPagerListener,LMRecyclerView.OnLoadMoreListener {
+    OnItemClickListener, OnRefreshListener, OnViewPagerListener,LMRecyclerView.OnLoadMoreListener,OnClickListener {
 
     companion object {
         fun newInstance(): HomeRecommendFragment {
@@ -105,6 +108,8 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         binding.mRvPlaying.setLoadMoreListener(this)
         binding.mSrlRefresh.setOnRefreshListener(this)
 
+        binding.mIvBack.setOnClickListener(this)
+
         subscribeUi()
     }
 
@@ -144,7 +149,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     fun showHomePlayingData(data: BaseRes<DramaItemInfo>) {
-        mPlayingAdapter?.showData(data.itemList,binding.mTvNoData,binding.mRvPlaying, currentPage,
+        mPlayingAdapter?.showData(data.itemList,null,binding.mRvPlaying, currentPage,
             false,true)
 
         var urls = data.itemList?.map { it.data?.playUrl }
@@ -196,6 +201,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                 App.get().removePlayViewFormParent()
 
                 PlayActivity.intentStart(activity as AppCompatActivity,position,playPosition)
+//                setPlayStyle(true)
             }
         }
     }
@@ -236,7 +242,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
-            val playCell = RvPlayCellView(requireContext())
+            val playCell = PlayCellView(requireContext())
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
@@ -276,6 +282,32 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         }
     }
 
+    private fun setPlayStyle(playing: Boolean) {
+        if (playing) {
+            binding.appbar.show()
+            binding.mTvBottomSlogan.show()
+            if (parentFragment is HomeFragment) {
+                val parentFrag = parentFragment as HomeFragment
+                parentFrag.binding.appbar.hide()
+            }
+            if (activity is IHomeMain) {
+                val homeMain = activity as IHomeMain
+                homeMain.getBottomNavBar().hide()
+            }
+        } else {
+            binding.appbar.hide()
+            binding.mTvBottomSlogan.hide()
+            if (parentFragment is HomeFragment) {
+                val parentFrag = parentFragment as HomeFragment
+                parentFrag.binding.appbar.show()
+            }
+            if (activity is IHomeMain) {
+                val homeMain = activity as IHomeMain
+                homeMain.getBottomNavBar().show()
+            }
+        }
+    }
+
     private fun setLikedStyle(position: Int,isLiked: Boolean) {
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
         if (viewHolder is PlayingContentViewHolder) {
@@ -305,13 +337,13 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         getCurrentPlayView()?.pause()
     }
 
-    private fun getCurrentPlayView(): RvPlayCellView? {
+    private fun getCurrentPlayView(): PlayCellView? {
         if (currentPosition == -1) return null
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
         val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
         if (mFlPlay?.isNotEmpty() == true) {
             val childView = mFlPlay.getChildAt(0)
-            if (childView is RvPlayCellView) {
+            if (childView is PlayCellView) {
                 return childView
             }
         }
@@ -323,11 +355,19 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     private fun getDramaVM(): DramaVM? {
-        if (activity is IDramaVM) {
-            val parentAct = activity as IDramaVM
+        if (activity is IHomeMain) {
+            val parentAct = activity as IHomeMain
             return parentAct.getDramaVM()
         }
         return null
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.mIvBack -> {
+               setPlayStyle(false)
+            }
+        }
     }
 
 }

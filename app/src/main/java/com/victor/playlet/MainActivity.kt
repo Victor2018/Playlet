@@ -21,7 +21,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.hok.lib.common.base.ARouterPath
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
-import com.victor.lib.common.interfaces.IDramaVM
+import com.victor.lib.common.interfaces.IHomeMain
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.NetworkUtils
 import com.victor.lib.common.util.ResUtils
@@ -37,7 +37,7 @@ import com.victor.playlet.databinding.ActivityMainBinding
 
 @Route(path = ARouterPath.MainAct)
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
-    OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener, IDramaVM {
+    OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener, IHomeMain {
 
     private val mDramaVM: DramaVM by viewModels {
         val userId = App.get().getUserInfo()?.uid ?: ""
@@ -221,5 +221,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun getDramaVM() = mDramaVM
+    override fun getBottomNavBar(): BottomNavigationView {
+        return binding.mBottomNav
+    }
 
 }

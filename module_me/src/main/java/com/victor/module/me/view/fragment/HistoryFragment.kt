@@ -6,7 +6,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import androidx.lifecycle.Observer
 import com.victor.lib.common.base.BaseFragment
-import com.victor.lib.common.interfaces.IDramaVM
+import com.victor.lib.common.interfaces.IHomeMain
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.module.me.databinding.FragmentHistoryBinding
@@ -67,8 +67,8 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
     }
 
     private fun getDramaVM(): DramaVM? {
-        if (activity is IDramaVM) {
-            val parentAct = activity as IDramaVM
+        if (activity is IHomeMain) {
+            val parentAct = activity as IHomeMain
             return parentAct.getDramaVM()
         }
         return null

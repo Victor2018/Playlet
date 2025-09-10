@@ -15,11 +15,10 @@ import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
-import com.victor.lib.common.base.BaseFragment.Companion.TAG
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.TextViewBoundsUtil
-import com.victor.lib.common.view.widget.RvPlayCellView
+import com.victor.lib.common.view.widget.PlayCellView
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager.OnViewPagerListener
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
@@ -27,8 +26,8 @@ import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.module.home.R
 import com.victor.module.home.databinding.ActivityPlayBinding
-import com.victor.module.home.view.adapter.PlayingAdapter
-import com.victor.module.home.view.holder.PlayingContentViewHolder
+import com.victor.module.home.view.adapter.DetailPlayingAdapter
+import com.victor.module.home.view.holder.DetailPlayingContentViewHolder
 import org.victor.http.lib.util.JsonUtils
 
 class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::inflate),
@@ -48,7 +47,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         VideoPreLoadFuture(this, Constant.PRELOAD_BUS_ID)
     }
 
-    private var mPlayingAdapter: PlayingAdapter? = null
+    private var mDetailPlayingAdapter: DetailPlayingAdapter? = null
     private var currentPosition = -1
     private var playPosition = 0
 
@@ -60,9 +59,9 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun initView() {
-        mPlayingAdapter = PlayingAdapter(this,this)
+        mDetailPlayingAdapter = DetailPlayingAdapter(this,this)
 
-        binding.mRvPlaying.adapter = mPlayingAdapter
+        binding.mRvPlaying.adapter = mDetailPlayingAdapter
         val layoutManager = ViewPagerLayoutManager(this, LinearLayoutManager.VERTICAL)
         layoutManager.setOnViewPagerListener(this)
         binding.mRvPlaying.layoutManager = layoutManager
@@ -74,7 +73,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         currentPosition = intent?.getIntExtra(Constant.POSITION_KEY,0) ?: 0
         playPosition = intent?.getIntExtra(Constant.PLAY_POSITION_KEY,0) ?: 0
 
-        mPlayingAdapter?.showData(App.get().mPlayInfos)
+        mDetailPlayingAdapter?.showData(App.get().mPlayInfos)
 
         binding.mRvPlaying.scrollToPosition(currentPosition)
         if (binding.mRvPlaying.layoutManager is ViewPagerLayoutManager) {
@@ -84,7 +83,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val data = mPlayingAdapter?.getItem(position)
+        val data = mDetailPlayingAdapter?.getItem(position)
         when (view?.id) {
             R.id.mTvFavCount -> {
                 getDramaById(data?.data?.id ?: 0){
@@ -118,6 +117,8 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 //                    getDramaVM()?.insert(entity)
                 }
             }
+            R.id.mTvDramaEpisodes -> {
+            }
         }
     }
     override fun onPageRelease(isNext: Boolean, position: Int) {
@@ -127,7 +128,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         App.get().removePlayViewFormParent()
 
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
-        if (viewHolder is PlayingContentViewHolder) {
+        if (viewHolder is DetailPlayingContentViewHolder) {
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
             mFlPlay.removeAllViews()
         }
@@ -138,6 +139,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun play(position: Int) {
+        binding.mTvTitle.text = "第${position +1}集"
         if (currentPosition != position) {
             playPosition = 0
         }
@@ -145,12 +147,12 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         Log.i(TAG,"onPageSelected()......position = $position")
 
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
-        if (viewHolder is PlayingContentViewHolder) {
-            val data = mPlayingAdapter?.getItem(position)
+        if (viewHolder is DetailPlayingContentViewHolder) {
+            val data = mDetailPlayingAdapter?.getItem(position)
 
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
-            val playCell = RvPlayCellView(this)
+            val playCell = PlayCellView(this)
             playCell.setCurrentPositon(playPosition)
 
             mFlPlay.removeAllViews()
@@ -181,7 +183,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 
     private fun setFollowingStyle(position: Int,isFollowing: Boolean) {
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
-        if (viewHolder is PlayingContentViewHolder) {
+        if (viewHolder is DetailPlayingContentViewHolder) {
             val mTvFavCount = viewHolder.itemView.findViewById<TextView>(R.id.mTvFavCount)
             if (isFollowing) {
                 TextViewBoundsUtil.setTvDrawableTop(this,mTvFavCount,com.victor.lib.common.R.mipmap.ic_fav_focus)
@@ -193,7 +195,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 
     private fun setLikedStyle(position: Int,isLiked: Boolean) {
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
-        if (viewHolder is PlayingContentViewHolder) {
+        if (viewHolder is DetailPlayingContentViewHolder) {
             val mTvCollectCount = viewHolder.itemView.findViewById<TextView>(R.id.mTvCollectCount)
             if (isLiked) {
                 TextViewBoundsUtil.setTvDrawableTop(
@@ -238,13 +240,13 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         getCurrentPlayView()?.pause()
     }
 
-    private fun getCurrentPlayView(): RvPlayCellView? {
+    private fun getCurrentPlayView(): PlayCellView? {
         if (currentPosition == -1) return null
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
         val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
         if (mFlPlay?.isNotEmpty() == true) {
             val childView = mFlPlay.getChildAt(0)
-            if (childView is RvPlayCellView) {
+            if (childView is PlayCellView) {
                 return childView
             }
         }
