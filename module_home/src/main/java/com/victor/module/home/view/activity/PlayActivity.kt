@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,8 @@ import com.victor.lib.common.view.widget.PlayCellView
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager.OnViewPagerListener
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
+import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.module.home.R
@@ -29,10 +32,10 @@ import com.victor.module.home.databinding.ActivityPlayBinding
 import com.victor.module.home.view.adapter.DetailPlayingAdapter
 import com.victor.module.home.view.holder.DetailPlayingContentViewHolder
 import org.victor.http.lib.util.JsonUtils
+import kotlin.getValue
 
 class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::inflate),
     OnItemClickListener, OnViewPagerListener,OnClickListener {
-
 
     companion object {
         fun intentStart (activity: AppCompatActivity,position: Int,playPosition: Int) {
@@ -41,6 +44,11 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             intent.putExtra(Constant.PLAY_POSITION_KEY,playPosition)
             activity.startActivity(intent)
         }
+    }
+
+    private val mDramaVM: DramaVM by viewModels {
+        val userId = App.get().getUserInfo()?.uid ?: ""
+        InjectorUtils.provideDramaVMFactory(this, userId)
     }
 
     val mVideoPreLoadFuture by lazy {
@@ -82,6 +90,14 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         }
     }
 
+    override fun onClick(v: View?) {
+        when(v?.id) {
+            R.id.mIvBack -> {
+                finish()
+            }
+        }
+    }
+
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val data = mDetailPlayingAdapter?.getItem(position)
         when (view?.id) {
@@ -93,7 +109,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
                         JsonUtils.toJSONString(data),it?.isHistory ?: false,
                         !isFollowing, it?.isLiked ?: false,it?.isPurchased ?: false)
-//                    getDramaVM()?.insert(entity)
+                    mDramaVM.insert(entity)
                 }
             }
             R.id.mTvCollectCount -> {
@@ -104,7 +120,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
                         JsonUtils.toJSONString(data),it?.isHistory ?: false,
                         it?.isFollowing ?: false, !isLiked,it?.isPurchased ?: false)
-//                    getDramaVM()?.insert(entity)
+                    mDramaVM.insert(entity)
                 }
             }
             R.id.mTvShareCount -> {
@@ -114,7 +130,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
                         JsonUtils.toJSONString(data),it?.isHistory ?: false,
                         it?.isFollowing ?: false,it?.isLiked ?: false,!isPurchased)
-//                    getDramaVM()?.insert(entity)
+                    mDramaVM.insert(entity)
                 }
             }
             R.id.mTvDramaEpisodes -> {
@@ -176,7 +192,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                 val entity = DramaEntity(data?.data?.id ?: 0,userId,
                     JsonUtils.toJSONString(data),true, it?.isFollowing ?: false,
                     it?.isLiked ?: false,it?.isPurchased ?: false)
-//                getDramaVM()?.insert(entity)
+                mDramaVM.insert(entity)
             }
         }
     }
@@ -254,19 +270,11 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun getDramaById(id: Int?,callback: (DramaEntity?) -> Unit) {
-//        getDramaVM()?.getById(id ?: 0,callback)
+        mDramaVM.getById(id ?: 0,callback)
     }
 
     override fun onNewIntent(intent: Intent, caller: ComponentCaller) {
         super.onNewIntent(intent, caller)
         initData(intent)
-    }
-
-    override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.mIvBack -> {
-                finish()
-            }
-        }
     }
 }
