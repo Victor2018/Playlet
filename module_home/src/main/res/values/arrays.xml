@@ -13,4 +13,9 @@
 		<item>热搜榜</item>
     </string-array>
 
+    <string-array name="home_episodes_tab_titles">
+		<item>简介</item>
+		<item>选集</item>
+    </string-array>
+
 </resources>

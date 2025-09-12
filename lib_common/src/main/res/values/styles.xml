@@ -83,6 +83,22 @@
         <item name="android:windowExitAnimation">@anim/anim_right_exit</item>
     </style>
 
+
+    <style name="BottomSheetDialog" parent="@style/Theme.Design.BottomSheetDialog">
+        <!--设置背景-->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!-- 是否模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--是否透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <!-- 是否有标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <style name="BasePopWindowStyle">
         <item name="android:windowEnterAnimation">@anim/anim_base_popwindow_fade_in</item>
         <item name="android:windowExitAnimation">@anim/anim_base_popwindow_fade_out</item>

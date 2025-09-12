@@ -30,6 +30,7 @@ import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.module.home.R
 import com.victor.module.home.databinding.ActivityPlayBinding
 import com.victor.module.home.view.adapter.DetailPlayingAdapter
+import com.victor.module.home.view.dialog.EpisodesSelectDialog
 import com.victor.module.home.view.holder.DetailPlayingContentViewHolder
 import org.victor.http.lib.util.JsonUtils
 import kotlin.getValue
@@ -59,6 +60,8 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     private var currentPosition = -1
     private var playPosition = 0
 
+    private var mEpisodesSelectDialog: EpisodesSelectDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         statusBarTextColorBlack = false
         super.onCreate(savedInstanceState)
@@ -67,6 +70,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun initView() {
+        mEpisodesSelectDialog = EpisodesSelectDialog(this,supportFragmentManager)
         mDetailPlayingAdapter = DetailPlayingAdapter(this,this)
 
         binding.mRvPlaying.adapter = mDetailPlayingAdapter
@@ -134,6 +138,8 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                 }
             }
             R.id.mTvDramaEpisodes -> {
+                mEpisodesSelectDialog?.mDramaItemInfo = mDetailPlayingAdapter?.getItem(position)
+                mEpisodesSelectDialog?.show()
             }
         }
     }

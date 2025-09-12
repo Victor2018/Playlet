@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseFragment
-import com.victor.lib.common.interfaces.IHomeMain
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.module.me.databinding.FragmentLikesBinding
 import com.victor.module.me.view.adapter.LikesAdapter
+import kotlin.getValue
 
 class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::inflate),
     OnItemClickListener {
@@ -26,6 +30,12 @@ class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::i
             fragment.setArguments(bundle)
             return fragment
         }
+    }
+
+    //共享使用MainActivity 的 viewmodel
+    private val mDramaVM: DramaVM by activityViewModels{
+        val userId = App.get().getUserInfo()?.uid ?: ""
+        InjectorUtils.provideDramaVMFactory(activity as AppCompatActivity, userId)
     }
 
     private var mLikesAdapter: LikesAdapter? = null
@@ -50,7 +60,7 @@ class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::i
     }
 
     private fun subscribeUi() {
-        getDramaVM()?.likedDramaData?.observe(this, Observer {
+        mDramaVM.likedDramaData.observe(this, Observer {
             showDramaData(it)
         })
     }
@@ -62,11 +72,4 @@ class LikesFragment : BaseFragment<FragmentLikesBinding>(FragmentLikesBinding::i
     override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
     }
 
-    private fun getDramaVM(): DramaVM? {
-        if (activity is IHomeMain) {
-            val parentAct = activity as IHomeMain
-            return parentAct.getDramaVM()
-        }
-        return null
-    }
 }

@@ -48,6 +48,7 @@ open class LMRecyclerView: RecyclerView {
 
     var mAdjustLinearSmoothScroller: AdjustLinearSmoothScroller? = null
     var mCenterSmoothScroller: CenterSmoothScroller? = null
+    var mOnScrollChangeListener: OnScrollChangeListener? = null
 
     constructor(context: Context) : super(context)
 
@@ -97,6 +98,7 @@ open class LMRecyclerView: RecyclerView {
     }
 
     override fun onScrollStateChanged(screenState: Int) {
+        mOnScrollChangeListener?.onScrollChanged(firstVisibleItem)
 //        Log.d(TAG, "onScrollStateChanged()......screenState = $screenState")
         if (screenState == SCROLL_STATE_IDLE) {
             if (sendScrollEvent) {
@@ -226,4 +228,7 @@ open class LMRecyclerView: RecyclerView {
         return scrollState == SCROLL_STATE_IDLE
     }
 
+    interface OnScrollChangeListener {
+        fun onScrollChanged(firstVisibleItem: Int)
+    }
 }

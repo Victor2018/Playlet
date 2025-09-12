@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isNotEmpty
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -42,6 +43,7 @@ import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.module.home.view.activity.PlayActivity
 import org.victor.http.lib.util.JsonUtils
+import kotlin.getValue
 
 class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(FragmentHomeRecommendBinding::inflate),
     OnItemClickListener, OnRefreshListener, OnViewPagerListener,LMRecyclerView.OnLoadMoreListener,OnClickListener {
@@ -60,6 +62,10 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     private lateinit var mHomeVM: HomeVM
+
+    //共享使用MainActivity 的 viewmodel
+    private val mDramaVM: DramaVM by activityViewModels()
+
     private var mPlayingAdapter: PlayingAdapter? = null
     private var currentPosition = -1
 
@@ -170,7 +176,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
                         JsonUtils.toJSONString(data),it?.isHistory ?: false,
                         !isFollowing, it?.isLiked ?: false,it?.isPurchased ?: false)
-                    getDramaVM()?.insert(entity)
+                    mDramaVM.insert(entity)
                 }
             }
             R.id.mTvCollectCount -> {
@@ -181,7 +187,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
                         JsonUtils.toJSONString(data),it?.isHistory ?: false,
                         it?.isFollowing ?: false, !isLiked,it?.isPurchased ?: false)
-                    getDramaVM()?.insert(entity)
+                    mDramaVM.insert(entity)
                 }
             }
             R.id.mTvShareCount -> {
@@ -191,7 +197,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
                         JsonUtils.toJSONString(data),it?.isHistory ?: false,
                         it?.isFollowing ?: false,it?.isLiked ?: false,!isPurchased)
-                    getDramaVM()?.insert(entity)
+                    mDramaVM.insert(entity)
                 }
             }
             R.id.mTvDramaCount -> {
@@ -265,7 +271,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                 val entity = DramaEntity(data?.data?.id ?: 0,userId,
                     JsonUtils.toJSONString(data),true, it?.isFollowing ?: false,
                     it?.isLiked ?: false,it?.isPurchased ?: false)
-                getDramaVM()?.insert(entity)
+                mDramaVM.insert(entity)
             }
         }
     }
@@ -351,15 +357,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     private fun getDramaById(id: Int?,callback: (DramaEntity?) -> Unit) {
-        getDramaVM()?.getById(id ?: 0,callback)
-    }
-
-    private fun getDramaVM(): DramaVM? {
-        if (activity is IHomeMain) {
-            val parentAct = activity as IHomeMain
-            return parentAct.getDramaVM()
-        }
-        return null
+        mDramaVM.getById(id ?: 0,callback)
     }
 
     override fun onClick(v: View?) {

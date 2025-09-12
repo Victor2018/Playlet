@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mTvTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_8"
+    android:paddingBottom="@dimen/dp_8"
+    android:paddingStart="@dimen/dp_30"
+    android:paddingEnd="@dimen/dp_30"
+    android:gravity="center"
+    android:textSize="@dimen/dp_28"
+    android:textColor="@color/colorPrimary"
+    android:background="@drawable/shape_fff1f2_radius_16"
+    tools:text="1-30"
+    tools:ignore="ResourceName"/>

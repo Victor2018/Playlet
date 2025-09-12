@@ -220,7 +220,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     }
 
-    override fun getDramaVM() = mDramaVM
     override fun getBottomNavBar(): BottomNavigationView {
         return binding.mBottomNav
     }
