@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.victor.lib.common.util.Constant
+import com.victor.lib.common.view.widget.rvscroller.AdjustLinearSmoothScroller
+import com.victor.lib.common.view.widget.rvscroller.CenterSmoothScroller
+import com.victor.lib.common.view.widget.rvscroller.TopSmoothScroller
 import com.victor.library.bus.LiveDataBus
 
 /*
@@ -48,6 +51,7 @@ open class LMRecyclerView: RecyclerView {
 
     var mAdjustLinearSmoothScroller: AdjustLinearSmoothScroller? = null
     var mCenterSmoothScroller: CenterSmoothScroller? = null
+    var mTopSmoothScroller: TopSmoothScroller? = null
     var mOnScrollChangeListener: OnScrollChangeListener? = null
 
     constructor(context: Context) : super(context)
@@ -151,6 +155,7 @@ open class LMRecyclerView: RecyclerView {
         getAdjustLinearSmoothScroller(context)?.targetPosition = position
         layoutManager?.startSmoothScroll(getAdjustLinearSmoothScroller(context))
     }
+
     fun smoothScroll2PositionCenter (position: Int) {
         getCenterSmoothScroller(context)?.targetPosition = position
         layoutManager?.startSmoothScroll(getCenterSmoothScroller(context))
@@ -159,6 +164,11 @@ open class LMRecyclerView: RecyclerView {
     fun scroll2PositionCenter(position: Int) {
         getCenterSmoothScroller(context)?.targetPosition = position
         layoutManager?.scrollToPosition(position)
+    }
+
+    fun smoothScroll2PositionTop(position: Int) {
+        getTopSmoothScroller(context)?.targetPosition = position
+        layoutManager?.startSmoothScroll(getTopSmoothScroller(context))
     }
 
     private fun findMax(lastPositions: IntArray): Int {
@@ -217,11 +227,19 @@ open class LMRecyclerView: RecyclerView {
         }
         return mAdjustLinearSmoothScroller
     }
+
     fun getCenterSmoothScroller(context: Context): CenterSmoothScroller? {
         if (mCenterSmoothScroller == null) {
             mCenterSmoothScroller = CenterSmoothScroller(context)
         }
         return mCenterSmoothScroller
+    }
+
+    fun getTopSmoothScroller(context: Context): TopSmoothScroller? {
+        if (mTopSmoothScroller == null) {
+            mTopSmoothScroller = TopSmoothScroller(context)
+        }
+        return mTopSmoothScroller
     }
 
     fun isStopScroll(): Boolean {

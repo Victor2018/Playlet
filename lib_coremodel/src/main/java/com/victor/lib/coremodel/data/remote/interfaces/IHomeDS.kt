@@ -18,6 +18,8 @@ import org.victor.http.lib.data.HttpResult
  * -----------------------------------------------------------------
  */
 interface IHomeDS {
+    val updatePlayPositionData: LiveData<Long>
+
     val dramaListData: LiveData<HttpResult<BaseRes<FollowItem>>>
     suspend fun fetchDramaList()
 

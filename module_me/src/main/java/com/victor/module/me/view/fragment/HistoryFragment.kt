@@ -9,8 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.util.NavigationUtils
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.module.me.databinding.FragmentHistoryBinding
 import com.victor.module.me.view.adapter.HistoryAdapter
@@ -74,6 +76,10 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
     }
 
     override fun onItemClick(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
+        val playInfos = mHistoryAdapter?.getDatas()?.map { it.dramaItem }
+        App.get().mPlayInfos = playInfos as List<DramaItemInfo>?
+        val playPosition = mHistoryAdapter?.getItem(position)?.playPosition ?: 0
+        NavigationUtils.goPlayActivity(activity as AppCompatActivity,position, playPosition)
     }
 
 }

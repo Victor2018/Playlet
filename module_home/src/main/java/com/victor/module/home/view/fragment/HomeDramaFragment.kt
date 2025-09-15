@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.ToastUtils
 import com.victor.lib.common.view.widget.LMRecyclerView
@@ -17,6 +19,7 @@ import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.data.remote.vm.factory.HomeVMFactory
 import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.module.home.databinding.FragmentHomeDramaBinding
+import com.victor.module.home.view.activity.PlayActivity
 import com.victor.module.home.view.adapter.DramaAdapter
 import org.victor.http.lib.data.HttpResult
 
@@ -120,6 +123,8 @@ class HomeDramaFragment : BaseFragment<FragmentHomeDramaBinding>(FragmentHomeDra
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        App.get().mPlayInfos = mDramaAdapter?.getItem(id.toInt())?.data?.itemList
+        PlayActivity.intentStart(activity as AppCompatActivity,position,0)
     }
 
     override fun onRefresh() {

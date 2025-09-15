@@ -40,16 +40,16 @@ interface DramaDao {
     @Query("SELECT * FROM tb_drama where user_id = :userId ORDER BY create_date DESC")
     fun getAll(userId: String): LiveData<List<DramaEntity>>
 
-    @Query("SELECT * FROM tb_drama where user_id = :userId AND isHistory = true ORDER BY create_date DESC")
+    @Query("SELECT * FROM tb_drama where user_id = :userId AND is_history = true ORDER BY create_date DESC")
     fun getHistory(userId: String): LiveData<List<DramaEntity>>
 
-    @Query("SELECT * FROM tb_drama where user_id = :userId AND isFollowing = true ORDER BY create_date DESC")
+    @Query("SELECT * FROM tb_drama where user_id = :userId AND is_following = true ORDER BY create_date DESC")
     fun getFollowing(userId: String): LiveData<List<DramaEntity>>
 
-    @Query("SELECT * FROM tb_drama where user_id = :userId AND isLiked = true ORDER BY create_date DESC")
+    @Query("SELECT * FROM tb_drama where user_id = :userId AND is_liked = true ORDER BY create_date DESC")
     fun getLiked(userId: String): LiveData<List<DramaEntity>>
 
-    @Query("SELECT * FROM tb_drama where user_id = :userId AND isPurchased = true ORDER BY create_date DESC")
+    @Query("SELECT * FROM tb_drama where user_id = :userId AND is_purchased = true ORDER BY create_date DESC")
     fun getPurchased(userId: String): LiveData<List<DramaEntity>>
 
 }

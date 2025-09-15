@@ -12,6 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.victor.lib.coremodel.data.local.DbConfig.DB_NAME
 import com.victor.lib.coremodel.data.local.DbConfig.DB_VERSION
 import com.victor.lib.coremodel.data.local.converters.DateConverters
+import com.victor.lib.coremodel.data.local.converters.DramaItemConverters
 import com.victor.lib.coremodel.data.local.dao.DramaDao
 import com.victor.lib.coremodel.data.local.dao.SearchKeywordDao
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
@@ -33,7 +34,7 @@ import com.victor.lib.coremodel.data.local.entity.SearchKeywordEntity
 @Database(entities = arrayOf(
         SearchKeywordEntity::class, DramaEntity::class),
         version = DB_VERSION, exportSchema = false)
-@TypeConverters(DateConverters::class)
+@TypeConverters(DateConverters::class, DramaItemConverters::class)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun searchKeywordDao(): SearchKeywordDao

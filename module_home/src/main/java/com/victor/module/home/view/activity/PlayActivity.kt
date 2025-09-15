@@ -13,17 +13,23 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isNotEmpty
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.hok.lib.common.base.ARouterPath
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
+import com.victor.lib.common.interfaces.OnPlaySpeedSelectListener
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.TextViewBoundsUtil
+import com.victor.lib.common.view.dialog.SpeedSelectDialog
 import com.victor.lib.common.view.widget.PlayCellView
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager.OnViewPagerListener
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.vm.DramaVM
+import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
@@ -35,6 +41,7 @@ import com.victor.module.home.view.holder.DetailPlayingContentViewHolder
 import org.victor.http.lib.util.JsonUtils
 import kotlin.getValue
 
+@Route(path = ARouterPath.PlayAct)
 class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::inflate),
     OnItemClickListener, OnViewPagerListener,OnClickListener {
 
@@ -52,6 +59,10 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         InjectorUtils.provideDramaVMFactory(this, userId)
     }
 
+    private val mHomeVM: HomeVM by viewModels {
+        InjectorUtils.provideHomeVMFactory(this)
+    }
+
     val mVideoPreLoadFuture by lazy {
         VideoPreLoadFuture(this, Constant.PRELOAD_BUS_ID)
     }
@@ -61,6 +72,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     private var playPosition = 0
 
     private var mEpisodesSelectDialog: EpisodesSelectDialog? = null
+    private var mSpeedSelectDialog: SpeedSelectDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         statusBarTextColorBlack = false
@@ -70,7 +82,10 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun initView() {
+        subscribeUi()
+
         mEpisodesSelectDialog = EpisodesSelectDialog(this,supportFragmentManager)
+
         mDetailPlayingAdapter = DetailPlayingAdapter(this,this)
 
         binding.mRvPlaying.adapter = mDetailPlayingAdapter
@@ -79,6 +94,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         binding.mRvPlaying.layoutManager = layoutManager
 
         binding.mIvBack.setOnClickListener(this)
+        binding.mIvPlaySpeed.setOnClickListener(this)
     }
 
     private fun initData(intent: Intent?) {
@@ -94,10 +110,36 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         }
     }
 
+    private fun subscribeUi() {
+        mHomeVM.updatePlayPositionData.observe(this, Observer {
+            if (getCurrentPlayView()?.isPlaying() == true) {
+                updatePlayHistory()
+            }
+        })
+    }
+
+    private fun updatePlayHistory() {
+        val playPosition = getCurrentPlayView()?.getCurrentPositon() ?: 0
+        val data = mDetailPlayingAdapter?.getItem(currentPosition)
+        getDramaById(data?.data?.id ?: 0){
+            val userId = App.get().getUserInfo()?.uid ?: ""
+            val entity = DramaEntity(data?.data?.id ?: 0,userId,
+                data,playPosition,
+                it?.isHistory ?: false,
+                it?.isFollowing ?: false,
+                it?.isLiked ?: false,
+                it?.isPurchased ?: false)
+            mDramaVM.insert(entity)
+        }
+    }
+
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.mIvBack -> {
                 finish()
+            }
+            R.id.mIvPlaySpeed -> {
+                showSpeedSelectDlg()
             }
         }
     }
@@ -111,7 +153,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                     setFollowingStyle(position,!isFollowing)
                     val userId = App.get().getUserInfo()?.uid ?: ""
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
-                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        data,it?.playPosition ?: 0,it?.isHistory ?: false,
                         !isFollowing, it?.isLiked ?: false,it?.isPurchased ?: false)
                     mDramaVM.insert(entity)
                 }
@@ -122,7 +164,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                     setLikedStyle(position,!isLiked)
                     val userId = App.get().getUserInfo()?.uid ?: ""
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
-                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        data,it?.playPosition ?: 0,it?.isHistory ?: false,
                         it?.isFollowing ?: false, !isLiked,it?.isPurchased ?: false)
                     mDramaVM.insert(entity)
                 }
@@ -132,7 +174,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
                     val isPurchased = it?.isPurchased ?: false
                     val userId = App.get().getUserInfo()?.uid ?: ""
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
-                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        data,it?.playPosition ?: 0,it?.isHistory ?: false,
                         it?.isFollowing ?: false,it?.isLiked ?: false,!isPurchased)
                     mDramaVM.insert(entity)
                 }
@@ -143,11 +185,10 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             }
         }
     }
+
     override fun onPageRelease(isNext: Boolean, position: Int) {
         Log.i(TAG,"onPageRelease()......isNext = $isNext")
         Log.i(TAG,"onPageRelease()......position = $position")
-
-        App.get().removePlayViewFormParent()
 
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
         if (viewHolder is DetailPlayingContentViewHolder) {
@@ -196,7 +237,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 
                 val userId = App.get().getUserInfo()?.uid ?: ""
                 val entity = DramaEntity(data?.data?.id ?: 0,userId,
-                    JsonUtils.toJSONString(data),true, it?.isFollowing ?: false,
+                    data,it?.playPosition ?: 0,true, it?.isFollowing ?: false,
                     it?.isLiked ?: false,it?.isPurchased ?: false)
                 mDramaVM.insert(entity)
             }
@@ -277,6 +318,18 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 
     private fun getDramaById(id: Int?,callback: (DramaEntity?) -> Unit) {
         mDramaVM.getById(id ?: 0,callback)
+    }
+
+    private fun showSpeedSelectDlg() {
+        if (mSpeedSelectDialog == null) {
+            mSpeedSelectDialog = SpeedSelectDialog(this)
+            mSpeedSelectDialog?.mOnPlaySpeedSelectListener = object : OnPlaySpeedSelectListener {
+                override fun OnPlaySpeedSelect(speed: Float) {
+                    getCurrentPlayView()?.setSpeed(speed)
+                }
+            }
+        }
+        mSpeedSelectDialog?.show()
     }
 
     override fun onNewIntent(intent: Intent, caller: ComponentCaller) {

@@ -16,6 +16,8 @@ import kotlinx.coroutines.launch
  */
 class HomeVM(private val dataSource: IHomeDS): ViewModel() {
 
+    var updatePlayPositionData = dataSource.updatePlayPositionData
+
     val dramaListData = dataSource.dramaListData
     fun fetchDramaList() {
         // Launch a coroutine that reads from a remote data source and updates cache

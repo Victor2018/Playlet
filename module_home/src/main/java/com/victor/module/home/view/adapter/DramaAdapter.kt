@@ -33,14 +33,14 @@ class DramaAdapter(context: Context, listener: AdapterView.OnItemClickListener?)
         return null
     }
 
-    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.FollowItem?, position: Int) {
+    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: FollowItem?, position: Int) {
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return DramaContentViewHolder(inflate(R.layout.rv_drama_cell, parent), listener)
     }
 
-    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.FollowItem?, position: Int) {
+    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: FollowItem?, position: Int) {
         val contentViewHolder = viewHolder as DramaContentViewHolder
         contentViewHolder.mOnItemClickListener = listener
         contentViewHolder.bindData(data)

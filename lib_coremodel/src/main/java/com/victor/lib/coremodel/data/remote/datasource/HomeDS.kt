@@ -1,6 +1,8 @@
 package com.victor.lib.coremodel.data.remote.datasource
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
@@ -8,6 +10,7 @@ import com.victor.lib.coremodel.data.remote.interfaces.IHomeDS
 import com.victor.lib.coremodel.data.remote.service.HomeApiService
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import org.victor.http.lib.ApiClient
 import org.victor.http.lib.data.HttpResult
@@ -24,6 +27,13 @@ import org.victor.http.lib.datasource.AbsDS
  * -----------------------------------------------------------------
  */
 class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
+
+    override val updatePlayPositionData: LiveData<Long> =  liveData {
+        while (true) {
+            emit(System.currentTimeMillis())
+            delay(5000)
+        }
+    }
 
     override val dramaListData = MutableLiveData<HttpResult<BaseRes<FollowItem>>>()
     override suspend fun fetchDramaList() {

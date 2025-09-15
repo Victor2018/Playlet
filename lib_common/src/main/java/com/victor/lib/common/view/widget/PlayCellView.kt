@@ -64,15 +64,19 @@ class PlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickListen
         mPlayer?.playUrl(playUrl)
     }
 
+    fun isPlaying(): Boolean {
+        return mPlayer?.isPlaying() ?: false
+    }
+
     fun pause() {
         isPause = true
-        if (mPlayer?.isPlaying() == false) return
+        if (!isPlaying()) return
         mPlayer?.pause()
     }
 
     fun resume() {
         isPause = false
-        if (mPlayer?.isPlaying() == true) return
+        if (isPlaying()) return
         mPlayer?.resume()
     }
 
@@ -82,6 +86,10 @@ class PlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickListen
 
     fun getCurrentPositon(): Int {
         return mPlayer?.getCurrentPosition() ?: 0
+    }
+
+    fun setSpeed(speed: Float){
+        mPlayer?.setSpeed(speed)
     }
 
     private fun startLoadingAnimation() {

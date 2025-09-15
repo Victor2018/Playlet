@@ -6,9 +6,12 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.util.NavigationUtils
 import com.victor.lib.common.util.ToastUtils
 import com.victor.lib.common.view.widget.LMRecyclerView
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
@@ -122,6 +125,8 @@ class TheaterFoundContentFragment : BaseFragment<FragmentTheaterHotContentBindin
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        App.get().mPlayInfos = mTheaterFoundSubAdapter?.getDatas()
+        NavigationUtils.goPlayActivity(activity as AppCompatActivity,position,0)
     }
 
     override fun onRefresh() {

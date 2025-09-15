@@ -52,8 +52,8 @@ object ARouterPath {
     /**搜索 activity */
     const val SearchAct = "$HOME/module/SearchActivity"
 
-    /**专题失效 activity */
-    const val TopicInvalidAct = "$HOME/module/TopicInvalidActivity"
+    /**播放 activity */
+    const val PlayAct = "$HOME/module/PlayActivity"
 
     /**错误 activity */
     const val ErrorAct = "$HOME/module/ErrorActivity"

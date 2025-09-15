@@ -30,7 +30,7 @@ class DramaContentViewHolder(itemView: View, listener: AdapterView.OnItemClickLi
 
 //        recyclerView.layoutManager = VegaLayoutManager(VegaLayoutManager.HORIZONTAL)
 
-        var cellAdapter = DramaItemAdapter(itemView.context,mOnItemClickListener,position)
+        var cellAdapter = DramaItemAdapter(itemView.context,mOnItemClickListener,bindingAdapterPosition)
         cellAdapter.add(data?.data?.itemList)
 
         recyclerView.adapter = cellAdapter

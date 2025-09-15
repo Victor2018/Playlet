@@ -84,6 +84,17 @@ object NavigationUtils {
             .navigation(activity)
     }
 
+    /**
+     * 去往播放页面
+     */
+    fun goPlayActivity(activity: Activity, position: Int,playPosition: Int) {
+        ARouter.getInstance().build(ARouterPath.PlayAct)
+            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
+            .withInt(Constant.POSITION_KEY, position)
+            .withInt(Constant.PLAY_POSITION_KEY, playPosition)
+            .navigation(activity)
+    }
+
 
     /**
      * 去往我的

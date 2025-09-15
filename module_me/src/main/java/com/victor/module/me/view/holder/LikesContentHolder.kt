@@ -27,11 +27,10 @@ class LikesContentHolder(itemView: View, listener: AdapterView.OnItemClickListen
 
     override fun bindData(data: DramaEntity?) {
         val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
-        val dramaItemInfo = JsonUtils.parseObject(data?.dramaItemJson, DramaItemInfo::class.java)
-        val url = dramaItemInfo?.data?.cover?.feed ?: ""
+        val url = data?.dramaItem?.data?.cover?.feed ?: ""
         ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
             com.victor.lib.common.R.mipmap.img_placeholder_vertical)
-        itemView.findViewById<TextView>(R.id.mTvContentName).text = dramaItemInfo?.data?.title ?: ""
+        itemView.findViewById<TextView>(R.id.mTvContentName).text = data?.dramaItem?.data?.title ?: ""
 
         val start = Random.nextInt(1, 20)
         val dramaCount = Random.nextInt(20, 101)

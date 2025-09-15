@@ -27,14 +27,14 @@ class DramaItemAdapter(context: Context?, listener: AdapterView.OnItemClickListe
         return null
     }
 
-    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo?, position: Int) {
+    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return DramaItemContentViewHolder(inflate(R.layout.rv_drama_item_cell ,parent),listener,parentPosition)
     }
 
-    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo?, position: Int) {
+    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
         val contentViewHolder = viewHolder as DramaItemContentViewHolder
         contentViewHolder.mOnItemClickListener = listener
         contentViewHolder.bindData(data)

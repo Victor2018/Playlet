@@ -13,5 +13,5 @@ package com.victor.lib.coremodel.data.local
 
 object DbConfig {
     const val DB_NAME = "victor-db"
-    const val DB_VERSION = 6
+    const val DB_VERSION = 8
 }

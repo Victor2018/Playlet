@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.victor.lib.common.base.BaseFragment
+import com.victor.lib.common.util.Loger
 import com.victor.lib.common.view.widget.LMRecyclerView
 import com.victor.module.home.R
 import com.victor.module.home.databinding.FragmentEpisodesSelectBinding
@@ -72,7 +73,8 @@ class EpisodesSelectFragment : BaseFragment<FragmentEpisodesSelectBinding>
                 binding.mRvTitle.scroll2PositionCenter(position)
                 mEpisodesTitleAdapter?.selectPositon = position
                 mEpisodesTitleAdapter?.notifyDataSetChanged()
-                binding.mRvEpisodes.smoothScroll2Position(episodesPageSize * position + 1)
+                val episodesIndex = episodesPageSize * position + 1
+                binding.mRvEpisodes.smoothScroll2PositionTop(episodesIndex)
             }
             R.id.mTvEpisodes -> {
                 mEpisodesAdapter?.selectPositon = position
@@ -82,10 +84,20 @@ class EpisodesSelectFragment : BaseFragment<FragmentEpisodesSelectBinding>
     }
 
     override fun onScrollChanged(firstVisibleItem: Int) {
-        val episodes = mEpisodesAdapter?.getItem(firstVisibleItem) ?: 0
-        val episodesIndex = (episodes - 1) / episodesPageSize
-        if (firstVisibleItem % 30 == 0) {
-            binding.mRvTitle.scroll2PositionCenter(episodesIndex)
+        Loger.i(TAG,"onScrollChanged-firstVisibleItem = $firstVisibleItem")
+
+        var pageIndex = firstVisibleItem / episodesPageSize
+        if (binding.mRvEpisodes.isScrollBottom()) {
+            val episodesCount = mEpisodesAdapter?.getContentItemCount() ?: 0
+            // 计算总页数
+            val totalPages = (episodesCount + episodesPageSize - 1) / episodesPageSize
+            pageIndex = totalPages - 1
+        }
+        Loger.i(TAG,"onScrollChanged-pageIndex = $pageIndex")
+        if (pageIndex != mEpisodesTitleAdapter?.selectPositon) {
+            binding.mRvTitle.scroll2PositionCenter(pageIndex)
+            mEpisodesTitleAdapter?.selectPositon = pageIndex
+            mEpisodesTitleAdapter?.notifyDataSetChanged()
         }
     }
 }

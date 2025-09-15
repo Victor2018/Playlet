@@ -94,6 +94,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     override fun onPause() {
         super.onPause()
         pausePlay()
+        updatePlayHistory()
     }
 
     override fun onResume() {
@@ -125,6 +126,12 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     private fun subscribeUi() {
+        mHomeVM.updatePlayPositionData.observe(viewLifecycleOwner, Observer {
+            if (getCurrentPlayView()?.isPlaying() == true) {
+                updatePlayHistory()
+            }
+        })
+
         mHomeVM.homePlayingData.observe(viewLifecycleOwner, Observer {
             binding.mSrlRefresh.isRefreshing = false
             when(it) {
@@ -165,6 +172,21 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         mVideoPreLoadFuture.addUrls(urls)
     }
 
+    private fun updatePlayHistory() {
+        val playPosition = getCurrentPlayView()?.getCurrentPositon() ?: 0
+        val data = mPlayingAdapter?.getItem(currentPosition)
+        getDramaById(data?.data?.id ?: 0){
+            val userId = App.get().getUserInfo()?.uid ?: ""
+            val entity = DramaEntity(data?.data?.id ?: 0,userId,
+                data,playPosition,
+                it?.isHistory ?: false,
+                it?.isFollowing ?: false,
+                it?.isLiked ?: false,
+                it?.isPurchased ?: false)
+            mDramaVM.insert(entity)
+        }
+    }
+
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val data = mPlayingAdapter?.getItem(position)
         when (view?.id) {
@@ -174,7 +196,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                     setFollowingStyle(position,!isFollowing)
                     val userId = App.get().getUserInfo()?.uid ?: ""
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
-                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        data,it?.playPosition ?: 0,it?.isHistory ?: false,
                         !isFollowing, it?.isLiked ?: false,it?.isPurchased ?: false)
                     mDramaVM.insert(entity)
                 }
@@ -185,7 +207,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                     setLikedStyle(position,!isLiked)
                     val userId = App.get().getUserInfo()?.uid ?: ""
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
-                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        data,it?.playPosition ?: 0,it?.isHistory ?: false,
                         it?.isFollowing ?: false, !isLiked,it?.isPurchased ?: false)
                     mDramaVM.insert(entity)
                 }
@@ -195,7 +217,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
                     val isPurchased = it?.isPurchased ?: false
                     val userId = App.get().getUserInfo()?.uid ?: ""
                     val entity = DramaEntity(data?.data?.id ?: 0,userId,
-                        JsonUtils.toJSONString(data),it?.isHistory ?: false,
+                        data,it?.playPosition ?: 0,it?.isHistory ?: false,
                         it?.isFollowing ?: false,it?.isLiked ?: false,!isPurchased)
                     mDramaVM.insert(entity)
                 }
@@ -203,8 +225,6 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
             R.id.mTvDramaCount -> {
                 App.get().mPlayInfos = mPlayingAdapter?.getDatas()
                 val playPosition = getCurrentPlayView()?.getCurrentPositon() ?: 0
-
-                App.get().removePlayViewFormParent()
 
                 PlayActivity.intentStart(activity as AppCompatActivity,position,playPosition)
 //                setPlayStyle(true)
@@ -226,8 +246,6 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     override fun onPageRelease(isNext: Boolean, position: Int) {
         Log.i(TAG,"onPageRelease()......isNext = $isNext")
         Log.i(TAG,"onPageRelease()......position = $position")
-
-        App.get().removePlayViewFormParent()
 
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
         if (viewHolder is PlayingContentViewHolder) {
@@ -269,7 +287,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
                 val userId = App.get().getUserInfo()?.uid ?: ""
                 val entity = DramaEntity(data?.data?.id ?: 0,userId,
-                    JsonUtils.toJSONString(data),true, it?.isFollowing ?: false,
+                    data,it?.playPosition ?: 0,true, it?.isFollowing ?: false,
                     it?.isLiked ?: false,it?.isPurchased ?: false)
                 mDramaVM.insert(entity)
             }

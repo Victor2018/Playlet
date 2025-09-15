@@ -3,6 +3,7 @@ package com.victor.lib.coremodel.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import java.util.*
 
 
@@ -20,11 +21,12 @@ import java.util.*
 data class DramaEntity(
     @PrimaryKey @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "user_id") var user_id: String,
-    @ColumnInfo(name = "dramaItemJson") var dramaItemJson: String,
-    @ColumnInfo(name = "isHistory") var isHistory: Boolean,
-    @ColumnInfo(name = "isFollowing") var isFollowing: Boolean,
-    @ColumnInfo(name = "isLiked") var isLiked: Boolean,
-    @ColumnInfo(name = "isPurchased") var isPurchased: Boolean,
+    @ColumnInfo(name = "drama_item") var dramaItem: DramaItemInfo?,
+    @ColumnInfo(name = "play_position") var playPosition: Int,
+    @ColumnInfo(name = "is_history") var isHistory: Boolean,
+    @ColumnInfo(name = "is_following") var isFollowing: Boolean,
+    @ColumnInfo(name = "is_liked") var isLiked: Boolean,
+    @ColumnInfo(name = "is_purchased") var isPurchased: Boolean,
     @ColumnInfo(name = "create_date") val create_date: Calendar = Calendar.getInstance()
 //    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Long = 0L
 )
