@@ -46,7 +46,6 @@
                 android:text="@string/slogan_1"/>
         </LinearLayout>
 
-
         <com.victor.lib.common.view.widget.InsetsAppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,19 +95,23 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/mIvPlaySpeed"
+                        app:layout_constraintEnd_toStartOf="@+id/mTvPlaySpeed"
                         android:padding="@dimen/dp_10"
                         android:src="@mipmap/ic_play_full_screen"/>
 
-                    <ImageView
-                        android:id="@+id/mIvPlaySpeed"
+                    <TextView
+                        android:id="@+id/mTvPlaySpeed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/mIvSettingMore"
                         android:padding="@dimen/dp_10"
-                        android:src="@mipmap/ic_play_speed"/>
+                        android:drawableLeft="@mipmap/ic_play_speed"
+                        android:gravity="center"
+                        android:textSize="@dimen/dp_28"
+                        android:textColor="@color/white"
+                        android:text="1.0X"/>
 
                     <ImageView
                         android:id="@+id/mIvSettingMore"

@@ -136,7 +136,7 @@
                     app:layout_constraintTop_toTopOf="@+id/tv_balance"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_balance"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:drawableLeft="@mipmap/ic_withdraw_wechat_gray"
+                    android:drawableLeft="@mipmap/ic_withdraw_wechat_grey"
                     android:drawablePadding="@dimen/dp_8"
                     android:gravity="center"
                     android:textStyle="bold"

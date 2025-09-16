@@ -23,7 +23,11 @@ import com.victor.lib.common.interfaces.OnPlaySpeedSelectListener
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.TextViewBoundsUtil
+import com.victor.lib.common.util.ViewUtils.hide
+import com.victor.lib.common.util.ViewUtils.show
+import com.victor.lib.common.view.dialog.PlaySettingsDialog
 import com.victor.lib.common.view.dialog.SpeedSelectDialog
+import com.victor.lib.common.view.widget.ExpandableTextView
 import com.victor.lib.common.view.widget.PlayCellView
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager
 import com.victor.lib.common.view.widget.layoutmanager.ViewPagerLayoutManager.OnViewPagerListener
@@ -73,6 +77,9 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 
     private var mEpisodesSelectDialog: EpisodesSelectDialog? = null
     private var mSpeedSelectDialog: SpeedSelectDialog? = null
+    private var mPlaySettingsDialog: PlaySettingsDialog? = null
+
+    private var fullScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         statusBarTextColorBlack = false
@@ -94,7 +101,9 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         binding.mRvPlaying.layoutManager = layoutManager
 
         binding.mIvBack.setOnClickListener(this)
-        binding.mIvPlaySpeed.setOnClickListener(this)
+        binding.mIvPlayFullScreen.setOnClickListener(this)
+        binding.mTvPlaySpeed.setOnClickListener(this)
+        binding.mIvSettingMore.setOnClickListener(this)
     }
 
     private fun initData(intent: Intent?) {
@@ -138,8 +147,15 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             R.id.mIvBack -> {
                 finish()
             }
-            R.id.mIvPlaySpeed -> {
+            R.id.mIvPlayFullScreen -> {
+                fullScreen = !fullScreen
+                setFullPlayStyle()
+            }
+            R.id.mTvPlaySpeed -> {
                 showSpeedSelectDlg()
+            }
+            R.id.mIvSettingMore -> {
+                showPlaySettingsDlg()
             }
         }
     }
@@ -202,11 +218,14 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun play(position: Int) {
+        currentPosition = position
+
+        setFullPlayStyle()
+
         binding.mTvTitle.text = "第${position +1}集"
         if (currentPosition != position) {
             playPosition = 0
         }
-        currentPosition = position
         Log.i(TAG,"onPageSelected()......position = $position")
 
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
@@ -316,6 +335,12 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         return null
     }
 
+    private fun getCurrentPlayCellView(): View? {
+        if (currentPosition == -1) return null
+        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
+        return viewHolder?.itemView
+    }
+
     private fun getDramaById(id: Int?,callback: (DramaEntity?) -> Unit) {
         mDramaVM.getById(id ?: 0,callback)
     }
@@ -325,12 +350,52 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             mSpeedSelectDialog = SpeedSelectDialog(this)
             mSpeedSelectDialog?.mOnPlaySpeedSelectListener = object : OnPlaySpeedSelectListener {
                 override fun OnPlaySpeedSelect(speed: Float) {
+                    binding.mTvPlaySpeed.text = "${speed}X"
                     getCurrentPlayView()?.setSpeed(speed)
                 }
             }
         }
         mSpeedSelectDialog?.show()
     }
+    private fun showPlaySettingsDlg() {
+        if (mPlaySettingsDialog == null) {
+            mPlaySettingsDialog = PlaySettingsDialog(this)
+//            mPlaySettingsDialog?.mOnPlaySpeedSelectListener = object : OnPlaySpeedSelectListener {
+//                override fun OnPlaySpeedSelect(speed: Float) {
+//                    getCurrentPlayView()?.setSpeed(speed)
+//                }
+//            }
+        }
+        mPlaySettingsDialog?.show()
+    }
+
+    fun setFullPlayStyle() {
+        val mTvTitle = getCurrentPlayCellView()?.findViewById<TextView>(R.id.mTvTitle)
+        val mTvDescribe = getCurrentPlayCellView()?.findViewById<ExpandableTextView>(R.id.mTvDescribe)
+        val mTvFavCount = getCurrentPlayCellView()?.findViewById<TextView>(R.id.mTvFavCount)
+        val mTvCollectCount = getCurrentPlayCellView()?.findViewById<TextView>(R.id.mTvCollectCount)
+        val mTvShareCount = getCurrentPlayCellView()?.findViewById<TextView>(R.id.mTvShareCount)
+        val mTvDramaEpisodes = getCurrentPlayCellView()?.findViewById<TextView>(R.id.mTvDramaEpisodes)
+
+        if (fullScreen) {
+            binding.mIvPlayFullScreen.setImageResource(R.mipmap.ic_play_normal_screen)
+            mTvTitle?.hide()
+            mTvDescribe?.hide()
+            mTvFavCount?.hide()
+            mTvCollectCount?.hide()
+            mTvShareCount?.hide()
+            mTvDramaEpisodes?.hide()
+        } else {
+            binding.mIvPlayFullScreen.setImageResource(R.mipmap.ic_play_full_screen)
+            mTvTitle?.show()
+            mTvDescribe?.show()
+            mTvFavCount?.show()
+            mTvCollectCount?.show()
+            mTvShareCount?.show()
+            mTvDramaEpisodes?.show()
+        }
+    }
+
 
     override fun onNewIntent(intent: Intent, caller: ComponentCaller) {
         super.onNewIntent(intent, caller)

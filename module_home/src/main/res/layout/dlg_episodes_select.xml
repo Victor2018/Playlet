@@ -61,7 +61,7 @@
         android:paddingEnd="@dimen/dp_10"
         android:background="@drawable/shape_f6f6f6_radius_8"
         android:gravity="center"
-        android:drawableLeft="@mipmap/ic_hot_fire_white"
+        android:drawableLeft="@mipmap/ic_hot_fire"
         android:drawablePadding="@dimen/dp_8"
         android:textColor="@color/color_333333"
         android:textSize="@dimen/dp_20"
