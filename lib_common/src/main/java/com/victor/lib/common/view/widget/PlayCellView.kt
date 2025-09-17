@@ -106,7 +106,7 @@ class PlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickListen
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         Loger.d(TAG,"onAttachedToWindow()......")
-        startLoadingAnimation()
+        stopLoadingAnimation()
         MainHandler.get().register(this)
         resume()
     }
