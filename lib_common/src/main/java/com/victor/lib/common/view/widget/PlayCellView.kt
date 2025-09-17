@@ -49,7 +49,6 @@ class PlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickListen
     }
 
     private fun initView() {
-        MainHandler.get().register(this)
         binding = PlayCellBinding.inflate(LayoutInflater.from(context), this, true)
         mPlayer = Player(binding.mTvPlay,MainHandler.get())
 
@@ -80,6 +79,10 @@ class PlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickListen
         mPlayer?.resume()
     }
 
+    fun getLastPlayUrl(): String? {
+        return mPlayer?.getLastPlayUrl()
+    }
+
     fun setCurrentPositon(playPositon: Int) {
         currentPosition = playPositon
     }
@@ -103,14 +106,16 @@ class PlayCellView: ConstraintLayout,MainHandler.OnMainHandlerImpl,OnClickListen
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         Loger.d(TAG,"onAttachedToWindow()......")
+        startLoadingAnimation()
+        MainHandler.get().register(this)
+        resume()
     }
 
     override fun onDetachedFromWindow() {
         MainHandler.get().unregister(this)
         super.onDetachedFromWindow()
         Loger.d(TAG,"onDetachedFromWindow()......")
-        mPlayer?.close()
-        mPlayer = null
+        pause()
     }
 
     override fun handleMainMessage(message: Message?) {

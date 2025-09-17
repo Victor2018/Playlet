@@ -42,7 +42,6 @@ import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.module.home.view.activity.PlayActivity
-import org.victor.http.lib.util.JsonUtils
 import kotlin.getValue
 
 class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(FragmentHomeRecommendBinding::inflate),
@@ -247,11 +246,12 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         Log.i(TAG,"onPageRelease()......isNext = $isNext")
         Log.i(TAG,"onPageRelease()......position = $position")
 
-        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
+        /*val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
         if (viewHolder is PlayingContentViewHolder) {
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
             mFlPlay.removeAllViews()
-        }
+        }*/
+        App.get().removePlayCellViewFormParent()
     }
 
     override fun onPageSelected(position: Int, isBottom: Boolean) {
@@ -266,7 +266,9 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
-            val playCell = PlayCellView(requireContext())
+            App.get().removePlayCellViewFormParent()
+//            val playCell = PlayCellView(requireContext())
+            val playCell = App.get().mPlayCellView
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
@@ -275,7 +277,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
             playCell.play(playUrl)
 
             if (PreLoadManager.getInstance(requireContext()).hasEnoughCache(playUrl)) {
-                Loger.d(TAG, "onPageSelected-playUrl()...has cached");
+                Loger.d(TAG, "onPageSelected-playUrl()...has cached")
             }
 
             // 参数preloadBusId和VideoPreLoadFuture初始化的VideoPreLoadFuture保持一致，url为当前短视频播放地址
@@ -345,20 +347,20 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
     }
 
     private fun resumePlay() {
-        /*if (currentPosition == -1) return
-        App.get().removePlayViewFormParent()
+        if (currentPosition == -1) return
+        App.get().removePlayCellViewFormParent()
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
         val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
-        mFlPlay?.addView(App.get().mRvPlayCellView)*/
+        mFlPlay?.addView(App.get().mPlayCellView)
 
-        getCurrentPlayView()?.resume()
+//        getCurrentPlayView()?.resume()
     }
 
     private fun pausePlay() {
-//        if (currentPosition == -1) return
-//        App.get().removePlayViewFormParent()
+        if (currentPosition == -1) return
+        App.get().removePlayCellViewFormParent()
 
-        getCurrentPlayView()?.pause()
+//        getCurrentPlayView()?.pause()
     }
 
     private fun getCurrentPlayView(): PlayCellView? {

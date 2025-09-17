@@ -5,6 +5,7 @@ import android.app.Application
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
@@ -28,6 +29,7 @@ import com.victor.lib.common.module.UMengEventModule
 import com.victor.lib.common.util.FileUtil
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.SharedPreferencesUtils
+import com.victor.lib.common.view.widget.PlayCellView
 import com.victor.lib.coremodel.action.LoginActions
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.lib.coremodel.data.remote.entity.bean.LoginData
@@ -63,7 +65,7 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
     private var mLoginData: LoginData? = null
     private var mUserInfo: UserInfo? = null
     var mPlayInfos: List<DramaItemInfo>? = null
-//    lateinit var mRvPlayCellView: RvPlayCellView
+    lateinit var mPlayCellView: PlayCellView
 
     val mHttpProxyCacheServer by lazy {
         HttpProxyCacheServer.Builder(this)
@@ -110,6 +112,8 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         cacheEvictor = LeastRecentlyUsedCacheEvictor(cacheSize)
         exoplayerDatabaseProvider = ExoDatabaseProvider(this)
         cache = SimpleCache(cacheDir, cacheEvictor, exoplayerDatabaseProvider)
+
+        mPlayCellView = PlayCellView(this)
     }
 
     fun setLoginData(loginData: LoginData?) {
@@ -301,11 +305,11 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         }
     }
 
-    fun removePlayViewFormParent() {
-        /*val parent = mRvPlayCellView.getParent()
+    fun removePlayCellViewFormParent() {
+        val parent = mPlayCellView.getParent()
         if (parent != null && parent is ViewGroup) {
-            parent.removeView(mRvPlayCellView)
-        }*/
+            parent.removeView(mPlayCellView)
+        }
     }
 
     private fun schedulePreloadWork(videoUrl: String) {

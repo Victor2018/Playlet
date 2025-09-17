@@ -3,6 +3,7 @@ package com.victor.module.home.view.activity
 import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
@@ -35,6 +36,7 @@ import com.victor.lib.coremodel.data.local.entity.DramaEntity
 import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.util.InjectorUtils
+import com.victor.lib.video.cache.HttpProxyCacheServer
 import com.victor.lib.video.cache.preload.PreLoadManager
 import com.victor.lib.video.cache.preload.VideoPreLoadFuture
 import com.victor.module.home.R
@@ -206,11 +208,13 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         Log.i(TAG,"onPageRelease()......isNext = $isNext")
         Log.i(TAG,"onPageRelease()......position = $position")
 
-        val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
+        /*val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
         if (viewHolder is DetailPlayingContentViewHolder) {
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
             mFlPlay.removeAllViews()
-        }
+        }*/
+
+        App.get().removePlayCellViewFormParent()
     }
 
     override fun onPageSelected(position: Int, isBottom: Boolean) {
@@ -234,17 +238,28 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
 
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
-            val playCell = PlayCellView(this)
+            App.get().removePlayCellViewFormParent()
+//            val playCell = PlayCellView(this)
+            val playCell = App.get().mPlayCellView
             playCell.setCurrentPositon(playPosition)
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
 
             val playUrl = data?.data?.playUrl
-            playCell.play(playUrl)
+            Loger.d(TAG, "onPageSelected-playUrl = $playUrl")
+            Loger.d(TAG, "onPageSelected-getLastPlayUrl = ${playCell.getLastPlayUrl()}")
+
+            val proxy: HttpProxyCacheServer = App.get().mHttpProxyCacheServer
+            val proxyUrl = proxy.getProxyUrl(playUrl)
+            if (TextUtils.equals(proxyUrl,playCell.getLastPlayUrl())) {
+                playCell.resume()
+            } else {
+                playCell.play(playUrl)
+            }
 
             if (PreLoadManager.getInstance(this).hasEnoughCache(playUrl)) {
-                Loger.d(TAG, "onPageSelected-playUrl()...has cached");
+                Loger.d(TAG, "onPageSelected-playUrl()...has cached")
             }
 
             // 参数preloadBusId和VideoPreLoadFuture初始化的VideoPreLoadFuture保持一致，url为当前短视频播放地址
@@ -306,20 +321,20 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun resumePlay() {
-        /*if (currentPosition == -1) return
-        App.get().removePlayViewFormParent()
+        if (currentPosition == -1) return
+        App.get().removePlayCellViewFormParent()
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
         val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
-        mFlPlay?.addView(App.get().mRvPlayCellView)*/
+        mFlPlay?.addView(App.get().mPlayCellView)
 
-        getCurrentPlayView()?.resume()
+//        getCurrentPlayView()?.resume()
     }
 
     private fun pausePlay() {
-//        if (currentPosition == -1) return
-//        App.get().removePlayViewFormParent()
+        if (currentPosition == -1) return
+        App.get().removePlayCellViewFormParent()
 
-        getCurrentPlayView()?.pause()
+//        getCurrentPlayView()?.pause()
     }
 
     private fun getCurrentPlayView(): PlayCellView? {

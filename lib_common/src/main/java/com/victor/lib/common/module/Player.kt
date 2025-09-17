@@ -130,16 +130,21 @@ class Player : TextureView.SurfaceTextureListener,
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        mSurfaceHolder = holder
-    }
-
-    override fun surfaceDestroyed(holder: SurfaceHolder) {
-    }
-
-    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        Log.e(TAG, "surfaceCreated()......")
         mSurfaceHolder = holder
         setDisplay()
         openVideo()
+    }
+
+    override fun surfaceDestroyed(holder: SurfaceHolder) {
+        Log.e(TAG, "surfaceDestroyed()......")
+    }
+
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        Log.e(TAG, "surfaceChanged()......")
+//        mSurfaceHolder = holder
+//        setDisplay()
+//        openVideo()
     }
 
     fun createMediaPlayer() {
@@ -164,7 +169,6 @@ class Player : TextureView.SurfaceTextureListener,
             mMediaPlayer?.setOnInfoListener(this)
             mMediaPlayer?.setOnSeekCompleteListener(this)
             mMediaPlayer?.setOnCompletionListener(this)
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
