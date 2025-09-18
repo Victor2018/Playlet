@@ -15,6 +15,13 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+
+        maven {
+            url = uri("https://artifact.bytedance.com/repository/Volcengine/")
+        }
+        maven {
+            url = uri("https://artifact.bytedance.com/repository/pangle/")
+        }
     }
     versionCatalogs {
         create("libs") {

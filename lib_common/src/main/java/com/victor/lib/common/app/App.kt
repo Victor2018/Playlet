@@ -80,7 +80,6 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         fun get() = instance
         lateinit var cache: SimpleCache
     }
-
     private val cacheSize: Long = 90 * 1024 * 1024
     private lateinit var cacheEvictor: LeastRecentlyUsedCacheEvictor
     private lateinit var exoplayerDatabaseProvider: ExoDatabaseProvider
