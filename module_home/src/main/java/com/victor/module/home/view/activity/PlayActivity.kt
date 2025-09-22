@@ -24,6 +24,7 @@ import com.victor.lib.common.interfaces.OnPlaySpeedSelectListener
 import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.TextViewBoundsUtil
+import com.victor.lib.common.util.ToastUtils
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.dialog.PlaySettingsDialog
@@ -109,6 +110,14 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun initData(intent: Intent?) {
+        var urls = App.get().mPlayInfos?.map { it.data?.playUrl }
+        if (urls == null) {
+            urls = ArrayList()
+        }
+        if (!urls.isEmpty()) {
+            mVideoPreLoadFuture.addUrls(urls)
+        }
+
         currentPosition = intent?.getIntExtra(Constant.POSITION_KEY,0) ?: 0
         playPosition = intent?.getIntExtra(Constant.PLAY_POSITION_KEY,0) ?: 0
 
@@ -239,16 +248,21 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
             App.get().removePlayCellViewFormParent()
-//            val playCell = PlayCellView(this)
             val playCell = App.get().mPlayCellView
             playCell.setCurrentPositon(playPosition)
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
 
-            val playUrl = data?.data?.playUrl
+            var playUrl = data?.data?.playUrl ?: data?.data?.content?.data?.playUrl
             Loger.d(TAG, "onPageSelected-playUrl = $playUrl")
             Loger.d(TAG, "onPageSelected-getLastPlayUrl = ${playCell.getLastPlayUrl()}")
+            if (TextUtils.isEmpty(playUrl)) {
+                ToastUtils.show("播放失败，无视频资源")
+                Loger.d(TAG, "onPageSelected-data = ${JsonUtils.toJSONString(data?.data)}")
+                finish()
+                return
+            }
 
             val proxy: HttpProxyCacheServer = App.get().mHttpProxyCacheServer
             val proxyUrl = proxy.getProxyUrl(playUrl)

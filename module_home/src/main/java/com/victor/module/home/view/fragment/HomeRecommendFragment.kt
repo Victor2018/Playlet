@@ -1,6 +1,7 @@
 package com.victor.module.home.view.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
@@ -73,7 +74,7 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
 
     private var currentPage = 1
 
-    val mVideoPreLoadFuture by lazy {
+    private val mVideoPreLoadFuture by lazy {
         VideoPreLoadFuture(requireContext(), Constant.PRELOAD_BUS_ID)
     }
 
@@ -168,7 +169,9 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         if (urls == null) {
             urls = ArrayList()
         }
-        mVideoPreLoadFuture.addUrls(urls)
+        if (!urls.isEmpty()) {
+            mVideoPreLoadFuture.addUrls(urls)
+        }
     }
 
     private fun updatePlayHistory() {
@@ -246,11 +249,6 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         Log.i(TAG,"onPageRelease()......isNext = $isNext")
         Log.i(TAG,"onPageRelease()......position = $position")
 
-        /*val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(position)
-        if (viewHolder is PlayingContentViewHolder) {
-            val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
-            mFlPlay.removeAllViews()
-        }*/
         App.get().removePlayCellViewFormParent()
     }
 
@@ -267,13 +265,17 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
             val mFlPlay = viewHolder.itemView.findViewById<FrameLayout>(R.id.mFlPlay)
 
             App.get().removePlayCellViewFormParent()
-//            val playCell = PlayCellView(requireContext())
             val playCell = App.get().mPlayCellView
 
             mFlPlay.removeAllViews()
             mFlPlay.addView(playCell)
 
-            val playUrl = data?.data?.playUrl
+            val playUrl = data?.data?.playUrl ?: data?.data?.content?.data?.playUrl
+            if (TextUtils.isEmpty(playUrl)) {
+                ToastUtils.show("播放失败，无视频资源")
+                return
+            }
+
             playCell.play(playUrl)
 
             if (PreLoadManager.getInstance(requireContext()).hasEnoughCache(playUrl)) {
@@ -352,15 +354,11 @@ class HomeRecommendFragment : BaseFragment<FragmentHomeRecommendBinding>(Fragmen
         val viewHolder = binding.mRvPlaying.findViewHolderForLayoutPosition(currentPosition)
         val mFlPlay = viewHolder?.itemView?.findViewById<FrameLayout>(R.id.mFlPlay)
         mFlPlay?.addView(App.get().mPlayCellView)
-
-//        getCurrentPlayView()?.resume()
     }
 
     private fun pausePlay() {
         if (currentPosition == -1) return
         App.get().removePlayCellViewFormParent()
-
-//        getCurrentPlayView()?.pause()
     }
 
     private fun getCurrentPlayView(): PlayCellView? {

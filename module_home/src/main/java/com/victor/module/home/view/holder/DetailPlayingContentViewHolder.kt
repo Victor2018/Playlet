@@ -34,10 +34,10 @@ class DetailPlayingContentViewHolder(itemView: View, listener: AdapterView.OnIte
         val mTvShareCount = itemView.findViewById<TextView>(R.id.mTvShareCount)
         val mTvDramaEpisodes = itemView.findViewById<TextView>(R.id.mTvDramaEpisodes)
 
-        val url = data?.data?.cover?.feed ?: ""
+        val url = data?.data?.cover?.feed ?: data?.data?.content?.data?.cover?.feed ?: ""
         ImageUtils.instance.imageGauss(itemView.context,mIvPosterBg, url,18)
 
-        mTvTitle.text = data?.data?.title ?: ""
+        mTvTitle.text = data?.data?.title ?: data?.data?.content?.data?.title ?: ""
         val dramaCount = Random.nextInt(20, 101)
         mTvDescribe.text = "第${bindingAdapterPosition + 1}集·共${dramaCount}集 | ${data?.data?.description ?: ""}"
         mTvFavCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount)
