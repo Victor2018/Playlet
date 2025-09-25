@@ -110,7 +110,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
     private fun initData(intent: Intent?) {
-        var urls = App.get().mPlayInfos?.map { it.data?.playUrl }
+        var urls = App.get().mPlayInfos?.map { it?.data?.playUrl ?: it?.data?.content?.data?.playUrl}
         if (urls == null) {
             urls = ArrayList()
         }
