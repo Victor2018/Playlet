@@ -1,6 +1,6 @@
 [versions]
 #base
-agp = '8.9.0'
+agp = '8.9.1'
 kotlin = '2.1.10'
 junit = '4.13.2'
 junitVersion = '1.1.5'
@@ -34,7 +34,7 @@ crash_spider = 'v1.3'
 khttp = 'v3.6'
 video_cache = 'v1.1.0'
 marquee_view = 'v1.0'
-#convenientbanner = '2.1.5'
+convenientbanner = 'v2.1.5'
 
 #third
 multidex = '1.0.3'
@@ -85,8 +85,8 @@ victor-match = { group = "com.github.Victor2018", name = "ScreenMatchLib", versi
 victor-crash-spider = { group = "com.github.Victor2018", name = "CrashSpiderLib", version.ref = "crash_spider" }
 victor-khttp = { group = "com.github.Victor2018", name = "KHttpLib", version.ref = "khttp" }
 victor-video-cache = { group = "com.github.Victor2018", name = "VideoCache", version.ref = "video_cache" }
-marquee-view = { group = "com.github.Victor2018", name = "MarqueeView", version.ref = "marquee_view" }
-#victor-convenientbanner = { group = "com.github.Victor2018", name = "ConvenientBanner", version.ref = "convenientbanner" }
+victor-marquee-view = { group = "com.github.Victor2018", name = "MarqueeView", version.ref = "marquee_view" }
+victor-convenientbanner = { group = "com.github.Victor2018", name = "ConvenientBanner", version.ref = "convenientbanner" }
 
 #third
 multidex-core = { group = "com.android.support", name = "multidex", version.ref = "multidex" }
@@ -125,7 +125,8 @@ room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", vers
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 [bundles]
-victor = ["victor-easypermissions","victor-livedatabus", "victor-match", "victor-crash-spider", "victor-khttp","victor-video-cache","marquee-view"]
+victor = ["victor-easypermissions","victor-livedatabus", "victor-match", "victor-crash-spider",
+    "victor-khttp","victor-video-cache","victor-marquee-view","victor-convenientbanner"]
 ktx = ["androidx-core-ktx","androidx-activity-ktx","androidx-fragment-ktx","work-runtime-ktx"]
 exoplayer = ["exoplayer","exoplayer-ui"]
 coroutines = ["coroutines-core","coroutines-android"]

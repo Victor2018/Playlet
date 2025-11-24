@@ -144,6 +144,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         binding.mBottomNav.itemTextColor = ColorStateList(states,colors)
         binding.mBottomNav.itemIconTintList = ColorStateList(states,colors)
         binding.mBottomNav.itemBackgroundResource = itemBackgroundColor
+        binding.mBottomNav.setBackgroundResource(itemBackgroundColor)
     }
 
     override fun onPageScrollStateChanged(state: Int) {

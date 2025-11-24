@@ -65,7 +65,7 @@ class PrivacySettingActivity : BaseActivity<ActivityPrivacySettingBinding>
         }
     }
 
-    override fun onCheckedChanged(cb: CompoundButton?, isChecked: Boolean) {
+    override fun onCheckedChanged(cb: CompoundButton, isChecked: Boolean) {
         SharedPreferencesUtils.isRecommendOpen = isChecked
     }
 

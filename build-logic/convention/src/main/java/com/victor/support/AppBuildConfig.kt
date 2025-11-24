@@ -6,9 +6,9 @@ object AppBuildConfig {
      */
     const val isModule = false
 
-    const val compileSdk = 35
+    const val compileSdk = 36
     const val minSdk = 24
-    const val targetSdk = 35
+    const val targetSdk = 36
 
     /**
      * bugly app id
