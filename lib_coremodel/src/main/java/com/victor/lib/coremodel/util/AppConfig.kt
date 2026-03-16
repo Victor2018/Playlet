@@ -42,12 +42,12 @@ object AppConfig {
     /**
      * 微信AppID
      */
-    const val WECHAT_APP_ID = "wx5bbbb66cb79afe87"
+    const val WECHAT_APP_ID = "xxxxxxxxxxxxxxxx"
 
     /**
      * qq AppID
      */
-    const val QQ_APP_ID = "1111965449"
+    const val QQ_APP_ID = "xxxxxxxxxxxxxxx"
 
     const val UMENG_APP_KEY = "6259616fd024421570bcdbbd"
     const val UMENG_TEST_APP_KEY = "63e5fec8ba6a5259c4fff915"
