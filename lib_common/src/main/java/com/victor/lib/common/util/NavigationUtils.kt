@@ -1,6 +1,7 @@
 package com.victor.lib.common.util
 
 import android.app.Activity
+import android.os.Bundle
 import com.victor.lib.common.base.NRouterPath
 import com.victor.neuro.router.core.NeuroRouter
 import org.json.JSONObject
@@ -35,39 +36,28 @@ object NavigationUtils {
     }
 
     fun goHomeActivity(activity: Activity, pagerPosition: Int, pushData: String?) {
-        val json = JSONObject()
-        json.put(Constant.INTENT_DATA_KEY,pushData)
-        json.put(Constant.INTENT_AD_DATA_KEY,null)
-        json.put(Constant.INVITE_URL_KEY,null)
-        val data = json.toString()
-
-        NeuroRouter.instance.navigation(NRouterPath.MainAct,data,activity)
+        val map = HashMap<String,String>()
+        map[Constant.INTENT_DATA_KEY] = pushData ?: ""
+        map[Constant.POSITION_KEY] = "$pagerPosition"
+        NeuroRouter.instance.navigation(NRouterPath.MainAct,map,activity)
     }
 
     /**
      * 去往搜索页面
      */
     fun goSearchActivity(activity: Activity, key: String?) {
-        val json = JSONObject()
-        json.put(Constant.INTENT_DATA_KEY,key)
-        val data = json.toString()
-
-        NeuroRouter.instance.navigation(NRouterPath.SearchAct,data,activity)
+        NeuroRouter.instance.navigation(NRouterPath.SearchAct, listOf(key ?: ""), activity)
     }
 
     /**
      * 去往播放页面
      */
     fun goPlayActivity(activity: Activity, position: Int,playPosition: Int) {
-        val json = JSONObject()
-        json.put(Constant.POSITION_KEY,position)
-        json.put(Constant.PLAY_POSITION_KEY,playPosition)
-        val data = json.toString()
-
-        NeuroRouter.instance.navigation(NRouterPath.PlayAct,data,activity)
+        val args = Bundle()
+        args.putInt(Constant.POSITION_KEY,position)
+        args.putInt(Constant.PLAY_POSITION_KEY,playPosition)
+        NeuroRouter.instance.navigation(NRouterPath.PlayAct,args,activity)
     }
-
-
 
     /**
      * 去往提现

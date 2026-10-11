@@ -84,9 +84,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
     }
 
     fun initData(intent: Intent?) {
-        val data = intent?.getStringExtra(com.victor.neuro.router.core.util.Constant.SCHEMA_QUERIES_KEY)
-        val json = JSONObject(data)
-        searchKey = json.optString(Constant.INTENT_DATA_KEY)
+        val searchKey = intent?.getStringExtra("search_key")
         binding.mEtSearch.hint = searchKey
 
         sendDramaListRequest()

@@ -27,7 +27,7 @@ fragment_ktx = '1.4.1'
 exoplayer = '2.19.1'
 
 #victor
-nrouter = "v2.2.3"
+nrouter = "v2.2.4"
 easypermissions = 'v1.1.0'
 livedatabus = 'v2.1.0'
 match = 'v1.5'

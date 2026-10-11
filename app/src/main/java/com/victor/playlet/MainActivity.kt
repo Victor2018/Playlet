@@ -20,6 +20,7 @@ import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
 import com.victor.lib.common.interfaces.IHomeMain
+import com.victor.lib.common.util.Constant
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.NetworkUtils
 import com.victor.lib.common.util.ResUtils
@@ -71,16 +72,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
 
-        val homeFrag = NeuroRouter.instance.getNavigation(NRouterPath.HomeFgt) as Fragment
-        val theaterFrag = NeuroRouter.instance.getNavigation(NRouterPath.TheaterFgt) as Fragment
-        val welfareFrag = NeuroRouter.instance.getNavigation(NRouterPath.WelfareFgt) as Fragment
-        val meFrag = NeuroRouter.instance.getNavigation(NRouterPath.MeFgt) as Fragment
+        val homeFrag = NeuroRouter.instance.getNavigation<Fragment>(NRouterPath.HomeFgt)
+        val theaterFrag = NeuroRouter.instance.getNavigation<Fragment>(NRouterPath.TheaterFgt)
+        val welfareFrag = NeuroRouter.instance.getNavigation<Fragment>(NRouterPath.WelfareFgt)
+        val meFrag = NeuroRouter.instance.getNavigation<Fragment>(NRouterPath.MeFgt)
 
         fragmentList.clear()
-        fragmentList.add(homeFrag)
-        fragmentList.add(theaterFrag)
-        fragmentList.add(welfareFrag)
-        fragmentList.add(meFrag)
+        homeFrag?.let { fragmentList.add(it) }
+        theaterFrag?.let { fragmentList.add(it) }
+        welfareFrag?.let { fragmentList.add(it) }
+        meFrag?.let { fragmentList.add(it) }
 
         mViewPagerAdapter?.fragmetList = fragmentList
         binding.mVpHome.adapter = mViewPagerAdapter
@@ -98,6 +99,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun initData() {
+        val pushData = intent.getStringExtra(Constant.INTENT_DATA_KEY)
+        val pagerPosition = intent.getStringExtra(Constant.POSITION_KEY)
+        Loger.e(TAG,"pushData = $pushData, pagerPosition = $pagerPosition")
     }
 
     override fun onClick(v: View?) {

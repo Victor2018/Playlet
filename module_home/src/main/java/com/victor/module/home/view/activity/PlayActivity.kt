@@ -119,10 +119,10 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             mVideoPreLoadFuture.addUrls(urls)
         }
 
-        val data = intent?.getStringExtra(com.victor.neuro.router.core.util.Constant.SCHEMA_QUERIES_KEY)
-        val json = JSONObject(data)
-        currentPosition = json.optInt(Constant.INTENT_DATA_KEY,0)
-        playPosition = json.optInt(Constant.PLAY_POSITION_KEY,0)
+        currentPosition = intent?.getIntExtra(Constant.POSITION_KEY,0) ?: 0
+        playPosition = intent?.getIntExtra(Constant.PLAY_POSITION_KEY,0) ?: 0
+
+        Loger.e(TAG,"initData-currentPosition:$currentPosition,playPosition:$playPosition")
 
         mDetailPlayingAdapter?.showData(App.get().mPlayInfos)
 

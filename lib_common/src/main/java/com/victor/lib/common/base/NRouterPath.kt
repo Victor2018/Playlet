@@ -50,7 +50,7 @@ object NRouterPath {
     const val TeacherPaidDetailAct = "$HOME/module/TeacherPaidDetailActivity"
 
     /**搜索 activity */
-    const val SearchAct = "$HOME/module/SearchActivity"
+    const val SearchAct = "$HOME/module/SearchActivity/<search_key>"
 
     /**播放 activity */
     const val PlayAct = "$HOME/module/PlayActivity"
