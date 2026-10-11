@@ -27,6 +27,7 @@ fragment_ktx = '1.4.1'
 exoplayer = '2.19.1'
 
 #victor
+nrouter = "v2.2.2"
 easypermissions = 'v1.1.0'
 livedatabus = 'v2.1.0'
 match = 'v1.5'
@@ -51,8 +52,6 @@ lottie = '5.2.0'
 zxing = '3.5.0'
 bugly = 'latest.release'
 wechat_sdk = '6.7.9'
-ads_sdk_pro = '6.7.1.6'
-pangrowth = '2.9.0.4'
 
 [libraries]
 #base
@@ -79,6 +78,8 @@ exoplayer = { group = "com.google.android.exoplayer", name = "exoplayer", versio
 exoplayer-ui = { group = "com.google.android.exoplayer", name = "exoplayer-ui", version.ref = "exoplayer" }
 
 #victor
+victor-nrouter-core = { group = "com.github.Victor2018.NRouter", name = "neuro_router_core", version.ref = "nrouter" }
+victor-nrouter-compiler = { group = "com.github.Victor2018.NRouter", name = "neuro_router_compiler", version.ref = "nrouter" }
 victor-easypermissions = { group = "com.github.Victor2018", name = "easypermissions", version.ref = "easypermissions" }
 victor-livedatabus = { group = "com.github.Victor2018", name = "LiveDataBus", version.ref = "livedatabus" }
 victor-match = { group = "com.github.Victor2018", name = "ScreenMatchLib", version.ref = "match" }
