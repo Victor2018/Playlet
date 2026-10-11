@@ -6,9 +6,8 @@ import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import androidx.fragment.app.Fragment
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
-import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.base.BaseActivity.Companion.intentStart
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.ResUtils
@@ -18,8 +17,9 @@ import com.victor.module.me.databinding.FragmentMeBinding
 import com.victor.module.me.databinding.FragmentMeHeaderBinding
 import com.victor.module.me.view.activity.SettingsActivity
 import com.victor.module.me.view.activity.WithdrawActivity
+import com.victor.neuro.router.annotation.Route
 
-@Route(path = ARouterPath.MeFgt)
+@Route(path = NRouterPath.MeFgt)
 class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
     AppBarLayout.OnOffsetChangedListener,OnItemClickListener,OnClickListener {
 

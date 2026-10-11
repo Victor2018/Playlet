@@ -5,16 +5,16 @@ import android.view.View
 import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.adapter.TabPagerAdapter
 import com.victor.module.home.R
 import com.victor.module.home.databinding.FragmentHomeBinding
 import com.victor.module.home.view.activity.SearchActivity
+import com.victor.neuro.router.annotation.Route
 
-@Route(path = ARouterPath.HomeFgt)
+@Route(path = NRouterPath.HomeFgt)
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate),OnClickListener {
 
     companion object {

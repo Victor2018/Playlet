@@ -5,9 +5,8 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
-import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.NavigationUtils
 import com.victor.lib.common.view.widget.LMRecyclerView
@@ -16,8 +15,9 @@ import com.victor.module.welfare.databinding.FragmentWelfareBinding
 import com.victor.module.welfare.databinding.FragmentWelfareHeaderBinding
 import com.victor.module.welfare.view.adapter.EveryDayAdapter
 import com.victor.module.welfare.view.adapter.NewComerAdapter
+import com.victor.neuro.router.annotation.Route
 
-@Route(path = ARouterPath.WelfareFgt)
+@Route(path = NRouterPath.WelfareFgt)
 class WelfareFragment : BaseFragment<FragmentWelfareBinding>(FragmentWelfareBinding::inflate),
     OnItemClickListener, AppBarLayout.OnOffsetChangedListener,OnClickListener {
 

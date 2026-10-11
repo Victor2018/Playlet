@@ -16,8 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isNotEmpty
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
 import com.victor.lib.common.interfaces.OnPlaySpeedSelectListener
@@ -45,10 +44,12 @@ import com.victor.module.home.databinding.ActivityPlayBinding
 import com.victor.module.home.view.adapter.DetailPlayingAdapter
 import com.victor.module.home.view.dialog.EpisodesSelectDialog
 import com.victor.module.home.view.holder.DetailPlayingContentViewHolder
+import com.victor.neuro.router.annotation.Route
+import org.json.JSONObject
 import org.victor.http.lib.util.JsonUtils
 import kotlin.getValue
 
-@Route(path = ARouterPath.PlayAct)
+@Route(path = NRouterPath.PlayAct)
 class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::inflate),
     OnItemClickListener, OnViewPagerListener,OnClickListener {
 
@@ -118,8 +119,10 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             mVideoPreLoadFuture.addUrls(urls)
         }
 
-        currentPosition = intent?.getIntExtra(Constant.POSITION_KEY,0) ?: 0
-        playPosition = intent?.getIntExtra(Constant.PLAY_POSITION_KEY,0) ?: 0
+        val data = intent?.getStringExtra(com.victor.neuro.router.core.util.Constant.SCHEMA_QUERIES_KEY)
+        val json = JSONObject(data)
+        currentPosition = json.optInt(Constant.INTENT_DATA_KEY,0)
+        playPosition = json.optInt(Constant.PLAY_POSITION_KEY,0)
 
         mDetailPlayingAdapter?.showData(App.get().mPlayInfos)
 

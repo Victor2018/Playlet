@@ -12,10 +12,10 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
 import com.victor.lib.common.interfaces.OnLabelClickListener
@@ -26,17 +26,18 @@ import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.coremodel.data.local.entity.SearchKeywordEntity
 import com.victor.lib.coremodel.data.local.vm.SearchKeywordVM
-import com.victor.lib.coremodel.util.InjectorUtils
-import androidx.activity.viewModels
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
 import com.victor.lib.coremodel.data.remote.entity.response.BaseRes
 import com.victor.lib.coremodel.data.remote.vm.HomeVM
+import com.victor.lib.coremodel.util.InjectorUtils
 import com.victor.module.home.R
 import com.victor.module.home.databinding.ActivitySearchBinding
 import com.victor.module.home.view.adapter.SearchRankAdapter
+import com.victor.neuro.router.annotation.Route
+import org.json.JSONObject
 import org.victor.http.lib.data.HttpResult
 
-@Route(path = ARouterPath.SearchAct)
+@Route(path = NRouterPath.SearchAct)
 class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding::inflate),
     OnLabelClickListener, TextWatcher, View.OnClickListener,
     TextView.OnEditorActionListener, AdapterView.OnItemClickListener {
@@ -83,8 +84,9 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
     }
 
     fun initData(intent: Intent?) {
-        searchKey = intent?.getStringExtra(Constant.INTENT_DATA_KEY)
-
+        val data = intent?.getStringExtra(com.victor.neuro.router.core.util.Constant.SCHEMA_QUERIES_KEY)
+        val json = JSONObject(data)
+        searchKey = json.optString(Constant.INTENT_DATA_KEY)
         binding.mEtSearch.hint = searchKey
 
         sendDramaListRequest()

@@ -5,16 +5,16 @@ import android.view.View
 import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.base.BaseFragment
 import com.victor.lib.common.util.NavigationUtils
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.adapter.TabPagerAdapter
 import com.victor.module.theater.R
 import com.victor.module.theater.databinding.FragmentTheaterBinding
+import com.victor.neuro.router.annotation.Route
 
-@Route(path = ARouterPath.TheaterFgt)
+@Route(path = NRouterPath.TheaterFgt)
 class TheaterFragment : BaseFragment<FragmentTheaterBinding>(FragmentTheaterBinding::inflate),OnClickListener {
 
     companion object {

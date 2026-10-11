@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.alibaba.android.arouter.launcher.ARouter
 import com.victor.lib.common.util.Loger
 
 /*
@@ -84,7 +83,6 @@ abstract class BaseFragment<VB : ViewBinding>( private val bindingInflater: (Lay
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ARouter.getInstance().inject(this)
         isViewInitiated = true
         view.setOnTouchListener(this)
     }

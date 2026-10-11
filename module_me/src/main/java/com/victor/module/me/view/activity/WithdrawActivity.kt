@@ -3,15 +3,15 @@ package com.victor.module.me.view.activity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.base.BaseActivity
 import com.victor.module.me.R
 import com.victor.module.me.databinding.ActivityWithdrawBinding
+import com.victor.neuro.router.annotation.Route
 
-@Route(path = ARouterPath.WithdrawAct)
+@Route(path = NRouterPath.WithdrawAct)
 class WithdrawActivity: BaseActivity<ActivityWithdrawBinding>(ActivityWithdrawBinding::inflate),OnOffsetChangedListener,OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {

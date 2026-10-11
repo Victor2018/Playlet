@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.alibaba.android.arouter.launcher.ARouter
 import com.victor.lib.common.R
 import com.victor.lib.common.util.Loger
 import com.victor.lib.common.util.StatusBarUtil
@@ -40,8 +39,6 @@ abstract class BaseActivity<VB : ViewBinding>(private val bindingInflater: (Layo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ARouter.getInstance().inject(this)
-
         _binding = bindingInflater(layoutInflater)
         setContentView(binding.root)
         initializeSuper()

@@ -159,10 +159,6 @@ object SchemaModule {
                     //如果已经打开关闭VideoWebActivity
 //                    SplashActivity.intentStart(activity,null,url.toString())
                 }
-                PAY_ORDER -> {
-                    val orderNo = uri.getQueryParameter("orderNo")
-                    NavigationUtils.goPayOrderActivity(activity,orderNo)
-                }
                 else -> {
                     NavigationUtils.goHomeActivity(activity,0)
                 }

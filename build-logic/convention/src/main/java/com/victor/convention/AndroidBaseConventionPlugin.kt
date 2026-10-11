@@ -21,8 +21,8 @@ class AndroidBaseConventionPlugin : Plugin<Project> {
                 "testApi"(libs.findLibrary("junit").get())
                 "androidTestApi"(libs.findLibrary("androidx.junit").get())
                 "androidTestApi"(libs.findLibrary("androidx.espresso.core").get())
-                "api"(libs.findLibrary("arouter.api").get())
-                "ksp"(libs.findLibrary("arouter.ksp.compiler").get())
+                "api"(libs.findLibrary("victor.nrouter.core").get())
+                "ksp"(libs.findLibrary("victor.nrouter.compiler").get())
             }
         }
     }

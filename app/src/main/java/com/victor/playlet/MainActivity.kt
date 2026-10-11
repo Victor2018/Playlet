@@ -14,11 +14,9 @@ import androidx.activity.viewModels
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
-import com.hok.lib.common.base.ARouterPath
+import com.victor.lib.common.base.NRouterPath
 import com.victor.lib.common.app.App
 import com.victor.lib.common.base.BaseActivity
 import com.victor.lib.common.interfaces.IHomeMain
@@ -32,10 +30,12 @@ import com.victor.lib.common.view.adapter.ViewPagerAdapter
 import com.victor.lib.coremodel.data.local.vm.DramaVM
 import com.victor.lib.coremodel.data.remote.vm.HomeVM
 import com.victor.lib.coremodel.util.InjectorUtils
+import com.victor.neuro.router.annotation.Route
+import com.victor.neuro.router.core.NeuroRouter
 import com.victor.playlet.databinding.ActivityMainBinding
 
 
-@Route(path = ARouterPath.MainAct)
+@Route(path = NRouterPath.MainAct)
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
     OnClickListener, NavigationBarView.OnItemSelectedListener,OnPageChangeListener, IHomeMain {
 
@@ -71,10 +71,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
         mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
 
-        val homeFrag = ARouter.getInstance().build(ARouterPath.HomeFgt).navigation() as Fragment
-        val theaterFrag = ARouter.getInstance().build(ARouterPath.TheaterFgt).navigation() as Fragment
-        val welfareFrag = ARouter.getInstance().build(ARouterPath.WelfareFgt).navigation() as Fragment
-        val meFrag = ARouter.getInstance().build(ARouterPath.MeFgt).navigation() as Fragment
+        val homeFrag = NeuroRouter.instance.getNavigation(NRouterPath.HomeFgt) as Fragment
+        val theaterFrag = NeuroRouter.instance.getNavigation(NRouterPath.TheaterFgt) as Fragment
+        val welfareFrag = NeuroRouter.instance.getNavigation(NRouterPath.WelfareFgt) as Fragment
+        val meFrag = NeuroRouter.instance.getNavigation(NRouterPath.MeFgt) as Fragment
 
         fragmentList.clear()
         fragmentList.add(homeFrag)

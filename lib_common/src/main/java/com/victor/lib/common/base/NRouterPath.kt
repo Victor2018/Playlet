@@ -1,4 +1,4 @@
-package com.hok.lib.common.base
+package com.victor.lib.common.base
 
 /*
  * -----------------------------------------------------------------
@@ -11,7 +11,7 @@ package com.hok.lib.common.base
  * -----------------------------------------------------------------
  */
 
-object ARouterPath {
+object NRouterPath {
     private const val SERVICE = "/service"
 
     private const val LOGIN = "/login"

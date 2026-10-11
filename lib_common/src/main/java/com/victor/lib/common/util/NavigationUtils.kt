@@ -1,9 +1,9 @@
 package com.victor.lib.common.util
 
 import android.app.Activity
-import com.alibaba.android.arouter.launcher.ARouter
-import com.hok.lib.common.base.ARouterPath
-import com.victor.lib.common.R
+import com.victor.lib.common.base.NRouterPath
+import com.victor.neuro.router.core.NeuroRouter
+import org.json.JSONObject
 
 /*
  * -----------------------------------------------------------------
@@ -35,83 +35,45 @@ object NavigationUtils {
     }
 
     fun goHomeActivity(activity: Activity, pagerPosition: Int, pushData: String?) {
-        ARouter.getInstance().build(ARouterPath.MainAct)
-            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
-            .withString(Constant.INTENT_DATA_KEY, pushData)
-            .withSerializable(Constant.INTENT_AD_DATA_KEY, null)
-            .withSerializable(Constant.INVITE_URL_KEY, null)
-            .withInt(Constant.POSITION_KEY, pagerPosition)
-            .navigation(activity)
-    }
+        val json = JSONObject()
+        json.put(Constant.INTENT_DATA_KEY,pushData)
+        json.put(Constant.INTENT_AD_DATA_KEY,null)
+        json.put(Constant.INVITE_URL_KEY,null)
+        val data = json.toString()
 
-
-    /**
-     * 去往支付订单
-     */
-    fun goPayOrderActivity(activity: Activity, orderNo: String?) {
-        ARouter.getInstance().build(ARouterPath.PayOrderAct)
-            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
-            .withSerializable(Constant.ORDER_NO_KEY, orderNo)
-            .navigation(activity)
-    }
-
-    /**
-     * 去往验证码登录
-     */
-    fun goCodeLoginActivity(activity: Activity?) {
-        ARouter.getInstance().build(ARouterPath.CodeLoginAct)
-            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
-            .navigation(activity)
-    }
-
-    /**
-     * 去往绑定手机号
-     */
-    fun goBindPhoneActivity(activity: Activity, openId: String?) {
-        ARouter.getInstance().build(ARouterPath.BindPhoneAct)
-            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
-            .withString(Constant.INTENT_DATA_KEY, openId)
-            .navigation(activity)
+        NeuroRouter.instance.navigation(NRouterPath.MainAct,data,activity)
     }
 
     /**
      * 去往搜索页面
      */
     fun goSearchActivity(activity: Activity, key: String?) {
-        ARouter.getInstance().build(ARouterPath.SearchAct)
-            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
-            .withString(Constant.INTENT_DATA_KEY, key)
-            .navigation(activity)
+        val json = JSONObject()
+        json.put(Constant.INTENT_DATA_KEY,key)
+        val data = json.toString()
+
+        NeuroRouter.instance.navigation(NRouterPath.SearchAct,data,activity)
     }
 
     /**
      * 去往播放页面
      */
     fun goPlayActivity(activity: Activity, position: Int,playPosition: Int) {
-        ARouter.getInstance().build(ARouterPath.PlayAct)
-            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
-            .withInt(Constant.POSITION_KEY, position)
-            .withInt(Constant.PLAY_POSITION_KEY, playPosition)
-            .navigation(activity)
+        val json = JSONObject()
+        json.put(Constant.POSITION_KEY,position)
+        json.put(Constant.PLAY_POSITION_KEY,playPosition)
+        val data = json.toString()
+
+        NeuroRouter.instance.navigation(NRouterPath.PlayAct,data,activity)
     }
 
 
-    /**
-     * 去往我的
-     */
-    fun goMeAct(activity: Activity) {
-        ARouter.getInstance().build(ARouterPath.MeAct)
-            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
-            .navigation(activity)
-    }
 
     /**
      * 去往提现
      */
     fun goWithdrawAct(activity: Activity) {
-        ARouter.getInstance().build(ARouterPath.WithdrawAct)
-            .withTransition(R.anim.anim_activity_enter, R.anim.anim_activity_exit)
-            .navigation(activity)
+        NeuroRouter.instance.navigation(NRouterPath.WithdrawAct,activity)
     }
 
 }
