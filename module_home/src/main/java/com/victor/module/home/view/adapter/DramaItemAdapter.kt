@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.victor.module.home.view.holder.DramaItemContentViewHolder
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.home.R
+import com.victor.module.home.databinding.RvDramaItemCellBinding
 
 /*
  * -----------------------------------------------------------------
@@ -19,9 +19,10 @@ import com.victor.module.home.R
  * Description: 
  * -----------------------------------------------------------------
  */
-class DramaItemAdapter(context: Context?, listener: AdapterView.OnItemClickListener?, var parentPosition: Int) :
+class DramaItemAdapter(context: Context?, listener: AdapterView.OnItemClickListener?) :
         BaseRecycleAdapter<DramaItemInfo, RecyclerView.ViewHolder>(context, listener) {
 
+    var parentPosition = -1
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
@@ -31,12 +32,13 @@ class DramaItemAdapter(context: Context?, listener: AdapterView.OnItemClickListe
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return DramaItemContentViewHolder(inflate(R.layout.rv_drama_item_cell ,parent),listener,parentPosition)
+        return DramaItemContentViewHolder(inflateVB(RvDramaItemCellBinding::inflate ,parent),listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
-        val contentViewHolder = viewHolder as DramaItemContentViewHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if (viewHolder is DramaItemContentViewHolder) {
+            viewHolder.parentPosition = parentPosition
+            viewHolder.bindData(data)
+        }
     }
 }

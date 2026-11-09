@@ -42,10 +42,9 @@ def upload_to_pgyer():
 		print ("get_token-response.status_code = %s" %response.status_code)
 		if response.status_code == requests.codes.ok:
 			json = response.json()
+			print ("get_token-json = %s" %json)
 			_upload_url = (json["data"]["endpoint"])
 			payload = (json["data"]["params"])
-
-			print ("get_token-json = %s" %json)
 	except Exception as e:
 		print ("get token e = %s" %e)
 
@@ -67,7 +66,7 @@ def _getBuildInfo(api_key, json):
     """
 	try:
 
-		time.sleep(3) #先等个几秒，上传完直接获取肯定app是还在处理中~
+		time.sleep(6) #先等个几秒，上传完直接获取肯定app是还在处理中~
 
 		response = requests.get('https://www.pgyer.com/apiv2/app/buildInfo', params={
 			'_api_key': api_key,

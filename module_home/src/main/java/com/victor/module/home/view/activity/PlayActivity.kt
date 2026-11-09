@@ -1,6 +1,5 @@
 package com.victor.module.home.view.activity
 
-import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -410,7 +409,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
         val mTvDramaEpisodes = getCurrentPlayCellView()?.findViewById<TextView>(R.id.mTvDramaEpisodes)
 
         if (fullScreen) {
-            binding.mIvPlayFullScreen.setImageResource(R.mipmap.ic_play_normal_screen)
+            binding.mIvPlayFullScreen.setImageResource(R.mipmap.home_ic_play_normal_screen)
             mTvTitle?.hide()
             mTvDescribe?.hide()
             mTvFavCount?.hide()
@@ -418,7 +417,7 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
             mTvShareCount?.hide()
             mTvDramaEpisodes?.hide()
         } else {
-            binding.mIvPlayFullScreen.setImageResource(R.mipmap.ic_play_full_screen)
+            binding.mIvPlayFullScreen.setImageResource(R.mipmap.home_ic_play_full_screen)
             mTvTitle?.show()
             mTvDescribe?.show()
             mTvFavCount?.show()
@@ -429,8 +428,8 @@ class PlayActivity: BaseActivity<ActivityPlayBinding>(ActivityPlayBinding::infla
     }
 
 
-    override fun onNewIntent(intent: Intent, caller: ComponentCaller) {
-        super.onNewIntent(intent, caller)
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
         initData(intent)
     }
 }

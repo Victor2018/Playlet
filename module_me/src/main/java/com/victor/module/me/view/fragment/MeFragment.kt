@@ -83,11 +83,11 @@ class MeFragment : BaseFragment<FragmentMeBinding>(FragmentMeBinding::inflate),
         val totalScrollRange = appBarLayout?.totalScrollRange ?: 0
         if (verticalOffset == 0) {
             //展开状态
-            binding.mIvSetting.setImageResource(R.mipmap.ic_me_setting_black)
+            binding.mIvSetting.setImageResource(R.mipmap.me_ic_me_setting_black)
             binding.mTvTitle.setTextColor(ResUtils.getColorRes(com.victor.lib.common.R.color.color_333333))
         } else if (Math.abs(verticalOffset) >= totalScrollRange) {
             //折叠状态
-            binding.mIvSetting.setImageResource(R.mipmap.ic_me_setting_white)
+            binding.mIvSetting.setImageResource(R.mipmap.me_ic_me_setting_white)
             binding.mTvTitle.setTextColor(ResUtils.getColorRes(com.victor.lib.common.R.color.white))
         } else {
             //中间状态

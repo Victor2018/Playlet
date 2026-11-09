@@ -6,7 +6,7 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.local.entity.DramaEntity
-import com.victor.module.me.R
+import com.victor.module.me.databinding.RvLikesCellBinding
 import com.victor.module.me.view.holder.LikesContentHolder
 
 /*
@@ -30,12 +30,12 @@ class LikesAdapter(context: Context?, listener: AdapterView.OnItemClickListener?
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return LikesContentHolder(inflate(R.layout.rv_likes_cell, parent), listener)
+        return LikesContentHolder(inflateVB(RvLikesCellBinding::inflate, parent), listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaEntity?, position: Int) {
-        val contentViewHolder = viewHolder as LikesContentHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if (viewHolder is LikesContentHolder) {
+            viewHolder.bindData(data)
+        }
     }
 }

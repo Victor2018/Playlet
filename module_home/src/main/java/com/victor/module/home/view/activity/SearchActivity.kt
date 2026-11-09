@@ -1,6 +1,5 @@
 package com.victor.module.home.view.activity
 
-import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -266,8 +265,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(ActivitySearchBinding
         clearPasswordViewFocus()
     }
 
-    override fun onNewIntent(intent: Intent, caller: ComponentCaller) {
-        super.onNewIntent(intent, caller)
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
         initData(intent)
     }
 }

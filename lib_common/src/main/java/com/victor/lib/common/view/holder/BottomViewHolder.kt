@@ -1,11 +1,16 @@
 package com.victor.lib.common.view.holder
 
 import android.view.View
+import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.victor.lib.common.R
+import com.victor.lib.common.databinding.RecyclerviewFootBinding
+import com.victor.lib.common.view.holder.ContentViewHolder.Companion.ONITEM_CLICK
+import com.victor.lib.common.view.holder.ContentViewHolder.Companion.ONITEM_LONG_CLICK
 
 /*
  * -----------------------------------------------------------------
@@ -18,14 +23,24 @@ import com.victor.lib.common.R
  * -----------------------------------------------------------------
  */
 
-class BottomViewHolder : RecyclerView.ViewHolder {
-    var progressBar: ProgressBar? = null
-    var mTvTitle: TextView? = null
-    var mLayoutEnd: LinearLayout? = null
+open class BottomViewHolder<T>
+    (val binding: RecyclerviewFootBinding, val listener: AdapterView.OnItemClickListener?)
+    : RecyclerView.ViewHolder((binding.root)),View.OnClickListener, View.OnLongClickListener {
 
-    constructor(itemView: View) : super(itemView) {
-        progressBar = itemView.findViewById(R.id.progressBar)
-        mTvTitle = itemView.findViewById(R.id.tv_title)
-        mLayoutEnd = itemView.findViewById(R.id.ll_end)
+    init {
+        binding.root.setOnClickListener(this)
+        binding.root.setOnLongClickListener(this)
+    }
+
+    open fun bindData (data: T?) {
+
+    }
+    override fun onClick(view: View) {
+        listener?.onItemClick(null, view, bindingAdapterPosition, ONITEM_CLICK)
+    }
+
+    override fun onLongClick(v: View): Boolean {
+        listener?.onItemClick(null, v, bindingAdapterPosition, ONITEM_LONG_CLICK)
+        return false
     }
 }

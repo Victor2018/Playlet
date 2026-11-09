@@ -3,6 +3,9 @@ package com.victor.lib.common.view.holder
 import android.view.View
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
+import com.victor.lib.common.view.holder.ContentViewHolder.Companion.ONITEM_CLICK
+import com.victor.lib.common.view.holder.ContentViewHolder.Companion.ONITEM_LONG_CLICK
 
 /*
  * -----------------------------------------------------------------
@@ -15,15 +18,24 @@ import androidx.recyclerview.widget.RecyclerView
  * -----------------------------------------------------------------
  */
 
-open class HeaderViewHolder: RecyclerView.ViewHolder,View.OnClickListener {
-    var mOnItemClickListener: AdapterView.OnItemClickListener? = null
+open class HeaderViewHolder<T>
+    (private val binding: ViewBinding, val listener: AdapterView.OnItemClickListener?)
+    : RecyclerView.ViewHolder((binding.root)),View.OnClickListener, View.OnLongClickListener {
 
-    constructor(itemView: View, listener: AdapterView.OnItemClickListener?) : super(itemView) {
-        mOnItemClickListener = listener
-        itemView.setOnClickListener(this)
+    init {
+        binding.root.setOnClickListener(this)
+        binding.root.setOnLongClickListener(this)
     }
 
-    override fun onClick(v: View?) {
-        mOnItemClickListener?.onItemClick(null, v, bindingAdapterPosition, 0)
+    open fun bindData (data: T?) {
+
+    }
+    override fun onClick(view: View) {
+        listener?.onItemClick(null, view, bindingAdapterPosition, ONITEM_CLICK)
+    }
+
+    override fun onLongClick(v: View): Boolean {
+        listener?.onItemClick(null, v, bindingAdapterPosition, ONITEM_LONG_CLICK)
+        return false
     }
 }

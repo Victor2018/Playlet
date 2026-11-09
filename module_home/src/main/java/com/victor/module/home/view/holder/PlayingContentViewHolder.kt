@@ -2,14 +2,12 @@ package com.victor.module.home.view.holder
 
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.TextView
 import com.victor.lib.common.util.DramaShowUtil
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
-import com.victor.lib.common.view.widget.ExpandableTextView
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.module.home.R
+import com.victor.module.home.databinding.RvPlayingCellBinding
 import kotlin.random.Random
 
 /*
@@ -22,47 +20,36 @@ import kotlin.random.Random
  * Description: 
  * -----------------------------------------------------------------
  */
-class PlayingContentViewHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<DramaItemInfo>(itemView,listener) {
+class PlayingContentViewHolder(private val binding: RvPlayingCellBinding, listener: AdapterView.OnItemClickListener?) :
+    ContentViewHolder<DramaItemInfo>(binding,listener) {
 
     override fun bindData(data: DramaItemInfo?) {
-        val mIvPosterBg = itemView.findViewById<ImageView>(R.id.mIvPosterBg)
-        val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
-        val mTvTitle = itemView.findViewById<TextView>(R.id.mTvTitle)
-        val mTvType = itemView.findViewById<TextView>(R.id.mTvType)
-        val mTvDescribe = itemView.findViewById<ExpandableTextView>(R.id.mTvDescribe)
-        val mTvFavCount = itemView.findViewById<TextView>(R.id.mTvFavCount)
-        val mTvCollectCount = itemView.findViewById<TextView>(R.id.mTvCollectCount)
-        val mTvShareCount = itemView.findViewById<TextView>(R.id.mTvShareCount)
-        val mTvDramaCount = itemView.findViewById<TextView>(R.id.mTvDramaCount)
-
         val url = data?.data?.cover?.feed ?: ""
-        ImageUtils.instance.imageGauss(itemView.context,mIvPosterBg, url,18)
-        ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
+        ImageUtils.instance.imageGauss(itemView.context,binding.mIvPosterBg, url,18)
+        ImageUtils.instance.loadImage(itemView.context,binding.mIvPoster, url,
             com.victor.lib.common.R.mipmap.img_placeholder_vertical)
 
-        mTvTitle.text = data?.data?.title ?: ""
-        mTvType.text = data?.data?.category ?: ""
-        mTvDescribe.text = data?.data?.description ?: ""
-        mTvFavCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount)
-        mTvCollectCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.replyCount)
-        mTvShareCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount)
+        binding.mTvTitle.text = data?.data?.title ?: ""
+        binding.mTvType.text = data?.data?.category ?: ""
+        binding.mTvDescribe.text = data?.data?.description ?: ""
+        binding.mTvFavCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount)
+        binding.mTvCollectCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.replyCount)
+        binding.mTvShareCount.text = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount)
 
         val dramaCount = Random.nextInt(20, 101)
-        mTvDramaCount.text = "免费看全集·全${dramaCount}集"
+        binding.mTvDramaCount.text = "免费看全集·全${dramaCount}集"
 
-        mTvDescribe.setOnClickListener(this)
-        mTvFavCount.setOnClickListener(this)
-        mTvCollectCount.setOnClickListener(this)
-        mTvShareCount.setOnClickListener(this)
-        mTvDramaCount.setOnClickListener(this)
+        binding.mTvDescribe.setOnClickListener(this)
+        binding.mTvFavCount.setOnClickListener(this)
+        binding.mTvCollectCount.setOnClickListener(this)
+        binding.mTvShareCount.setOnClickListener(this)
+        binding.mTvDramaCount.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.mTvDescribe -> {
-                val mTvDescribe = itemView.findViewById<ExpandableTextView>(R.id.mTvDescribe)
-                mTvDescribe.toggle()
+                binding.mTvDescribe.toggle()
             }
             else -> {
                 super.onClick(view)

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
-import com.victor.module.home.R
+import com.victor.module.home.databinding.RvEpisodesCellBinding
 import com.victor.module.home.view.holder.EpisodesContentViewHolder
 
 /*
@@ -31,12 +31,11 @@ class EpisodesAdapter(context: Context?, listener: AdapterView.OnItemClickListen
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return EpisodesContentViewHolder(inflate(R.layout.rv_episodes_cell ,parent),listener)
+        return EpisodesContentViewHolder(inflateVB(RvEpisodesCellBinding::inflate ,parent),listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: Int?, position: Int) {
         if (viewHolder is EpisodesContentViewHolder) {
-            viewHolder.mOnItemClickListener = listener
             viewHolder.selectPositon = selectPositon
             viewHolder.bindData(data)
         }

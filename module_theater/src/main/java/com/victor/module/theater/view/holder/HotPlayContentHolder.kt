@@ -2,7 +2,6 @@ package com.victor.module.theater.view.holder
 
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ImageView
 import android.widget.TextView
 import com.victor.lib.common.util.DramaShowUtil
 import com.victor.lib.common.util.ImageUtils
@@ -11,7 +10,7 @@ import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.theater.R
+import com.victor.module.theater.databinding.RvHotPlayCellBinding
 
 /*
  * -----------------------------------------------------------------
@@ -24,22 +23,21 @@ import com.victor.module.theater.R
  * -----------------------------------------------------------------
  */
 
-class HotPlayContentHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<DramaItemInfo?>(itemView,listener) {
+class HotPlayContentHolder(private val binding: RvHotPlayCellBinding, listener: AdapterView.OnItemClickListener?) :
+    ContentViewHolder<DramaItemInfo>(binding,listener) {
 
     override fun bindData (data: DramaItemInfo?) {
-        setHotPositionIconBg(bindingAdapterPosition,itemView.findViewById(R.id.mTvPosition))
+        setHotPositionIconBg(bindingAdapterPosition,binding.mTvPosition)
 
-        val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
         val url = data?.data?.cover?.feed ?: ""
-        ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
+        ImageUtils.instance.loadImage(itemView.context,binding.mIvPoster, url,
             com.victor.lib.common.R.mipmap.img_placeholder_horizontal)
 
-        itemView.findViewById<TextView>(R.id.mTvContentName).text = data?.data?.title ?: ""
-        itemView.findViewById<TextView>(R.id.mTvType).text = data?.data?.category ?: ""
-        itemView.findViewById<TextView>(R.id.mTvDescribe).text = data?.data?.description ?: ""
+        binding.mTvContentName.text = data?.data?.title ?: ""
+        binding.mTvType.text = data?.data?.category ?: ""
+        binding.mTvDescribe.text = data?.data?.description ?: ""
         val count = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount ?: 0)
-        itemView.findViewById<TextView>(R.id.mTvFire).text = count
+        binding.mTvFire.text = count
     }
 
     override fun onClick(view: View) {

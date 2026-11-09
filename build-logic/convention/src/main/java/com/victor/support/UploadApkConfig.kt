@@ -11,6 +11,14 @@ package com.victor.support
  * -----------------------------------------------------------------
  */
 object UploadApkConfig {
+
+    /**
+     * 手动上传至fir、蒲公英渠道名称
+     * 1:dev_debug; 2:_test_debug; 3:beta_debug; 4:online_debug; 5:online_release;
+     * 6:huawei_release;7:xiaomi_release;8:oppo_release;9:vivo_release;10:tencent_release;
+     */
+    const val UPLOAD_CHANNEL_BUILD_TYPE = 5
+
     /**
      * 上传apk到https://fir.im/apps api_token
      */
@@ -19,22 +27,14 @@ object UploadApkConfig {
     /**
      * 上传apk到https://www.pgyer.com/ api_key
      */
-    const val PGYER_API_KEY = "700d1e7617b5ec4f57cba00f05c7ca84"
+    const val PGYER_API_KEY_TEST = "4c75404d7c40b535dc8b4833694e9221"
+    const val PGYER_API_KEY_BETA = "4c75404d7c40b535dc8b4833694e9221"
+    const val PGYER_API_KEY_ONLINE = "4c75404d7c40b535dc8b4833694e9221"
 
     /**
      * fir 上传 url地址
      */
     const val FIR_UPLOAD_URL = "http://api.bq04.com/apps"
-
-    /**
-     * 上传至fir渠道名称
-     */
-    const val UPLOAD_CHANNEL = "beta"
-
-    /**
-     * 上传至fir buildType
-     */
-    const val UPLOAD_BUILD_TYPE = "debug"
 
     /**
      * 是否上传到fir
@@ -44,6 +44,21 @@ object UploadApkConfig {
     /**
      * 是否上传到pgyer
      */
-    const val UPLOAD_TO_PGYER = false
+    const val UPLOAD_TO_PGYER = true
 
+    /**
+     * 获取编译apk文件名
+     */
+    fun getBuildApkFileName(channel: String,buildType: String,reinforceApk: Boolean): String {
+        val sb = StringBuffer()
+        sb.append("${AppBuildConfig.BUILD_NAME}_${channel}_${buildType}")
+        sb.append("_v${AppBuildConfig.VERSION_NAME}_${AppBuildConfig.VERSION_CODE}")
+        sb.append("_${AppBuildConfig.getBuildDate()}_${AppBuildConfig.BUILD_NUMBER}")
+        if (reinforceApk) {
+            sb.append("_${AppBuildConfig.VERSION_NAME.replace(".","")}_jiagu_sign")
+        }
+        sb.append(".apk")
+
+        return sb.toString()
+    }
 }

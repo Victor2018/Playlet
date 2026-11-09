@@ -83,7 +83,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/dp_88"
-            android:drawableTop="@mipmap/ic_about_logo"
+            android:drawableTop="@mipmap/me_ic_about_logo"
             android:drawablePadding="@dimen/dp_40"
             android:gravity="center"
             android:textSize="@dimen/dp_36"

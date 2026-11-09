@@ -53,7 +53,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_watch_drama_coin"
         android:layout_marginStart="@dimen/dp_10"
         android:gravity="center"
-        android:drawableLeft="@mipmap/ic_welfare_coin"
+        android:drawableLeft="@mipmap/welfare_ic_welfare_coin"
         android:drawablePadding="@dimen/dp_5"
         android:textColor="@color/color_FF8F18"
         android:textSize="@dimen/dp_28"
@@ -108,7 +108,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/mRvEveryDay"
         app:layout_constraintStart_toEndOf="@+id/mRvEveryDay"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@mipmap/img_red_pkg"/>
+        android:background="@mipmap/welfare_img_red_pkg"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
         app:layout_constraintStart_toStartOf="@+id/mTvEveryDayCoin"
         app:layout_constraintEnd_toEndOf="@+id/mTvEveryDayCoin"
         android:layout_marginBottom="@dimen/dp_46"
-        android:src="@mipmap/ic_red_pkg_icon"/>
+        android:src="@mipmap/welfare_ic_red_pkg_icon"/>
 
     <TextView
         android:id="@+id/mTvCoinValue"

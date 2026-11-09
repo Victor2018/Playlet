@@ -8,7 +8,7 @@ import com.victor.lib.common.util.Loger
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.common.view.widget.layoutmanager.GravitySnapHelper
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
-import com.victor.module.home.R
+import com.victor.module.home.databinding.RvSearchRankCellBinding
 import com.victor.module.home.view.holder.SearchRankContentViewHolder
 
 /*
@@ -33,16 +33,16 @@ class SearchRankAdapter(context: Context, listener: AdapterView.OnItemClickListe
         return null
     }
 
-    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.FollowItem?, position: Int) {
+    override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: FollowItem?, position: Int) {
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return SearchRankContentViewHolder(inflate(R.layout.rv_search_rank_cell, parent), listener)
+        return SearchRankContentViewHolder(inflateVB(RvSearchRankCellBinding::inflate, parent), listener)
     }
 
-    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.FollowItem?, position: Int) {
-        val contentViewHolder = viewHolder as SearchRankContentViewHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+    override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: FollowItem?, position: Int) {
+        if (viewHolder is SearchRankContentViewHolder) {
+            viewHolder.bindData(data)
+        }
     }
 }

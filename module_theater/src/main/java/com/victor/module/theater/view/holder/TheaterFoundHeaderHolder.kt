@@ -1,11 +1,9 @@
 package com.victor.module.theater.view.holder
 
-import android.view.View
-import android.widget.AdapterView.OnItemClickListener
+import android.widget.AdapterView
 import com.victor.lib.common.view.holder.HeaderViewHolder
-import com.victor.lib.common.view.widget.banner.BannerViewFlipper
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.theater.R
+import com.victor.module.theater.databinding.RvTheaterFoundHeaderCellBinding
 
 /*
  * -----------------------------------------------------------------
@@ -17,13 +15,11 @@ import com.victor.module.theater.R
  * Description: 
  * -----------------------------------------------------------------
  */
-class TheaterFoundHeaderHolder(itemView: View, listener: OnItemClickListener?) :
-    HeaderViewHolder(itemView,listener) {
+class TheaterFoundHeaderHolder(private val binding: RvTheaterFoundHeaderCellBinding, listener: AdapterView.OnItemClickListener?) :
+    HeaderViewHolder<DramaItemInfo>(binding,listener) {
 
-    fun bindData(data: DramaItemInfo?) {
-        val mBsvBanner = itemView.findViewById<BannerViewFlipper>(R.id.mBsvBanner)
-        mBsvBanner.onItemClickListener = mOnItemClickListener
-        mBsvBanner.startWithList(data?.data?.itemList)
+    override fun bindData(data: DramaItemInfo?) {
+        binding.mBsvBanner.startWithList(data?.data?.itemList)
     }
 
 }

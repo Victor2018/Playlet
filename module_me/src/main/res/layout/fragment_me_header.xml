@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/mCivAvatar"
         app:layout_constraintEnd_toEndOf="@+id/mCivAvatar"
-        android:src="@mipmap/ic_me_male"/>
+        android:src="@mipmap/me_ic_me_male"/>
 
     <TextView
         android:id="@+id/mTvUserName"
@@ -41,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/mCivAvatar"
         android:layout_marginStart="@dimen/dp_25"
         android:layout_marginTop="@dimen/dp_10"
-        android:drawableRight="@mipmap/ic_me_header_edit"
+        android:drawableRight="@mipmap/me_ic_me_header_edit"
         android:drawablePadding="@dimen/dp_10"
         android:textStyle="bold"
         android:textSize="@dimen/dp_40"
@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view_action_bg"
         app:layout_constraintStart_toStartOf="@+id/view_action_bg"
         app:layout_constraintEnd_toStartOf="@+id/mTvMessage"
-        android:drawableTop="@mipmap/ic_me_withdrawal"
+        android:drawableTop="@mipmap/me_ic_me_withdrawal"
         android:drawablePadding="@dimen/dp_5"
         android:gravity="center"
         android:textSize="@dimen/dp_28"
@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view_action_bg"
         app:layout_constraintStart_toEndOf="@+id/mTvWithdrawal"
         app:layout_constraintEnd_toStartOf="@+id/mTvPreference"
-        android:drawableTop="@mipmap/ic_me_message"
+        android:drawableTop="@mipmap/me_ic_me_message"
         android:drawablePadding="@dimen/dp_5"
         android:gravity="center"
         android:textSize="@dimen/dp_28"
@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view_action_bg"
         app:layout_constraintStart_toEndOf="@+id/mTvMessage"
         app:layout_constraintEnd_toStartOf="@+id/mTvCustomerService"
-        android:drawableTop="@mipmap/ic_me_preference"
+        android:drawableTop="@mipmap/me_ic_me_preference"
         android:drawablePadding="@dimen/dp_5"
         android:gravity="center"
         android:textSize="@dimen/dp_28"
@@ -109,7 +109,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view_action_bg"
         app:layout_constraintStart_toEndOf="@+id/mTvPreference"
         app:layout_constraintEnd_toEndOf="@+id/view_action_bg"
-        android:drawableTop="@mipmap/ic_me_customer_service"
+        android:drawableTop="@mipmap/me_ic_me_customer_service"
         android:drawablePadding="@dimen/dp_5"
         android:gravity="center"
         android:textSize="@dimen/dp_28"

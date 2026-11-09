@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_120"
                 android:background="@color/color_333333"
-                android:drawableLeft="@mipmap/img_play_slogan"
+                android:drawableLeft="@mipmap/home_img_play_slogan"
                 android:drawablePadding="@dimen/dp_10"
                 android:gravity="center"
                 android:textStyle="bold"
@@ -104,7 +104,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/mIvPlaySpeed"
                         android:padding="@dimen/dp_10"
-                        android:src="@mipmap/ic_play_full_screen"/>
+                        android:src="@mipmap/home_ic_play_full_screen"/>
 
                     <ImageView
                         android:id="@+id/mIvPlaySpeed"
@@ -114,7 +114,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/mIvSettingMore"
                         android:padding="@dimen/dp_10"
-                        android:src="@mipmap/ic_play_speed"/>
+                        android:src="@mipmap/home_ic_play_speed"/>
 
                     <ImageView
                         android:id="@+id/mIvSettingMore"
@@ -124,7 +124,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:padding="@dimen/dp_10"
-                        android:src="@mipmap/ic_play_setting_more"/>
+                        android:src="@mipmap/home_ic_play_setting_more"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,7 +6,7 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.theater.R
+import com.victor.module.theater.databinding.RvTheaterFoundSubCellBinding
 import com.victor.module.theater.view.holder.TheaterFoundSubContentHolder
 
 /*
@@ -30,12 +30,12 @@ class TheaterFoundSubAdapter(context: Context?, listener: AdapterView.OnItemClic
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TheaterFoundSubContentHolder(inflate(R.layout.rv_theater_hot_cell, parent), listener)
+        return TheaterFoundSubContentHolder(inflateVB(RvTheaterFoundSubCellBinding::inflate, parent), listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
-        val contentViewHolder = viewHolder as TheaterFoundSubContentHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if (viewHolder is TheaterFoundSubContentHolder) {
+            viewHolder.bindData(data)
+        }
     }
 }

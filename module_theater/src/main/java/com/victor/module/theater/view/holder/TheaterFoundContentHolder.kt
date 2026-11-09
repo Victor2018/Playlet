@@ -3,13 +3,12 @@ package com.victor.module.theater.view.holder
 import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ImageView
 import android.widget.TextView
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.theater.R
+import com.victor.module.theater.databinding.RvTheaterFoundCellBinding
 
 /*
  * -----------------------------------------------------------------
@@ -21,13 +20,11 @@ import com.victor.module.theater.R
  * Description: 
  * -----------------------------------------------------------------
  */
-class TheaterFoundContentHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<DramaItemInfo>(itemView,listener) {
+class TheaterFoundContentHolder(private val binding: RvTheaterFoundCellBinding, listener: AdapterView.OnItemClickListener?) :
+    ContentViewHolder<DramaItemInfo>(binding,listener) {
 
     override fun bindData(data: DramaItemInfo?) {
-        setHotPositionIconBg(bindingAdapterPosition,itemView.findViewById(R.id.mTvPosition))
-
-        val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
+        setHotPositionIconBg(bindingAdapterPosition,binding.mTvPosition)
 
         var url = data?.data?.content?.data?.cover?.feed ?: ""
         var title = data?.data?.content?.data?.title ?: ""
@@ -40,12 +37,12 @@ class TheaterFoundContentHolder(itemView: View, listener: AdapterView.OnItemClic
             category = data?.data?.category ?: ""
             description = data?.data?.description ?: ""
         }
-        ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
+        ImageUtils.instance.loadImage(itemView.context,binding.mIvPoster, url,
             com.victor.lib.common.R.mipmap.img_placeholder_horizontal)
 
-        itemView.findViewById<TextView>(R.id.mTvContentName).text = title
-        itemView.findViewById<TextView>(R.id.mTvType).text = category
-        itemView.findViewById<TextView>(R.id.mTvDescribe).text = description
+        binding.mTvContentName.text = title
+        binding.mTvType.text = category
+        binding.mTvDescribe.text = description
     }
 
     override fun onLongClick(v: View): Boolean {

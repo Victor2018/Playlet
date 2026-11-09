@@ -3,6 +3,7 @@ package com.victor.lib.common.view.holder
 import android.view.View
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 /*
  * -----------------------------------------------------------------
@@ -15,30 +16,29 @@ import androidx.recyclerview.widget.RecyclerView
  * -----------------------------------------------------------------
  */
 
-open class ContentViewHolder<T>: RecyclerView.ViewHolder,View.OnClickListener,View.OnLongClickListener {
+open class ContentViewHolder<T>
+    (private val binding: ViewBinding, val listener: AdapterView.OnItemClickListener?)
+    : RecyclerView.ViewHolder(binding.root),View.OnClickListener,View.OnLongClickListener {
     companion object {
         const val ONITEM_LONG_CLICK: Long = -1
         const val ONITEM_CLICK: Long = 0
     }
 
-    var mOnItemClickListener: AdapterView.OnItemClickListener? = null
+    init {
+        binding.root.setOnClickListener(this)
+        binding.root.setOnLongClickListener(this)
+    }
 
     open fun bindData (data: T?) {
 
     }
 
-    constructor(itemView: View, listener: AdapterView.OnItemClickListener?) : super(itemView) {
-        mOnItemClickListener = listener
-        itemView.setOnClickListener(this)
-        itemView.setOnLongClickListener(this)
-    }
-
     override fun onClick(view: View) {
-        mOnItemClickListener?.onItemClick(null, view, bindingAdapterPosition, ONITEM_CLICK)
+        listener?.onItemClick(null, view, bindingAdapterPosition, ONITEM_CLICK)
     }
 
     override fun onLongClick(v: View): Boolean {
-        mOnItemClickListener?.onItemClick(null, v, bindingAdapterPosition, ONITEM_LONG_CLICK)
+        listener?.onItemClick(null, v, bindingAdapterPosition, ONITEM_LONG_CLICK)
         return false
     }
 }

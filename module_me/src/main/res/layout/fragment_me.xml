@@ -30,7 +30,7 @@
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.9"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/img_me_header"
+                android:src="@mipmap/me_img_me_header"
                 android:fitsSystemWindows="true"/>
 
             <include
@@ -73,7 +73,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginEnd="@dimen/dp_12"
                         android:padding="@dimen/dp_20"
-                        android:src="@mipmap/ic_me_setting_white"/>
+                        android:src="@mipmap/me_ic_me_setting_white"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

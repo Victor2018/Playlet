@@ -6,7 +6,8 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.theater.R
+import com.victor.module.theater.databinding.RvTheaterFoundCellBinding
+import com.victor.module.theater.databinding.RvTheaterFoundHeaderCellBinding
 import com.victor.module.theater.view.holder.TheaterFoundContentHolder
 import com.victor.module.theater.view.holder.TheaterFoundHeaderHolder
 
@@ -26,21 +27,22 @@ class TheaterFoundAdapter(context: Context?, listener: AdapterView.OnItemClickLi
     var mHomeItemInfo: DramaItemInfo? = null
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TheaterFoundHeaderHolder(inflate(R.layout.rv_theater_found_header_cell, parent), listener)
+        return TheaterFoundHeaderHolder(inflateVB(RvTheaterFoundHeaderCellBinding::inflate, parent), listener)
     }
 
     override fun onBindHeadVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
-        val headerViewHolder = viewHolder as TheaterFoundHeaderHolder
-        headerViewHolder.bindData(mHomeItemInfo)
+        if (viewHolder is TheaterFoundHeaderHolder) {
+            viewHolder.bindData(mHomeItemInfo)
+        }
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TheaterFoundContentHolder(inflate(R.layout.rv_theater_found_cell, parent), listener)
+        return TheaterFoundContentHolder(inflateVB(RvTheaterFoundCellBinding::inflate, parent), listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
-        val contentViewHolder = viewHolder as TheaterFoundContentHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if (viewHolder is TheaterFoundContentHolder) {
+            viewHolder.bindData(data)
+        }
     }
 }

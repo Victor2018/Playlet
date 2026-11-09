@@ -2,12 +2,10 @@ package com.victor.module.home.view.holder
 
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.TextView
 import com.victor.lib.common.util.ImageUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.home.R
+import com.victor.module.home.databinding.RvDramaItemCellBinding
 
 /*
  * -----------------------------------------------------------------
@@ -19,20 +17,19 @@ import com.victor.module.home.R
  * Description: 
  * -----------------------------------------------------------------
  */
-class DramaItemContentViewHolder(itemView: View,
-                                 listener: AdapterView.OnItemClickListener?,
-                                 var parentPosition: Int) : ContentViewHolder<DramaItemInfo>(itemView,listener) {
+class DramaItemContentViewHolder(private val binding: RvDramaItemCellBinding, listener: AdapterView.OnItemClickListener?) :
+    ContentViewHolder<DramaItemInfo>(binding,listener) {
+
+    var parentPosition = -1
 
     override fun onClick(view: View) {
-        mOnItemClickListener!!.onItemClick(null, view, bindingAdapterPosition, parentPosition.toLong())
+        listener?.onItemClick(null, view, bindingAdapterPosition, parentPosition.toLong())
     }
 
     override fun bindData(data: DramaItemInfo?) {
-        val mTvTitle = itemView.findViewById<TextView>(R.id.mTvTitle)
-        mTvTitle.text = data?.data?.title ?: ""
-        val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
+        binding.mTvTitle.text = data?.data?.title ?: ""
         val url = data?.data?.cover?.feed ?: ""
-        ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
+        ImageUtils.instance.loadImage(itemView.context,binding.mIvPoster, url,
             com.victor.lib.common.R.mipmap.img_placeholder_horizontal)
     }
 }

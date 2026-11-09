@@ -3,7 +3,6 @@ package com.victor.module.home.view.holder
 import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ImageView
 import android.widget.TextView
 import com.victor.lib.common.util.DramaShowUtil
 import com.victor.lib.common.util.ImageUtils
@@ -11,6 +10,7 @@ import com.victor.lib.common.util.ResUtils
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
 import com.victor.module.home.R
+import com.victor.module.home.databinding.RvSearchRankItemCellBinding
 
 /*
  * -----------------------------------------------------------------
@@ -22,18 +22,18 @@ import com.victor.module.home.R
  * Description: 
  * -----------------------------------------------------------------
  */
-class SearchRankItemContentViewHolder(itemView: View,
-                                      listener: AdapterView.OnItemClickListener?,
-                                      var parentPosition: Int) : ContentViewHolder<DramaItemInfo>(itemView,listener) {
+class SearchRankItemContentViewHolder(private val binding: RvSearchRankItemCellBinding, listener: AdapterView.OnItemClickListener?) :
+    ContentViewHolder<DramaItemInfo>(binding,listener) {
+
+    var parentPosition = -1
 
     override fun onClick(view: View) {
-        mOnItemClickListener!!.onItemClick(null, view, bindingAdapterPosition, parentPosition.toLong())
+        listener?.onItemClick(null, view, bindingAdapterPosition, parentPosition.toLong())
     }
 
     override fun bindData(data: DramaItemInfo?) {
         setHotPositionIconBg(bindingAdapterPosition,itemView.findViewById(R.id.mTvPosition))
 
-        val mIvPoster = itemView.findViewById<ImageView>(R.id.mIvPoster)
 
         var url = data?.data?.cover?.feed ?: ""
         var title = data?.data?.title ?: ""
@@ -44,11 +44,11 @@ class SearchRankItemContentViewHolder(itemView: View,
             title = data?.data?.title ?: ""
             category = data?.data?.category ?: ""
         }
-        ImageUtils.instance.loadImage(itemView.context,mIvPoster, url,
+        ImageUtils.instance.loadImage(itemView.context,binding.mIvPoster, url,
             com.victor.lib.common.R.mipmap.img_placeholder_horizontal)
 
-        itemView.findViewById<TextView>(R.id.mTvContentName).text = title
-        itemView.findViewById<TextView>(R.id.mTvType).text = category
+        binding.mTvContentName.text = title
+        binding.mTvType.text = category
 
         val count = DramaShowUtil.formatPopularityNumber(data?.data?.consumption?.shareCount ?: 0)
         itemView.findViewById<TextView>(R.id.mTvFire).text = count

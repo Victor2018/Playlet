@@ -156,7 +156,7 @@
         android:paddingEnd="@dimen/dp_20"
         android:background="@drawable/shape_33eeeeee_radius_12"
         android:drawableLeft="@mipmap/ic_drama"
-        android:drawableRight="@mipmap/ic_view_all_drama"
+        android:drawableRight="@mipmap/home_ic_view_all_drama"
         android:drawablePadding="@dimen/dp_10"
         android:gravity="center_vertical"
         android:textSize="@dimen/dp_32"

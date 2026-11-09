@@ -6,9 +6,8 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.home.R
+import com.victor.module.home.databinding.RvDetailPlayingCellBinding
 import com.victor.module.home.view.holder.DetailPlayingContentViewHolder
-import com.victor.module.home.view.holder.PlayingContentViewHolder
 
 /*
  * -----------------------------------------------------------------
@@ -31,12 +30,11 @@ class DetailPlayingAdapter(context: Context?, listener: AdapterView.OnItemClickL
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return DetailPlayingContentViewHolder(inflate(R.layout.rv_detail_playing_cell ,parent),listener)
+        return DetailPlayingContentViewHolder(inflateVB(RvDetailPlayingCellBinding::inflate ,parent),listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
         if (viewHolder is DetailPlayingContentViewHolder) {
-            viewHolder.mOnItemClickListener = listener
             viewHolder.bindData(data)
         }
     }

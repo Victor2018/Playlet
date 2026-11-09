@@ -72,7 +72,7 @@
         android:paddingStart="@dimen/dp_16"
         android:paddingEnd="@dimen/dp_20"
         android:gravity="center"
-        android:drawableLeft="@mipmap/ic_withdrawal"
+        android:drawableLeft="@mipmap/welfare_ic_withdrawal"
         android:drawablePadding="@dimen/dp_10"
         android:textStyle="bold"
         android:textSize="@dimen/dp_20"

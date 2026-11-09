@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
-import com.victor.module.welfare.R
+import com.victor.module.welfare.databinding.RvEveryDayCellBinding
 import com.victor.module.welfare.view.holder.EveryDayContentHolder
 
 /*
@@ -29,12 +29,12 @@ class EveryDayAdapter(context: Context?, listener: AdapterView.OnItemClickListen
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return EveryDayContentHolder(inflate(R.layout.rv_every_day_cell, parent), listener)
+        return EveryDayContentHolder(inflateVB(RvEveryDayCellBinding::inflate, parent), listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: String?, position: Int) {
-        val contentViewHolder = viewHolder as EveryDayContentHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if (viewHolder is EveryDayContentHolder) {
+            viewHolder.bindData(data)
+        }
     }
 }

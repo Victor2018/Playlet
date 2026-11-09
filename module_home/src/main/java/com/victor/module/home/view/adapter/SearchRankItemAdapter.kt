@@ -6,7 +6,7 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.home.R
+import com.victor.module.home.databinding.RvSearchRankItemCellBinding
 import com.victor.module.home.view.holder.SearchRankItemContentViewHolder
 
 /*
@@ -19,9 +19,10 @@ import com.victor.module.home.view.holder.SearchRankItemContentViewHolder
  * Description: 
  * -----------------------------------------------------------------
  */
-class SearchRankItemAdapter(context: Context?, listener: AdapterView.OnItemClickListener?, var parentPosition: Int) :
+class SearchRankItemAdapter(context: Context?, listener: AdapterView.OnItemClickListener?) :
         BaseRecycleAdapter<DramaItemInfo, RecyclerView.ViewHolder>(context, listener) {
 
+    var parentPosition = -1
 
     override fun onCreateHeadVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder? {
         return null
@@ -31,12 +32,13 @@ class SearchRankItemAdapter(context: Context?, listener: AdapterView.OnItemClick
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return SearchRankItemContentViewHolder(inflate(R.layout.rv_search_rank_item_cell ,parent),listener,parentPosition)
+        return SearchRankItemContentViewHolder(inflateVB(RvSearchRankItemCellBinding::inflate ,parent),listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo?, position: Int) {
-        val contentViewHolder = viewHolder as SearchRankItemContentViewHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if (viewHolder is SearchRankItemContentViewHolder) {
+            viewHolder.parentPosition = parentPosition
+            viewHolder.bindData(data)
+        }
     }
 }

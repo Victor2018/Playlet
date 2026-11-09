@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.victor.lib.common.R
+import com.victor.lib.common.databinding.RecyclerviewFootBinding
 import com.victor.lib.common.util.ViewUtils.hide
 import com.victor.lib.common.util.ViewUtils.show
 import com.victor.lib.common.view.holder.BottomViewHolder
@@ -78,23 +80,27 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         return inflater.inflate(layoutId,parent, false)
     }
 
+    fun <VB: ViewBinding>inflateVB(bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> VB,parent: ViewGroup): VB {
+        return bindingInflater(LayoutInflater.from(parent.context), parent, false)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == ITEM_TYPE_HEADER) {
             return onCreateHeadVHolder(parent, viewType)!!
         } else if (viewType == ITEM_TYPE_CONTENT) {
             return onCreateContentVHolder(parent, viewType)
         } else if (viewType == ITEM_TYPE_BOTTOM) {
-            return BottomViewHolder(inflate(R.layout.recyclerview_foot, parent))
+            return BottomViewHolder<T>(inflateVB(RecyclerviewFootBinding::inflate, parent), listener)
         }
         return onCreateContentVHolder(parent, viewType)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var item = getItem(position)
-        if (holder is HeaderViewHolder) {
+        if (holder is HeaderViewHolder<*>) {
             onBindHeadVHolder(holder as VH, item, position)
-        } else if (holder is BottomViewHolder) {
-            setFooterViewState(holder)
+        } else if (holder is BottomViewHolder<*>) {
+            setFooterViewState(holder as BottomViewHolder<T>)
         } else {
             if (isHeaderVisible) {
                 item = getItem(position - 1)
@@ -132,22 +138,22 @@ abstract class BaseRecycleAdapter<T,VH: RecyclerView.ViewHolder>(
         return mHeaderCount + getContentItemCount() + mBottomCount
     }
 
-    private fun setFooterViewState(bottomViewHolder: BottomViewHolder) {
+    private fun setFooterViewState(bottomViewHolder: BottomViewHolder<T>) {
         when (loadState) {
             LOADING -> {
-                bottomViewHolder.progressBar?.visibility = View.VISIBLE
-                bottomViewHolder.mTvTitle?.visibility = View.VISIBLE
-                bottomViewHolder.mLayoutEnd?.visibility = View.GONE
+                bottomViewHolder.binding.progressBar?.visibility = View.VISIBLE
+                bottomViewHolder.binding.tvTitle?.visibility = View.VISIBLE
+                bottomViewHolder.binding.llEnd?.visibility = View.GONE
             }
             LOADING_COMPLETE -> {
-                bottomViewHolder.progressBar?.visibility = View.GONE
-                bottomViewHolder.mTvTitle?.visibility = View.GONE
-                bottomViewHolder.mLayoutEnd?.visibility = View.GONE
+                bottomViewHolder.binding.progressBar?.visibility = View.GONE
+                bottomViewHolder.binding.tvTitle?.visibility = View.GONE
+                bottomViewHolder.binding.llEnd?.visibility = View.GONE
             }
             LOADING_END -> {
-                bottomViewHolder.progressBar?.visibility = View.GONE
-                bottomViewHolder.mTvTitle?.visibility = View.GONE
-                bottomViewHolder.mLayoutEnd?.visibility = View.VISIBLE
+                bottomViewHolder.binding.progressBar?.visibility = View.GONE
+                bottomViewHolder.binding.tvTitle?.visibility = View.GONE
+                bottomViewHolder.binding.llEnd?.visibility = View.VISIBLE
             }
         }
     }

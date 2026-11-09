@@ -1,12 +1,9 @@
 package com.victor.module.home.view.holder
 
-import android.view.View
 import android.widget.AdapterView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.holder.ContentViewHolder
 import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
-import com.victor.module.home.R
+import com.victor.module.home.databinding.RvSearchRankCellBinding
 import com.victor.module.home.view.adapter.SearchRankItemAdapter
 
 
@@ -20,21 +17,22 @@ import com.victor.module.home.view.adapter.SearchRankItemAdapter
  * Description: 
  * -----------------------------------------------------------------
  */
-class SearchRankContentViewHolder(itemView: View, listener: AdapterView.OnItemClickListener?) :
-    ContentViewHolder<FollowItem>(itemView,listener) {
+class SearchRankContentViewHolder(private val binding: RvSearchRankCellBinding, listener: AdapterView.OnItemClickListener?) :
+    ContentViewHolder<FollowItem>(binding,listener) {
 
     override fun bindData(data: FollowItem?) {
-        val mTvDescribe = itemView.findViewById<TextView>(R.id.mTvDescribe)
-        val recyclerView = itemView.findViewById<RecyclerView>(R.id.recyclerView)
-
-        mTvDescribe.text = data?.data?.header?.description ?: ""
+        binding.mTvDescribe.text = data?.data?.header?.description ?: ""
 
 //        recyclerView.layoutManager = VegaLayoutManager(VegaLayoutManager.HORIZONTAL)
 
-        var cellAdapter = SearchRankItemAdapter(itemView.context,mOnItemClickListener,position)
+        val cellAdapter = binding.recyclerView.adapter as? SearchRankItemAdapter
+            ?: SearchRankItemAdapter(itemView.context, listener)
+
+        cellAdapter.parentPosition = bindingAdapterPosition
+
         cellAdapter.add(data?.data?.itemList)
 
-        recyclerView.adapter = cellAdapter
+        binding.recyclerView.adapter = cellAdapter
 
         setItemBackground(bindingAdapterPosition)
     }

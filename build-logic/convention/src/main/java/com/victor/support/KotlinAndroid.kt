@@ -10,6 +10,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
@@ -48,8 +49,8 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
         compileOptions {
             // Up to Java 11 APIs are available through desugaring
             // https://developer.android.com/studio/write/java11-minimal-support-table
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
+            sourceCompatibility = AppBuildConfig.javaVersion
+            targetCompatibility = AppBuildConfig.javaVersion
             isCoreLibraryDesugaringEnabled = true
         }
 
@@ -68,10 +69,10 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             buildConfig = true  // 启用 BuildConfig 生成
         }
 
-        flavorDimensions += "hok"
+        flavorDimensions += "victor"
         productFlavors {
             create("beta") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "false")
                 buildConfigField("Boolean", "MODEL_BETA", "true")
                 buildConfigField("Boolean", "MODEL_DEV", "false")
@@ -85,7 +86,7 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             }
 
             create("dev") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "false")
                 buildConfigField("Boolean", "MODEL_BETA", "false")
                 buildConfigField("Boolean", "MODEL_DEV", "true")
@@ -99,7 +100,7 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             }
 
             create("_test") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "false")
                 buildConfigField("Boolean", "MODEL_BETA", "false")
                 buildConfigField("Boolean", "MODEL_DEV", "false")
@@ -113,7 +114,7 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             }
 
             create("online") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "true")
                 buildConfigField("Boolean", "MODEL_BETA", "false")
                 buildConfigField("Boolean", "MODEL_DEV", "false")
@@ -127,7 +128,7 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             }
 
             create("huawei") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "true")
                 buildConfigField("Boolean", "MODEL_BETA", "false")
                 buildConfigField("Boolean", "MODEL_DEV", "false")
@@ -141,7 +142,7 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             }
 
             create("xiaomi") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "true")
                 buildConfigField("Boolean", "MODEL_BETA", "false")
                 buildConfigField("Boolean", "MODEL_DEV", "false")
@@ -155,7 +156,7 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             }
 
             create("oppo") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "true")
                 buildConfigField("Boolean", "MODEL_BETA", "false")
                 buildConfigField("Boolean", "MODEL_DEV", "false")
@@ -169,7 +170,7 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             }
 
             create("vivo") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "true")
                 buildConfigField("Boolean", "MODEL_BETA", "false")
                 buildConfigField("Boolean", "MODEL_DEV", "false")
@@ -183,7 +184,7 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
             }
 
             create("tencent") {
-                dimension = "hok"
+                dimension = "victor"
                 buildConfigField("Boolean", "MODEL_ONLINE", "true")
                 buildConfigField("Boolean", "MODEL_BETA", "false")
                 buildConfigField("Boolean", "MODEL_DEV", "false")
@@ -217,8 +218,8 @@ internal fun Project.configureKotlinJvm() {
     extensions.configure<JavaPluginExtension> {
         // Up to Java 11 APIs are available through desugaring
         // https://developer.android.com/studio/write/java11-minimal-support-table
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = AppBuildConfig.javaVersion
+        targetCompatibility = AppBuildConfig.javaVersion
     }
 
     configureKotlin()
@@ -230,14 +231,14 @@ internal fun Project.configureKotlinJvm() {
 private fun Project.configureKotlin() {
     // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
     tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
+        compilerOptions {
             // Set JVM target to 11
-            jvmTarget = JavaVersion.VERSION_11.toString()
+            jvmTarget.set(JvmTarget.fromTarget(AppBuildConfig.javaVersion.toString()))
             // Treat all Kotlin warnings as errors (disabled by default)
             // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
             val warningsAsErrors: String? by project
-            allWarningsAsErrors = warningsAsErrors.toBoolean()
-            freeCompilerArgs = freeCompilerArgs + listOf(
+            allWarningsAsErrors.set(warningsAsErrors.toBoolean())
+            freeCompilerArgs.addAll(
                 "-opt-in=kotlin.RequiresOptIn",
                 // Enable experimental coroutines APIs, including Flow
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",

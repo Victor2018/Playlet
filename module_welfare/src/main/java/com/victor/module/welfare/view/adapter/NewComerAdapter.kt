@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
-import com.victor.module.welfare.R
-import com.victor.module.welfare.view.holder.EveryDayContentHolder
+import com.victor.module.welfare.databinding.RvNewComerCellBinding
 import com.victor.module.welfare.view.holder.NewComerContentHolder
 
 /*
@@ -30,12 +29,12 @@ class NewComerAdapter(context: Context?, listener: AdapterView.OnItemClickListen
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return NewComerContentHolder(inflate(R.layout.rv_new_comer_cell, parent), listener)
+        return NewComerContentHolder(inflateVB(RvNewComerCellBinding::inflate, parent), listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: String?, position: Int) {
-        val contentViewHolder = viewHolder as NewComerContentHolder
-        contentViewHolder.mOnItemClickListener = listener
-        contentViewHolder.bindData(data)
+        if(viewHolder is NewComerContentHolder) {
+            viewHolder.bindData(data)
+        }
     }
 }

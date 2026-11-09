@@ -6,8 +6,11 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.lib.common.view.adapter.BaseRecycleAdapter
 import com.victor.lib.coremodel.data.remote.entity.bean.DramaItemInfo
-import com.victor.module.theater.R
 import com.victor.module.theater.data.HotType
+import com.victor.module.theater.databinding.RvHotNewCellBinding
+import com.victor.module.theater.databinding.RvHotPlayCellBinding
+import com.victor.module.theater.databinding.RvHotRecommendCellBinding
+import com.victor.module.theater.databinding.RvHotSearchCellBinding
 import com.victor.module.theater.view.holder.HotNewContentHolder
 import com.victor.module.theater.view.holder.HotPlayContentHolder
 import com.victor.module.theater.view.holder.HotRecommendContentHolder
@@ -38,30 +41,35 @@ class TheaterHotAdapter(context: Context?, listener: AdapterView.OnItemClickList
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             HotType.RECOMMEND -> {
-                return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend_cell, parent),listener)
+                return HotRecommendContentHolder(inflateVB(RvHotRecommendCellBinding::inflate, parent),listener)
             }
             HotType.PLAY -> {
-                return HotPlayContentHolder(inflate(R.layout.rv_hot_play_cell, parent),listener)
+                return HotPlayContentHolder(inflateVB(RvHotPlayCellBinding::inflate, parent),listener)
             }
             HotType.NEW -> {
-                return HotNewContentHolder(inflate(R.layout.rv_hot_new_cell, parent),listener)
+                return HotNewContentHolder(inflateVB(RvHotNewCellBinding::inflate, parent),listener)
             }
             HotType.SEARCH -> {
-                return HotSearchContentHolder(inflate(R.layout.rv_hot_search_cell, parent),listener)
+                return HotSearchContentHolder(inflateVB(RvHotSearchCellBinding::inflate, parent),listener)
             }
         }
-        return HotRecommendContentHolder(inflate(R.layout.rv_hot_recommend_cell, parent),listener)
+        return HotRecommendContentHolder(inflateVB(RvHotRecommendCellBinding::inflate, parent),listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: DramaItemInfo?, position: Int) {
-        if (viewHolder is HotRecommendContentHolder) {
-            viewHolder.bindData(data)
-        } else if (viewHolder is HotPlayContentHolder) {
-            viewHolder.bindData(data)
-        } else if (viewHolder is HotNewContentHolder) {
-            viewHolder.bindData(data)
-        } else if (viewHolder is HotSearchContentHolder) {
-            viewHolder.bindData(data)
+        when (viewHolder) {
+            is HotRecommendContentHolder -> {
+                viewHolder.bindData(data)
+            }
+            is HotPlayContentHolder -> {
+                viewHolder.bindData(data)
+            }
+            is HotNewContentHolder -> {
+                viewHolder.bindData(data)
+            }
+            is HotSearchContentHolder -> {
+                viewHolder.bindData(data)
+            }
         }
     }
 

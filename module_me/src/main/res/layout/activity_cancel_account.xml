@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                android:drawableTop="@mipmap/ic_cancel_account_tip"
+                android:drawableTop="@mipmap/me_ic_cancel_account_tip"
                 android:drawablePadding="@dimen/dp_20"
                 android:gravity="center"
                 android:textStyle="bold"

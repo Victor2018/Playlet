@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
-import com.victor.lib.common.R
+import com.victor.lib.common.databinding.RvPlaySpeedCellBinding
 import com.victor.lib.common.view.holder.PlaySpeedContentHolder
 
 /*
@@ -31,14 +31,14 @@ class PlaySpeedAdapter(context: Context, listener: AdapterView.OnItemClickListen
     }
 
     override fun onCreateContentVHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return PlaySpeedContentHolder(inflate(R.layout.rv_play_speed_cell, parent),listener)
+        return PlaySpeedContentHolder(inflateVB(RvPlaySpeedCellBinding::inflate, parent),listener)
     }
 
     override fun onBindContentVHolder(viewHolder: RecyclerView.ViewHolder, data: String?, position: Int) {
-        val contentViewHolder = viewHolder as PlaySpeedContentHolder
-        viewHolder.playSpeed = playSpeed
-        contentViewHolder.bindData(data)
-        contentViewHolder.mOnItemClickListener = listener
+        if (viewHolder is PlaySpeedContentHolder) {
+            viewHolder.playSpeed = playSpeed
+            viewHolder.bindData(data)
+        }
     }
 
 }

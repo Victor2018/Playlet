@@ -17,7 +17,7 @@
         android:layout_height="@dimen/dp_160"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@mipmap/img_red_pkg"/>
+        android:background="@mipmap/welfare_img_red_pkg"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="@+id/mTvEveryDayCoin"
         app:layout_constraintEnd_toEndOf="@+id/mTvEveryDayCoin"
         android:layout_marginBottom="@dimen/dp_46"
-        android:src="@mipmap/ic_red_pkg_icon"/>
+        android:src="@mipmap/welfare_ic_red_pkg_icon"/>
 
     <TextView
         android:id="@+id/mTvCoinValue"
