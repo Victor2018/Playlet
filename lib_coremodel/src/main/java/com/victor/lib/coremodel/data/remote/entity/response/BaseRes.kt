@@ -15,6 +15,8 @@ import com.victor.lib.coremodel.data.remote.entity.bean.FollowItem
  */
 
 open class BaseRes<T> {
+    var code: Int = 0
+    var message: String? = null
     var count: Int = 0
     var total: Int = 0
     var refreshCount: Int = 0

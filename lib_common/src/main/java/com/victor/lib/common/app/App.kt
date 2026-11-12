@@ -38,8 +38,10 @@ import com.victor.lib.coremodel.util.AppUtil
 import com.victor.lib.coremodel.util.HttpUtil
 import com.victor.lib.coremodel.util.WebConfig
 import com.victor.lib.common.workers.VideoPreloadWorker
+import com.victor.lib.coremodel.util.AppConfig
 import com.victor.lib.video.cache.HttpProxyCacheServer
 import com.victor.library.bus.LiveDataBus
+import com.victor.lib.coremodel.bizparser.HttpBusinessResponseParser
 import org.victor.http.lib.ApiClient
 import org.victor.http.lib.util.JsonUtils
 import java.lang.ref.WeakReference
@@ -104,7 +106,7 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         //初始化主进程
         if (AppUtil.inMainProcess(this)) {
 //            PluginCore.instance.init(this)
-            ApiClient.BASE_URL = WebConfig.getBaseUrl()
+            ApiClient.init(WebConfig.getBaseUrl(), HttpBusinessResponseParser, AppConfig.MODEL_DEBUG)
         }
         UMengEventModule.preInitSdk(this)
 

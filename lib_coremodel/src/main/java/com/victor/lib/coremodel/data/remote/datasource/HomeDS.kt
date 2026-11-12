@@ -14,7 +14,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import org.victor.http.lib.ApiClient
 import org.victor.http.lib.data.HttpResult
-import org.victor.http.lib.datasource.AbsDS
+import org.victor.http.lib.util.handleResponse
 
 /*
  * -----------------------------------------------------------------
@@ -26,7 +26,7 @@ import org.victor.http.lib.datasource.AbsDS
  * Description: 
  * -----------------------------------------------------------------
  */
-class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
+class HomeDS(private val ioDispatcher: CoroutineDispatcher): IHomeDS {
 
     override val updatePlayPositionData: LiveData<Long> =  liveData {
         while (true) {
@@ -66,23 +66,23 @@ class HomeDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), IHomeDS {
         }
     }
 
-    private suspend fun <T> fetchDramaListReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
-            .fetchDramaList()) as T
+    private suspend fun fetchDramaListReq() = withContext(ioDispatcher) {
+        ApiClient.getApiService(HomeApiService::class.java)
+            .fetchDramaList().handleResponse()
     }
 
-    private suspend fun <T> fetchDramaListNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
-            .fetchDramaListNext(nextPageUrl)) as T
+    private suspend fun fetchDramaListNextReq(nextPageUrl: String?) = withContext(ioDispatcher) {
+        ApiClient.getApiService(HomeApiService::class.java)
+            .fetchDramaListNext(nextPageUrl).handleResponse()
     }
 
-    private suspend fun <T> fetchHomePlayingReq(id: Int): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
-            .fetchHomePlaying(id,"Android","d2807c895f0348a180148c9dfa6f2feeac0781b5")) as T
+    private suspend fun fetchHomePlayingReq(id: Int) = withContext(ioDispatcher) {
+        ApiClient.getApiService(HomeApiService::class.java)
+            .fetchHomePlaying(id,"Android","d2807c895f0348a180148c9dfa6f2feeac0781b5").handleResponse()
     }
 
-    private suspend fun <T> fetchHomePlayingNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(HomeApiService::class.java)
-            .fetchHomePlayingNext(nextPageUrl)) as T
+    private suspend fun fetchHomePlayingNextReq(nextPageUrl: String?) = withContext(ioDispatcher) {
+        ApiClient.getApiService(HomeApiService::class.java)
+            .fetchHomePlayingNext(nextPageUrl).handleResponse()
     }
 }

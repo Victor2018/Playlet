@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.victor.http.lib.ApiClient
 import org.victor.http.lib.data.HttpResult
-import org.victor.http.lib.datasource.AbsDS
+import org.victor.http.lib.util.handleResponse
 
 /*
  * -----------------------------------------------------------------
@@ -22,7 +22,7 @@ import org.victor.http.lib.datasource.AbsDS
  * Description: 
  * -----------------------------------------------------------------
  */
-class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheaterDS {
+class TheaterDS(private val ioDispatcher: CoroutineDispatcher): ITheaterDS {
 
     override val rankingData = MutableLiveData<HttpResult<BaseRes<DramaItemInfo>>>()
     override suspend fun fetchRanking() {
@@ -120,64 +120,64 @@ class TheaterDS(private val ioDispatcher: CoroutineDispatcher): AbsDS(), ITheate
         }
     }
 
-    private suspend fun <T> fetchRankingReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchRanking()) as T
+    private suspend fun fetchRankingReq() = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchRanking().handleResponse()
     }
 
-    private suspend fun <T> fetchRankingNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchRankingNext(nextPageUrl)) as T
+    private suspend fun fetchRankingNextReq(nextPageUrl: String?) = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchRankingNext(nextPageUrl).handleResponse()
     }
 
-    private suspend fun <T> fetchFoundReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchFound()) as T
+    private suspend fun fetchFoundReq() = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchFound().handleResponse()
     }
 
-    private suspend fun <T> fetchFoundNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchFoundNext(nextPageUrl)) as T
+    private suspend fun fetchFoundNextReq(nextPageUrl: String?) = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchFoundNext(nextPageUrl).handleResponse()
     }
 
-    private suspend fun <T> fetchHotRecommendReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchHotRecommend()) as T
+    private suspend fun fetchHotRecommendReq() = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotRecommend().handleResponse()
     }
 
-    private suspend fun <T> fetchHotRecommendNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchHotRecommendNext(nextPageUrl)) as T
+    private suspend fun fetchHotRecommendNextReq(nextPageUrl: String?) = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotRecommendNext(nextPageUrl).handleResponse()
     }
 
-    private suspend fun <T> fetchHotPlayReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchHotPlay()) as T
+    private suspend fun fetchHotPlayReq() = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotPlay().handleResponse()
     }
 
-    private suspend fun <T> fetchHotPlayNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchHotPlayNext(nextPageUrl)) as T
+    private suspend fun fetchHotPlayNextReq(nextPageUrl: String?) = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotPlayNext(nextPageUrl).handleResponse()
     }
 
-    private suspend fun <T> fetchHotNewReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchHotNew()) as T
+    private suspend fun fetchHotNewReq() = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotNew().handleResponse()
     }
 
-    private suspend fun <T> fetchHotNewNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchHotNewNext(nextPageUrl)) as T
+    private suspend fun fetchHotNewNextReq(nextPageUrl: String?) = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotNewNext(nextPageUrl).handleResponse()
     }
 
-    private suspend fun <T> fetchHotSearchReq(): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchHotSearch()) as T
+    private suspend fun fetchHotSearchReq() = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotSearch().handleResponse()
     }
 
-    private suspend fun <T> fetchHotSearchNextReq(nextPageUrl: String?): T = withContext(ioDispatcher) {
-        handleRespone(ApiClient.getApiService(TheaterApiService::class.java)
-            .fetchHotSearchNext(nextPageUrl)) as T
+    private suspend fun fetchHotSearchNextReq(nextPageUrl: String?) = withContext(ioDispatcher) {
+        ApiClient.getApiService(TheaterApiService::class.java)
+            .fetchHotSearchNext(nextPageUrl).handleResponse()
     }
 
 }
