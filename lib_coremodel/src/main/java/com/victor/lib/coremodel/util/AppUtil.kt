@@ -618,7 +618,7 @@ object AppUtil {
     }
 
     fun isTestChannel (): Boolean {
-        return TextUtils.equals(AppConfig.UMENG_CHANNEL,"_test")
+        return TextUtils.equals(AppConfig.BUILD_FLAVOR,"_test")
     }
 
     /**

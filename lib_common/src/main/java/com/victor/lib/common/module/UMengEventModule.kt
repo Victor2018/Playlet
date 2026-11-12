@@ -6,6 +6,7 @@ import com.umeng.commonsdk.UMConfigure
 import com.victor.lib.common.util.Loger
 import com.victor.lib.coremodel.util.AppConfig
 import com.victor.lib.coremodel.util.AppUtil
+import com.victor.lib.coremodel.util.HttpEnv
 
 /*
  * -----------------------------------------------------------------
@@ -25,7 +26,7 @@ object UMengEventModule {
 
     fun reportEnable (): Boolean {
         var canReport = AppUtil.isTestChannel()
-        if (AppConfig.MODEL_ONLINE) {
+        if (AppConfig.HTTP_ENV_CODE == HttpEnv.ONLINE.code) {
             canReport = !AppConfig.MODEL_DEBUG
         }
         Loger.e(TAG,"reportEnable()-canReport = $canReport")
@@ -34,7 +35,6 @@ object UMengEventModule {
 
     fun preInitSdk (context: Context?) {
         if (!reportEnable()) return
-        UMConfigure.preInit(context, getUmengAppKey(), AppConfig.UMENG_CHANNEL)
     }
 
     fun initSdk(context: Context?) {
@@ -42,7 +42,7 @@ object UMengEventModule {
         //设置LOG开关，默认为false
         UMConfigure.setLogEnabled(AppConfig.MODEL_DEBUG)
 
-        UMConfigure.init(context, getUmengAppKey(), AppConfig.UMENG_CHANNEL,
+        UMConfigure.init(context, getUmengAppKey(), AppConfig.BUILD_FLAVOR,
             UMConfigure.DEVICE_TYPE_PHONE,null)
 
         //统计SDK是否支持采集在子进程中打点的自定义事件，默认不支持

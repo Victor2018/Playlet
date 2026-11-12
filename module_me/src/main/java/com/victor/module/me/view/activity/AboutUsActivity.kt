@@ -20,6 +20,7 @@ import com.victor.lib.coremodel.data.remote.api.HtmlApi
 import com.victor.lib.coremodel.data.remote.entity.bean.LatestVersionData
 import com.victor.lib.coremodel.util.AppConfig
 import com.victor.lib.coremodel.util.AppUtil
+import com.victor.lib.coremodel.util.HttpEnv
 import com.victor.module.me.R
 import com.victor.module.me.databinding.ActivityAboutUsBinding
 
@@ -65,19 +66,11 @@ class AboutUsActivity : BaseActivity<ActivityAboutUsBinding>(ActivityAboutUsBind
         var nowYear = DateUtil.getNowYear()
         binding.mTvCopyRight.text = "Copyright © 2021-$nowYear"
 
-        var vName = "Version " + AppUtil.getAppVersionName(this)
+        var vName = "Version ${AppUtil.getAppVersionName(this)}"
 
-        if (AppConfig.MODEL_DEBUG) {
-//            vName += "_" + AppConfig.BUILD_NUMBER
-            if (AppConfig.MODEL_DEV) {
-                vName += "_dev"
-            }
-            if (AppConfig.MODEL_TEST) {
-                vName += "_test"
-            }
-            if (AppConfig.MODEL_BETA) {
-                vName += "_beta"
-            }
+        if (AppConfig.HTTP_ENV_CODE != HttpEnv.ONLINE.code) {
+            val envConfig = HttpEnv.codeOf(AppConfig.HTTP_ENV_CODE)
+            vName = "$vName${envConfig.envName}"
         }
         binding.mTvAppVersion.text = vName
 

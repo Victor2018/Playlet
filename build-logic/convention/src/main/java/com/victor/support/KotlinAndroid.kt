@@ -1,7 +1,6 @@
 package com.victor.support
 
 import com.android.build.api.dsl.CommonExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.JavaPluginExtension
@@ -30,6 +29,9 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
                     include("arm64-v8a", "armeabi-v7a") // 可选：明确包含需要的 ABI
                 }
             }
+            //bugly config
+            manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
+            manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
         }
 
         buildTypes {
@@ -40,9 +42,11 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
                     "proguard-rules.pro"
                 )
                 buildConfigField("Boolean", "MODEL_DEBUG", "false")
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
             }
             getByName("debug"){
                 buildConfigField("Boolean", "MODEL_DEBUG", "true")
+                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "true"
             }
         }
 
@@ -71,133 +75,69 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
 
         flavorDimensions += "victor"
         productFlavors {
-            create("beta") {
-                dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "false")
-                buildConfigField("Boolean", "MODEL_BETA", "true")
-                buildConfigField("Boolean", "MODEL_DEV", "false")
-                buildConfigField("Boolean", "MODEL_TEST", "false")
-                buildConfigField("String", "UMENG_CHANNEL", "\"uat\"")
-
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "uat"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
-            }
-
             create("dev") {
                 dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "false")
-                buildConfigField("Boolean", "MODEL_BETA", "false")
-                buildConfigField("Boolean", "MODEL_DEV", "true")
-                buildConfigField("Boolean", "MODEL_TEST", "false")
-                buildConfigField("String", "UMENG_CHANNEL", "\"dev\"")
-
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "dev"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+                buildConfigField("int", "HTTP_ENV_CODE", "1")
+                buildConfigField("String", "BUILD_FLAVOR", "\"dev\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "dev"
             }
 
             create("_test") {
                 dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "false")
-                buildConfigField("Boolean", "MODEL_BETA", "false")
-                buildConfigField("Boolean", "MODEL_DEV", "false")
-                buildConfigField("Boolean", "MODEL_TEST", "true")
-                buildConfigField("String", "UMENG_CHANNEL", "\"_test\"")
+                buildConfigField("int", "HTTP_ENV_CODE", "2")
+                buildConfigField("String", "BUILD_FLAVOR", "\"_test\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "_test"
+            }
 
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "_test"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+            create("beta") {
+                dimension = "victor"
+                buildConfigField("int", "HTTP_ENV_CODE", "3")
+                buildConfigField("String", "BUILD_FLAVOR", "\"uat\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "uat"
             }
 
             create("online") {
                 dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "true")
-                buildConfigField("Boolean", "MODEL_BETA", "false")
-                buildConfigField("Boolean", "MODEL_DEV", "false")
-                buildConfigField("Boolean", "MODEL_TEST", "false")
-                buildConfigField("String", "UMENG_CHANNEL", "\"online\"")
-
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "online"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+                buildConfigField("int", "HTTP_ENV_CODE", "4")
+                buildConfigField("String", "BUILD_FLAVOR", "\"online\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "online"
             }
 
             create("huawei") {
                 dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "true")
-                buildConfigField("Boolean", "MODEL_BETA", "false")
-                buildConfigField("Boolean", "MODEL_DEV", "false")
-                buildConfigField("Boolean", "MODEL_TEST", "false")
-                buildConfigField("String", "UMENG_CHANNEL", "\"huawei\"")
-
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "huawei"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+                buildConfigField("int", "HTTP_ENV_CODE", "4")
+                buildConfigField("String", "BUILD_FLAVOR", "\"huawei\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "huawei"
             }
 
             create("xiaomi") {
                 dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "true")
-                buildConfigField("Boolean", "MODEL_BETA", "false")
-                buildConfigField("Boolean", "MODEL_DEV", "false")
-                buildConfigField("Boolean", "MODEL_TEST", "false")
-                buildConfigField("String", "UMENG_CHANNEL", "\"xiaomi\"")
-
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "xiaomi"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+                buildConfigField("int", "HTTP_ENV_CODE", "4")
+                buildConfigField("String", "BUILD_FLAVOR", "\"xiaomi\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "xiaomi"
             }
 
             create("oppo") {
                 dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "true")
-                buildConfigField("Boolean", "MODEL_BETA", "false")
-                buildConfigField("Boolean", "MODEL_DEV", "false")
-                buildConfigField("Boolean", "MODEL_TEST", "false")
-                buildConfigField("String", "UMENG_CHANNEL", "\"oppo\"")
-
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "oppo"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+                buildConfigField("int", "HTTP_ENV_CODE", "4")
+                buildConfigField("String", "BUILD_FLAVOR", "\"oppo\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "oppo"
             }
 
             create("vivo") {
                 dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "true")
-                buildConfigField("Boolean", "MODEL_BETA", "false")
-                buildConfigField("Boolean", "MODEL_DEV", "false")
-                buildConfigField("Boolean", "MODEL_TEST", "false")
-                buildConfigField("String", "UMENG_CHANNEL", "\"vivo\"")
-
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "vivo"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+                buildConfigField("int", "HTTP_ENV_CODE", "4")
+                buildConfigField("String", "BUILD_FLAVOR", "\"vivo\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "vivo"
             }
 
             create("tencent") {
                 dimension = "victor"
-                buildConfigField("Boolean", "MODEL_ONLINE", "true")
-                buildConfigField("Boolean", "MODEL_BETA", "false")
-                buildConfigField("Boolean", "MODEL_DEV", "false")
-                buildConfigField("Boolean", "MODEL_TEST", "false")
-                buildConfigField("String", "UMENG_CHANNEL", "\"tencent\"")
-
-                manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-                manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
-                manifestPlaceholders["BUGLY_APP_CHANNEL"] = "tencent"
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
+                buildConfigField("int", "HTTP_ENV_CODE", "4")
+                buildConfigField("String", "BUILD_FLAVOR", "\"tencent\"")
+                manifestPlaceholders["BUILD_FLAVOR"] = "tencent"
             }
         }
-
     }
 
     configureKotlin()

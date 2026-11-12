@@ -26,18 +26,13 @@ object WebConfig {
     const val PAGE_SIZE = 20
 
     fun getBaseUrl(): String {
-        if (AppConfig.MODEL_TEST) {
-            return TEST_BASE_URL
+        return when(AppConfig.HTTP_ENV_CODE) {
+            HttpEnv.DEV.code -> DEV_BASE_URL
+            HttpEnv.TEST.code -> TEST_BASE_URL
+            HttpEnv.BETA.code -> BETA_BASE_URL
+            HttpEnv.ONLINE.code -> ONLINE_BASE_URL
+            else -> DEV_BASE_URL
         }
-
-        if (AppConfig.MODEL_BETA) {
-            return BETA_BASE_URL
-        }
-
-        if (AppConfig.MODEL_ONLINE) {
-            return ONLINE_BASE_URL
-        }
-        return DEV_BASE_URL
     }
 
     fun getServerIp(): String? {

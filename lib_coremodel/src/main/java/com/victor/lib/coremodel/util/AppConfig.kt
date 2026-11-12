@@ -14,29 +14,21 @@ import com.victor.lib.coremodel.BuildConfig
  */
 
 object AppConfig {
+
     /**
      * DEBUG 调试模式
      */
     val MODEL_DEBUG = BuildConfig.MODEL_DEBUG
 
     /**
-     * 开发模式
+     * http 环境配置编码
      */
-    val MODEL_DEV = BuildConfig.MODEL_DEV
+    const val HTTP_ENV_CODE: Int = BuildConfig.HTTP_ENV_CODE
 
     /**
-     * 测试模式
+     * 构建渠道
      */
-    val MODEL_TEST = BuildConfig.MODEL_TEST
-
-    /**
-     * UAT测试模式
-     */
-    val MODEL_BETA = BuildConfig.MODEL_BETA
-    /**
-     * 线上模式
-     */
-    val MODEL_ONLINE = BuildConfig.MODEL_ONLINE
+    const val BUILD_FLAVOR = BuildConfig.BUILD_FLAVOR
 
 
     /**
@@ -51,7 +43,7 @@ object AppConfig {
 
     const val UMENG_APP_KEY = "6259616fd024421570bcdbbd"
     const val UMENG_TEST_APP_KEY = "63e5fec8ba6a5259c4fff915"
-    const val UMENG_CHANNEL = BuildConfig.UMENG_CHANNEL
+
 
     const val HTTP = "http"
     const val SCHEMA = "victor://"
