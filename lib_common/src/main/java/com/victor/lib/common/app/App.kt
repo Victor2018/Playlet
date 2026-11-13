@@ -101,7 +101,7 @@ class App : BaseApplication(), Application.ActivityLifecycleCallbacks {
         //crash spider
         SpiderCrashHandler.init(this)
         //bugly
-        CrashReport.initCrashReport(this)
+        CrashReport.initCrashReport(this, AppConfig.BUGLY_APP_ID, AppConfig.MODEL_DEBUG)
         //云信初始化
         //初始化主进程
         if (AppUtil.inMainProcess(this)) {

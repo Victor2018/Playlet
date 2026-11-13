@@ -240,17 +240,19 @@
 
 #### Product Flavors（多渠道配置）
 
-| Flavor | 维度 | 环境说明 | UMENG_CHANNEL |
+| Flavor | 维度 | 环境说明 | 渠道号（BuildConfig.FLAVOR / Bugly） |
 |--------|------|---------|---------------|
-| `dev` | hok | 开发环境 | dev |
-| `_test` | hok | 测试环境 | _test |
-| `beta` | hok | UAT 环境 | uat |
-| `online` | hok | 线上环境 | online |
-| `huawei` | hok | 华为渠道 | huawei |
-| `xiaomi` | hok | 小米渠道 | xiaomi |
-| `oppo` | hok | OPPO 渠道 | oppo |
-| `vivo` | hok | VIVO 渠道 | vivo |
-| `tencent` | hok | 应用宝渠道 | tencent |
+| `dev` | victor | 开发环境 | dev |
+| `_test` | victor | 测试环境 | _test |
+| `beta` | victor | UAT 环境 | beta |
+| `online` | victor | 线上环境 | online |
+| `huawei` | victor | 华为渠道 | huawei |
+| `xiaomi` | victor | 小米渠道 | xiaomi |
+| `oppo` | victor | OPPO 渠道 | oppo |
+| `vivo` | victor | VIVO 渠道 | vivo |
+| `tencent` | victor | 应用宝渠道 | tencent |
+
+> 渠道号统一取自 flavor 名：友盟读取 `BuildConfig.FLAVOR`，Bugly 读取 manifest 占位符 `${BUILD_FLAVOR}`，两者在 `configChannel()` 中保持一致。
 
 ### 5.2 一键编译分发（推荐）
 

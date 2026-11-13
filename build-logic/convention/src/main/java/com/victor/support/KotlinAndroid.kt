@@ -1,6 +1,7 @@
 package com.victor.support
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.ProductFlavor
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.JavaPluginExtension
@@ -29,9 +30,6 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
                     include("arm64-v8a", "armeabi-v7a") // 可选：明确包含需要的 ABI
                 }
             }
-            //bugly config
-            manifestPlaceholders["BUGLY_APPID"] = AppBuildConfig.BUGLY_APP_ID
-            manifestPlaceholders["BUGLY_APP_VERSION"] = AppBuildConfig.VERSION_NAME
         }
 
         buildTypes {
@@ -41,12 +39,6 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
                 )
-                buildConfigField("Boolean", "MODEL_DEBUG", "false")
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "false"
-            }
-            getByName("debug"){
-                buildConfigField("Boolean", "MODEL_DEBUG", "true")
-                manifestPlaceholders["BUGLY_ENABLE_DEBUG"] = "true"
             }
         }
 
@@ -77,65 +69,47 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
         productFlavors {
             create("dev") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "1")
-                buildConfigField("String", "BUILD_FLAVOR", "\"dev\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "dev"
+                configChannel(1)
             }
 
             create("_test") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "2")
-                buildConfigField("String", "BUILD_FLAVOR", "\"_test\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "_test"
+                configChannel(2)
             }
 
             create("beta") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "3")
-                buildConfigField("String", "BUILD_FLAVOR", "\"uat\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "uat"
+                configChannel(3)
             }
 
             create("online") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "4")
-                buildConfigField("String", "BUILD_FLAVOR", "\"online\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "online"
+                configChannel(4)
             }
 
             create("huawei") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "4")
-                buildConfigField("String", "BUILD_FLAVOR", "\"huawei\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "huawei"
+                configChannel(4)
             }
 
             create("xiaomi") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "4")
-                buildConfigField("String", "BUILD_FLAVOR", "\"xiaomi\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "xiaomi"
+                configChannel(4)
             }
 
             create("oppo") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "4")
-                buildConfigField("String", "BUILD_FLAVOR", "\"oppo\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "oppo"
+                configChannel(4)
             }
 
             create("vivo") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "4")
-                buildConfigField("String", "BUILD_FLAVOR", "\"vivo\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "vivo"
+                configChannel(4)
             }
 
             create("tencent") {
                 dimension = "victor"
-                buildConfigField("int", "HTTP_ENV_CODE", "4")
-                buildConfigField("String", "BUILD_FLAVOR", "\"tencent\"")
-                manifestPlaceholders["BUILD_FLAVOR"] = "tencent"
+                configChannel(4)
             }
         }
     }
@@ -149,6 +123,15 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
     dependencies {
         add("coreLibraryDesugaring", libs.findLibrary("android.desugarJdkLibs").get())
     }
+}
+
+/**
+ * 统一配置渠道：渠道号直接取 flavor 名，环境编码取 HttpEnv。
+ * BuildConfig.FLAVOR（友盟渠道）由 AGP 自动生成，manifest 占位符（Bugly 渠道）在此同步。
+ */
+private fun ProductFlavor.configChannel(envCode: Int) {
+    buildConfigField("int", "HTTP_ENV_CODE", "$envCode")
+    manifestPlaceholders["BUILD_FLAVOR"] = name
 }
 
 /**

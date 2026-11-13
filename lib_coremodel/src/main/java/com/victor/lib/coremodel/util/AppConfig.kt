@@ -16,19 +16,19 @@ import com.victor.lib.coremodel.BuildConfig
 object AppConfig {
 
     /**
-     * DEBUG 调试模式
+     * DEBUG 调试模式（AGP 自动生成，debug 为 true，release 为 false）
      */
-    val MODEL_DEBUG = BuildConfig.MODEL_DEBUG
+    val MODEL_DEBUG = BuildConfig.DEBUG
 
     /**
      * http 环境配置编码
      */
-    const val HTTP_ENV_CODE: Int = BuildConfig.HTTP_ENV_CODE
+    const val HTTP_ENV_CODE = BuildConfig.HTTP_ENV_CODE
 
     /**
-     * 构建渠道
+     * 构建渠道（直接取 flavor 名，如 dev / _test / beta / online）
      */
-    const val BUILD_FLAVOR = BuildConfig.BUILD_FLAVOR
+    const val BUILD_FLAVOR = BuildConfig.FLAVOR
 
 
     /**
@@ -43,6 +43,11 @@ object AppConfig {
 
     const val UMENG_APP_KEY = "6259616fd024421570bcdbbd"
     const val UMENG_TEST_APP_KEY = "63e5fec8ba6a5259c4fff915"
+
+    /**
+     * Bugly AppID
+     */
+    const val BUGLY_APP_ID = "1015ead9fa"
 
 
     const val HTTP = "http"

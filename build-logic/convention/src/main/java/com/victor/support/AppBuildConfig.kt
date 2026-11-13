@@ -17,14 +17,9 @@ object AppBuildConfig {
     val javaVersion = JavaVersion.VERSION_17
 
     /**
-     * bugly app id
-     */
-    const val BUGLY_APP_ID = "1015ead9fa"
-
-    /**
      * 编译apk文件名称
      */
-    const val BUILD_NAME = "1015ead9fa"
+    const val BUILD_NAME = "playlet"
 
     /**
      * 正式版本名称
